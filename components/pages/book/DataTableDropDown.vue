@@ -4,10 +4,6 @@ import { MoreHorizontal } from "lucide-vue-next";
 defineProps<{
   book: any;
 }>();
-
-function copy(book: any) {
-  useBook().open(book);
-}
 </script>
 
 <template>
@@ -20,7 +16,7 @@ function copy(book: any) {
     </DropdownMenuTrigger>
     <DropdownMenuContent>
       <DropdownMenuLabel>Actions</DropdownMenuLabel>
-      <DropdownMenuItem @click="copy(book)"> View Book </DropdownMenuItem>
+      <DropdownMenuItem @click="copy(book)"> 도서 정보 수정 </DropdownMenuItem>
       <DropdownMenuSeparator />
       <DropdownMenuItem>View customer</DropdownMenuItem>
       <DropdownMenuItem>View payment details</DropdownMenuItem>
