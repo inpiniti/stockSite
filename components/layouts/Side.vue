@@ -82,9 +82,9 @@ const route = useRoute();
       <div class="px-3 py-2">
         <h2 class="mb-2 px-4 text-lg font-semibold tracking-tight">주식</h2>
         <div class="space-y-1">
-          <NuxtLink to="/stock/data">
+          <NuxtLink to="/stock/list">
             <Button
-              :variant="route.path == '/stock/data' ? `secondary` : `ghost`"
+              :variant="route.path == '/stock/list' ? `secondary` : `ghost`"
               class="w-full justify-start"
             >
               <svg

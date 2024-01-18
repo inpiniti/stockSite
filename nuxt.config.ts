@@ -13,4 +13,9 @@ export default defineNuxtConfig({
      */
     componentDir: "./components/ui",
   },
+  runtimeConfig: {
+    public: {
+      apiBase: "http://110.46.192.54:5000",
+    },
+  },
 });
