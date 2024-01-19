@@ -18,4 +18,11 @@ export default defineNuxtConfig({
       apiBase: "http://110.46.192.54:5000",
     },
   },
+  tailwindcss: {
+    config: {
+      theme: {
+        darkMode: "media",
+      },
+    },
+  },
 });
