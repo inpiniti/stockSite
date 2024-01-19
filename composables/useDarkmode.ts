@@ -5,10 +5,21 @@ export const useDarkmode = () => {
 
   function toggleDarkmode() {
     darkmode.value = !darkmode.value;
+
+    setDarkmode();
+  }
+
+  function setDarkmode() {
+    if (darkmode.value) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
   }
 
   return {
     darkmode,
     toggleDarkmode,
+    setDarkmode,
   };
 };

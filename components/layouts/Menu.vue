@@ -10,12 +10,6 @@ function github() {
 function blog() {
   window.open("https://velog.io/@inpiniti/posts");
 }
-function click() {
-  console.log("click");
-  console.log(darkmode.value);
-  toggleDarkmode();
-  console.log(darkmode.value);
-}
 </script>
 
 <template>
@@ -126,13 +120,10 @@ function click() {
         <div class="flex items-center justify-center pr-4">
           <MenubarMenu>
             <div class="flex items-center space-x-2">
-              <Switch id="airplane-mode" />
-              <Label
-                for="airplane-mode"
-                @click="click"
-                :checked="useDarkmode().darkmode"
-                >Dark Mode</Label
-              >
+              <Button class="w-10" variant="ghost" @click="toggleDarkmode">
+                <font-awesome-icon v-if="darkmode" :icon="['fas', 'moon']" />
+                <font-awesome-icon v-else :icon="['far', 'sun']" />
+              </Button>
             </div>
           </MenubarMenu>
         </div>

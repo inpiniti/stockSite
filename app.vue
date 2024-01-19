@@ -1,6 +1,6 @@
 <script setup>
 if (process.client) {
-  document.documentElement.classList.add("dark");
+  useDarkmode().setDarkmode();
 }
 </script>
 <template>
