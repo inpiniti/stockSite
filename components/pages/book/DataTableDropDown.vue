@@ -16,7 +16,9 @@ defineProps<{
     </DropdownMenuTrigger>
     <DropdownMenuContent>
       <DropdownMenuLabel>Actions</DropdownMenuLabel>
-      <DropdownMenuItem @click="copy(book)"> 도서 정보 수정 </DropdownMenuItem>
+      <DropdownMenuItem @click="useBook().openBook(book)">
+        도서 정보 수정
+      </DropdownMenuItem>
       <DropdownMenuSeparator />
       <DropdownMenuItem>View customer</DropdownMenuItem>
       <DropdownMenuItem>View payment details</DropdownMenuItem>
