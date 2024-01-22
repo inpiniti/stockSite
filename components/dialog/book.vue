@@ -21,6 +21,7 @@ async function ok() {
       kr: useBook().selected.value.kr,
       img: useBook().selected.value.img,
       namu: useBook().selected.value.namu,
+      dc: useBook().selected.value.dc,
     })
     .eq("jp", useBook().selected.value.jp);
 
@@ -71,6 +72,14 @@ async function ok() {
             id="namu"
             class="col-span-3"
             v-model="useBook().selected.value.namu"
+          />
+        </div>
+        <div class="grid grid-cols-4 items-center gap-4">
+          <Label for="namu" class="text-right"> dcinside id </Label>
+          <Input
+            id="namu"
+            class="col-span-3"
+            v-model="useBook().selected.value.dc"
           />
         </div>
       </div>
