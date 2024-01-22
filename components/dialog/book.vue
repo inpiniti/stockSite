@@ -10,6 +10,8 @@ const supabase = createClient(
 const open = useState<boolean>("bookOpen");
 const loading = ref(false);
 
+const emit = defineEmits(["update:open"]);
+
 async function ok() {
   loading.value = true;
 
@@ -18,11 +20,14 @@ async function ok() {
     .update({
       kr: useBook().selected.value.kr,
       img: useBook().selected.value.img,
+      namu: useBook().selected.value.namu,
     })
     .eq("jp", useBook().selected.value.jp);
 
   loading.value = false;
   open.value = false;
+
+  emit("update:open");
 }
 </script>
 
@@ -40,7 +45,6 @@ async function ok() {
           <Label for="name" class="text-right"> 일본어 제목 </Label>
           <Input
             id="name"
-            value="Pedro Duarte"
             class="col-span-3"
             v-model="useBook().selected.value.jp"
           />
@@ -49,7 +53,6 @@ async function ok() {
           <Label for="name" class="text-right"> 한국어 제목 </Label>
           <Input
             id="name"
-            value="Pedro Duarte"
             class="col-span-3"
             v-model="useBook().selected.value.kr"
           />
@@ -58,9 +61,16 @@ async function ok() {
           <Label for="username" class="text-right"> 이미지 url </Label>
           <Input
             id="username"
-            value="@peduarte"
             class="col-span-3"
             v-model="useBook().selected.value.img"
+          />
+        </div>
+        <div class="grid grid-cols-4 items-center gap-4">
+          <Label for="namu" class="text-right"> 나무위키 url </Label>
+          <Input
+            id="namu"
+            class="col-span-3"
+            v-model="useBook().selected.value.namu"
           />
         </div>
       </div>

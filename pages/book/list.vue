@@ -29,9 +29,16 @@ watch(clicked, () => {
 async function select(date?: string) {
   try {
     if (date) {
-      book.value = await supabase.from("book").select().eq("date", date);
+      book.value = await supabase
+        .from("book")
+        .select()
+        .eq("date", date)
+        .order("sales", { ascending: false });
     } else {
-      book.value = await supabase.from("book").select();
+      book.value = await supabase
+        .from("book")
+        .select()
+        .order("sales", { ascending: false });
     }
   } catch (error) {
     console.error(error);
@@ -47,8 +54,10 @@ function comboselect(value: string) {
   selectedCombo.value = value;
 }
 
+// 수집하기 버튼 클릭시
 async function collect() {
-  const { data } = await useFetch(`/api/book/${selectedCombo.value}`);
+  // useFetch 에서 insert 까지 함
+  await useFetch(`/api/book/${selectedCombo.value}`);
   select(selectedCombo.value);
 }
 
@@ -118,11 +127,19 @@ async function saveBookList() {
   loading.value = false;
 }
 
+function bookUpdated() {
+  if (selectedCombo.value == "") {
+    select();
+  } else {
+    select(selectedCombo.value);
+  }
+}
+
 import { columns } from "./columns";
 </script>
 <template>
   <div class="p-4 flex flex-col gap-4">
-    <DialogBook />
+    <DialogBook @update:open="bookUpdated" />
     <CommonHeader
       title="List"
       description="책 리스트를 볼 수 있으며, 책 편집을 하는 화면 입니다."

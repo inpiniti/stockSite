@@ -5,10 +5,8 @@
     </div>
     <div class="flex gap-1 grow-[1] overflow-hidden">
       <LayoutsSide class="shrink-0" />
-      <div class="rounded-md border grow-[1] overflow-hidden">
-        <ScrollArea class="h-full">
-          <slot />
-        </ScrollArea>
+      <div class="rounded-md border grow-[1] overflow-y-scroll">
+        <slot />
       </div>
     </div>
   </div>
