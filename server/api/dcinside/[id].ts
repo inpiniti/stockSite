@@ -1,9 +1,9 @@
 export default defineEventHandler(async (event) => {
   const id = getRouterParam(event, "id");
-  const { kr } = getQuery(event);
+  //const { kr } = getQuery(event);
 
   // id, kr 이 없으면 리턴한다.
-  if (!id || !kr) {
+  if (!id) {
     return "id or kr is not exist";
   }
 
@@ -11,20 +11,13 @@ export default defineEventHandler(async (event) => {
     `https://gall.dcinside.com/mgallery/board/lists/?id=${id}`
   );
 
-  const data = parsing($, String(kr));
-
-  try {
-    const result = await useSupabase().from("board").insert(data);
-    console.log(result);
-  } catch (error) {
-    console.log(error);
-  }
+  const data = parsing($);
 
   return data;
 });
 
 import { CheerioAPI } from "cheerio";
-function parsing($: CheerioAPI, kr: string) {
+function parsing($: CheerioAPI) {
   let data: any = [];
 
   // .ub-content us-post 를 찾는다.
@@ -59,7 +52,6 @@ function parsing($: CheerioAPI, kr: string) {
 
       data.push({
         type: "dcinside",
-        kr,
         num,
         subject,
         title,

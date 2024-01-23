@@ -4,7 +4,6 @@ export const useBook = () => {
   const books = useState<any[]>("books", () => []);
 
   function openBook(newSelectedBook: any) {
-    console.log("openBook", newSelectedBook);
     selected.value = newSelectedBook;
     open.value = true;
   }

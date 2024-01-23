@@ -2,6 +2,7 @@
 const props = defineProps<{
   open: boolean;
   wiki: any;
+  selectedBook: any;
 }>();
 
 const emit = defineEmits(["update:open"]);
@@ -17,6 +18,31 @@ const emit = defineEmits(["update:open"]);
             해당 내용은 나무위키에서 발췌한 것입니다.
           </DialogDescription>
         </DialogHeader>
+
+        <div class="flex gap-4">
+          <img
+            :src="selectedBook.img"
+            class="h-56 w-fit object-cover overflow-hidden rounded-md"
+          />
+          <div class="flex flex-col gap-4">
+            <div>
+              <div class="text-sm font-bold">kr</div>
+              <div>
+                {{ selectedBook.kr }}
+              </div>
+            </div>
+            <div>
+              <div class="text-sm font-bold">jp</div>
+              <div>{{ selectedBook.jp }}</div>
+            </div>
+            <div v-if="selectedBook.dc" class="flex flex-col gap-1">
+              <div class="text-sm font-bold">게시판으로</div>
+              <Button variant="outline"
+                >{{ selectedBook.kr }} 게시판으로 이동</Button
+              >
+            </div>
+          </div>
+        </div>
 
         <div v-for="(data, index) in wiki" class="flex flex-col gap-1">
           <div class="text-3xl font-bold">

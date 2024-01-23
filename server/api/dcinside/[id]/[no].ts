@@ -12,10 +12,6 @@ export default defineEventHandler(async (event) => {
 
   const esno = "3eabc219ebdd65fe3eef84ed";
 
-  console.log(
-    `https://gall.dcinside.com/mgallery/board/view/?id=${id}&no=${no}`
-  );
-
   const $ = await fetchData(
     `https://gall.dcinside.com/mgallery/board/view/?id=${id}&no=${no}`
   );

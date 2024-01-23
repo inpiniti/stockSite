@@ -31,10 +31,8 @@ async function saveToDatabase(
     booknum: number;
   }[]
 ) {
-  console.log("saveToDatabase");
   try {
-    const a = await supabase.from("book").insert(data);
-    console.log(a);
+    await supabase.from("book").insert(data);
   } catch (error) {
     console.log(error);
   }
@@ -61,8 +59,6 @@ async function oricon_loop(monday: string) {
   for (let i = 2; i >= 0; i--) {
     // 위 링크에서 데이터를 크롤링하여 반환
     const url = i === 0 ? base_url : `${base_url}p/${i + 1}/`;
-
-    console.log(url);
 
     const data = await fetchData(url);
     allData = [...data, ...allData];

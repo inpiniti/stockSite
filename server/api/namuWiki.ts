@@ -50,8 +50,6 @@ export default defineEventHandler(async (event) => {
     }
   });
 
-  console.log(data);
-
   // $ 에서  tbody > tr > td > div > strong > sapn 를 찾는다.
   // 그 안의 text 가 장르이면,
   // 해당하는 td 의 다음 td 가 장르의 내용에 해당한다.
@@ -75,8 +73,6 @@ export default defineEventHandler(async (event) => {
       return false;
     }
   });
-
-  console.log(genreContents);
 
   return data;
 });

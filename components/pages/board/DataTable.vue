@@ -25,6 +25,7 @@ const sorting = ref<SortingState>([]);
 const columnFilters = ref<ColumnFiltersState>([]);
 const columnVisibility = ref<VisibilityState>({});
 const rowSelection = ref({});
+const emit = defineEmits(["rowClick"]);
 
 const table = useVueTable({
   get data() {
@@ -121,6 +122,8 @@ const table = useVueTable({
               v-for="row in table.getRowModel().rows"
               :key="row.id"
               :data-state="row.getIsSelected() ? 'selected' : undefined"
+              class="cursor-pointer hover:bg-gray-100"
+              @click="emit('rowClick', row)"
             >
               <TableCell v-for="cell in row.getVisibleCells()" :key="cell.id">
                 <FlexRender

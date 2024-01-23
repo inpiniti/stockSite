@@ -22,7 +22,6 @@ onMounted(() => {
 });
 
 watch(clicked, () => {
-  console.log("clicked");
   select();
 });
 
@@ -67,7 +66,6 @@ function getBookList() {
   const bookList = book.value.data;
   const bookListWithKr = bookList.filter((book: any) => book.kr);
   const bookListWithoutKr = bookList.filter((book: any) => !book.kr);
-  console.log(bookListWithKr, bookListWithoutKr);
   return { bookListWithKr, bookListWithoutKr };
 }
 
@@ -82,7 +80,6 @@ function getBookListWithKr() {
     const { kr, img } = foundBook || { kr: undefined, img: undefined };
     return { ...book, kr, img };
   });
-  console.log(bookListWithKrAndImg);
   return bookListWithKrAndImg;
 }
 
@@ -92,7 +89,6 @@ function getBookListWithKrAndImgWithoutUndefined() {
   const bookListWithKrAndImgWithoutUndefined = bookListWithKrAndImg.filter(
     (book: any) => book.kr
   );
-  console.log(bookListWithKrAndImgWithoutUndefined);
   return bookListWithKrAndImgWithoutUndefined;
 }
 
@@ -103,7 +99,6 @@ function getBookListWithKrAndImg() {
     (book: any, index: number, self: any) =>
       index === self.findIndex((t: any) => t.jp === book.jp)
   );
-  console.log(bookListWithKrAndImgWithoutDuplication);
   return bookListWithKrAndImgWithoutDuplication;
 }
 
@@ -112,8 +107,6 @@ async function saveBookList() {
   loading.value = true;
 
   const bookListWithKrAndImgWithoutDuplication = getBookListWithKrAndImg();
-
-  console.log(bookListWithKrAndImgWithoutDuplication);
 
   bookListWithKrAndImgWithoutDuplication.forEach(async (book: any) => {
     await supabase

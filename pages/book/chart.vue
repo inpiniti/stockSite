@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const day = ref<string>(getSaturday());
+// db 에서 가져온 데이터
 const book = ref<any>({
   data: [],
   error: "",
@@ -40,6 +41,8 @@ const datas = ref<any>([
   },
 ]);
 
+const selectedBook = ref<any>({});
+
 // 이번주 만화책 차트
 async function thisWeek() {
   // 날짜
@@ -48,6 +51,15 @@ async function thisWeek() {
     .select()
     .eq("date", day.value)
     .order("sales", { ascending: false });
+
+  // BUG 이번주 데이터가 없을 경우, 이전 데이터를 가져옴
+  if (book.value.data.length === 0) {
+    book.value = await useSupabase()
+      .value.from("book")
+      .select()
+      .eq("date", getSaturday(1))
+      .order("sales", { ascending: false });
+  }
 
   // 누적 데이터
   bestSelling.value.series = restructureData(book.value.data);
@@ -102,6 +114,7 @@ function restructureNumData(bookList: any[]) {
           kr: book.kr,
           img: book.img,
           sales: book.sales,
+          dc: book.dc,
         });
       }
 
@@ -128,6 +141,7 @@ function restructureData(bookList: any[]) {
           kr: book.kr,
           img: book.img,
           sales: book.sales,
+          dc: book.dc,
         });
       }
 
@@ -168,14 +182,22 @@ const open = ref<boolean>(false);
 
 const namuWiki = ref<any>([]);
 
-async function namuOpen(bookname: string) {
+async function namuOpen(book: any) {
+  selectedBook.value = book;
+
+  const bookname = book.kr;
   const { data } = await useFetch(`/api/namuWiki/${bookname}`);
   namuWiki.value = data.value;
   open.value = true;
 }
 </script>
 <template>
-  <DialogNamuWiki :open="open" :wiki="namuWiki" @update:open="open = !open" />
+  <DialogNamuWiki
+    :open="open"
+    :wiki="namuWiki"
+    :selectedBook="selectedBook"
+    @update:open="open = !open"
+  />
   <div class="flex flex-col p-4 gap-4 w-full">
     <CommonHeader title="책 차트" description="책의 차트를 보여줍니다." />
     <Tabs default-value="week" class="w-full">
@@ -197,7 +219,7 @@ async function namuOpen(bookname: string) {
               <div v-for="(book, index) in data?.시리즈?.slice(0, 20)">
                 <div
                   class="flex flex-col w-40 cursor-pointer"
-                  @click="namuOpen(book.kr)"
+                  @click="namuOpen(book)"
                 >
                   <div class="shrink-0">
                     <img

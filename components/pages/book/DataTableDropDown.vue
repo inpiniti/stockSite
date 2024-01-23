@@ -20,8 +20,8 @@ defineProps<{
         도서 정보 수정
       </DropdownMenuItem>
       <DropdownMenuSeparator />
-      <DropdownMenuItem>View customer</DropdownMenuItem>
-      <DropdownMenuItem>View payment details</DropdownMenuItem>
+      <DropdownMenuItem>View 나무위키</DropdownMenuItem>
+      <DropdownMenuItem>View 게시판 이동</DropdownMenuItem>
     </DropdownMenuContent>
   </DropdownMenu>
 </template>
