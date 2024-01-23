@@ -121,6 +121,7 @@ function blog() {
           <MenubarMenu>
             <div class="flex items-center space-x-2">
               <Button class="w-10" variant="ghost" @click="toggleDarkmode">
+                <!-- Could not find one or more icon(s) { prefix: 'far', iconName: 'sun' } {} -->
                 <font-awesome-icon v-if="darkmode" :icon="['fas', 'moon']" />
                 <font-awesome-icon v-else :icon="['far', 'sun']" />
               </Button>

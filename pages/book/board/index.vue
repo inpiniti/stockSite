@@ -13,6 +13,7 @@ function boardWriteOpen() {
 }
 </script>
 <template>
+  <!-- [ ] 선택되게 하려면? -->
   <DialogBoard ref="boardRef" />
   <div class="p-4">
     <CommonHeader title="게시판" description="커뮤니티입니다." />
