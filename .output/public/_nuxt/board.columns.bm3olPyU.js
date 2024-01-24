@@ -1,1 +1,0 @@
-const e=[{accessorKey:"type",header:"게시판"},{accessorKey:"kr",header:"만화명"},{accessorKey:"subject",header:"말머리"},{accessorKey:"title",header:"제목"},{accessorKey:"writer",header:"글쓴이"},{accessorKey:"date",header:"작성일"},{accessorKey:"count",header:"조회"},{accessorKey:"recommend",header:"추천"}];export{e as columns};

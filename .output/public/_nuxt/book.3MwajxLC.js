@@ -1,1 +1,0 @@
-function g(a=0){const t=new Date,e=new Date(t.getFullYear(),t.getMonth(),t.getDate()-7*a+(1-t.getDay()+7)%7),n=String(e.getMonth()+1).padStart(2,"0"),r=String(e.getDate()).padStart(2,"0");return`${e.getFullYear()}-${n}-${r}`}function l(){let a=[],t=0;for(;;){let e=g(t);if(new Date(e)<new Date("2023-12-04"))break;a.push({value:e,label:e}),t++}return a}export{l as a,g};
