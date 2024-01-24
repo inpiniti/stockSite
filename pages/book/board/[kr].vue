@@ -35,8 +35,7 @@ function rowClick(row) {
 
   useBoardDetail().value = {
     ...row.original,
-    dc: book.value.dc,
-    kr: book.value.kr,
+    ...book.value,
   };
 }
 

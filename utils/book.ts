@@ -30,3 +30,8 @@ export function getDatesUntilTarget() {
   }
   return dates;
 }
+
+// 도메인명 수정
+export function replaceDomain(url: string): string {
+  return url.replace(/(https:\/\/)(.*)(\.dcinside)/, "$1images$3");
+}

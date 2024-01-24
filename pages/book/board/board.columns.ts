@@ -8,6 +8,7 @@ interface Board {
   type: string;
   kr: string;
   title: string;
+  reply_num: number;
   subject: string;
   writer: string;
   date: string;
@@ -33,6 +34,10 @@ export const columns: ColumnDef<Board>[] = [
   {
     accessorKey: "title",
     header: "제목",
+  },
+  {
+    accessorKey: "reply_num",
+    header: "덧글",
   },
   {
     accessorKey: "writer",

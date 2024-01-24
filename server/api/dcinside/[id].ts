@@ -7,11 +7,15 @@ export default defineEventHandler(async (event) => {
     return "id or kr is not exist";
   }
 
-  const $ = await fetchData(
-    `https://gall.dcinside.com/mgallery/board/lists/?id=${id}`
-  );
+  let data: any = [];
 
-  const data = parsing($);
+  for (let i = 1; i <= 10; i++) {
+    const $ = await fetchData(
+      `https://gall.dcinside.com/mgallery/board/lists/?id=${id}&page=${i}`
+    );
+    const parsedData = parsing($);
+    data = [...data, ...parsedData];
+  }
 
   return data;
 });
@@ -35,8 +39,8 @@ function parsing($: CheerioAPI) {
   // 와 같이 나오면 된다.
   $(".ub-content").each(function () {
     const subject = $(this).find(".gall_subject").text();
-
-    if (subject !== "설문" && subject !== "공지") {
+    const writer = $(this).find(".gall_writer").text().trim();
+    if (subject !== "설문" && subject !== "공지" && writer !== "운영자") {
       const num = Number($(this).find(".gall_num").text());
       const title = $(this).find(".gall_tit a:first").text();
       const secondATagText = $(this).find(".gall_tit a:nth-child(2)").text();
@@ -45,10 +49,14 @@ function parsing($: CheerioAPI) {
       const link =
         "https://gall.dcinside.com" +
         $(this).find(".gall_tit > a").attr("href");
-      const writer = $(this).find(".gall_writer").text().trim();
       const date = $(this).find(".gall_date").attr("title");
       const count = Number($(this).find(".gall_count").text());
       const recommend = Number($(this).find(".gall_recommend").text());
+
+      // reply_num가 [5] 이렇게 되어있는데 숫자만 뽑고 싶어
+      const reply_num_text = $(this).find(".reply_num").text();
+      const replyMatchResult = reply_num_text.match(/\d+/);
+      const reply_num = replyMatchResult ? Number(replyMatchResult[0]) : 0;
 
       data.push({
         type: "dcinside",
@@ -61,6 +69,7 @@ function parsing($: CheerioAPI) {
         date,
         count,
         recommend,
+        reply_num,
       });
     }
   });

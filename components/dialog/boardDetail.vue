@@ -30,10 +30,10 @@ watch(
   <Dialog @update:open="emit('update:open')" :open="isOpen">
     <DialogContent class="w-5/6 max-h-192 overflow-y-scroll">
       <DialogHeader>
-        <DialogTitle>[짤] 범순이 뇌절인건 알지만... </DialogTitle>
+        <DialogTitle>{{ boardDetail?.title }}</DialogTitle>
         <DialogDescription>
           <div class="flex justify-between">
-            <div>드로우!항복 2024.01.23 22:33:14</div>
+            <div>{{ boardDetail?.writer }} {{ boardDetail?.date }}</div>
             <div>
               조회 {{ boardDetail?.count }} 추천
               {{ boardDetail?.recommend }} 댓글
@@ -43,9 +43,10 @@ watch(
         </DialogDescription>
       </DialogHeader>
       <div class="grid gap-4 py-4">
+        <!-- https://dcimg8.dcinside... 이런식으로 주소가 되어 있는데, https:// ~ .dcinside 이 사이의 dcimg8 이 문자만 'images' 이걸로 바꾸고 싶어 -->
         <img
           v-for="img in data?.images"
-          :src="img.replace(/dcimg7/g, 'images').replace(/co\.kr/g, 'com')"
+          :src="replaceDomain(img).replace(/co\.kr/g, 'com')"
         />
         {{ data?.content }}
       </div>
@@ -54,30 +55,16 @@ watch(
         <div
           v-for="comment in data?.comment.comments"
           class="flex flex-col gap-1"
+          :class="{ 'ml-4': comment.depth == 1 }"
         >
           <p class="text-xs">{{ comment.user_id }}({{ comment.name }})</p>
           <div class="flex items-end gap-1">
             <div class="bg-neutral-100 rounded-md px-2 py-1 text-sm w-fit">
               <div
-                v-if="comment.memo.includes('src')"
-                v-html="
-                  comment.memo
-                    .replace(/dcimg5/g, 'images')
-                    .replace(/co\.kr/g, 'com')
-                "
+                v-html="replaceDomain(comment.memo).replace(/co\.kr/g, 'com')"
               ></div>
-              <p v-else>{{ comment.memo }}</p>
             </div>
             <p class="text-xs">{{ comment.reg_date }}</p>
-          </div>
-        </div>
-        <div class="flex flex-col items-end">
-          <p class="text-xs">ㅇㅇ(219.241)</p>
-          <div class="flex items-end gap-1">
-            <p class="text-xs">01.23 22:33:47</p>
-            <div class="bg-neutral-100 rounded-md px-2 py-1 text-sm w-fit">
-              <p>더 해줘</p>
-            </div>
           </div>
         </div>
       </div>
