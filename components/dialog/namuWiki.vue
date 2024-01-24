@@ -37,9 +37,12 @@ const emit = defineEmits(["update:open"]);
             </div>
             <div v-if="selectedBook.dc" class="flex flex-col gap-1">
               <div class="text-sm font-bold">게시판으로</div>
-              <Button variant="outline"
-                >{{ selectedBook.kr }} 게시판으로 이동</Button
+              <Button
+                variant="outline"
+                @click="navigateTo(`/book/board/${selectedBook.kr}`)"
               >
+                {{ selectedBook.kr }} 게시판으로 이동
+              </Button>
             </div>
           </div>
         </div>

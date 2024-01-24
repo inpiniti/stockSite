@@ -32,7 +32,12 @@ async function getBoard() {
 // TODO 게시판의 행 클릭시 해당 게시글 다이아로그를 띄운다.
 function rowClick(row) {
   isOpen.value = true;
-  console.log(row.original);
+
+  useBoardDetail().value = {
+    ...row.original,
+    dc: book.value.dc,
+    kr: book.value.kr,
+  };
 }
 
 // BUG 접속시 500 에러 뜸

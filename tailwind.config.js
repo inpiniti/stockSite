@@ -78,6 +78,12 @@ module.exports = {
         "collapsible-down": "collapsible-down 0.2s ease-in-out",
         "collapsible-up": "collapsible-up 0.2s ease-in-out",
       },
+      maxHeight: {
+        128: "32rem",
+        160: "40rem",
+        192: "48rem",
+        256: "64rem",
+      },
     },
   },
   plugins: [animate],
