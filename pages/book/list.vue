@@ -8,11 +8,7 @@ const supabase = createClient(
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV0bnlyZWZkbWRkcWl1YXRzd2hiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDQ4ODc3MDIsImV4cCI6MjAyMDQ2MzcwMn0.IwIU929Y-H6JsZdvZ2QSEsmbmBLKIND7B7_a3UpRfhs"
 );
 
-const book = ref<any>({
-  data: [],
-  error: "",
-});
-
+const books = useBooks();
 const clicked = useState("clicked", () => false);
 const selectedCombo = ref<string>("");
 const loading = ref(false);
@@ -26,22 +22,12 @@ watch(clicked, () => {
 });
 
 async function select(date?: string) {
-  try {
-    if (date) {
-      book.value = await supabase
-        .from("book")
-        .select()
-        .eq("date", date)
-        .order("sales", { ascending: false });
-    } else {
-      book.value = await supabase
-        .from("book")
-        .select()
-        .order("sales", { ascending: false });
-    }
-  } catch (error) {
-    console.error(error);
-  }
+  const { toast } = useToast();
+  toast({
+    title: "fetchBooks",
+    description: "books 를 가져옵니다.",
+  });
+  await fetchBooks(date);
 }
 
 function allSelect() {
@@ -63,7 +49,7 @@ async function collect() {
 // book.value.data 에서
 // kr 이 없는 책리스트와 kr 이 있는 책 리스트를 반환
 function getBookList() {
-  const bookList = book.value.data;
+  const bookList = books.value;
   const bookListWithKr = bookList.filter((book: any) => book.kr);
   const bookListWithoutKr = bookList.filter((book: any) => !book.kr);
   return { bookListWithKr, bookListWithoutKr };
@@ -129,6 +115,7 @@ function bookUpdated() {
 }
 
 import { columns } from "./columns";
+import { useToast } from "~/components/ui/toast";
 </script>
 <template>
   <div class="p-4 flex flex-col gap-4">
@@ -138,9 +125,7 @@ import { columns } from "./columns";
       description="책 리스트를 볼 수 있으며, 책 편집을 하는 화면 입니다."
     />
     <div class="flex gap-2">
-      <Button @click="collect" :disabled="book.data.length != 0"
-        >수집하기</Button
-      >
+      <Button @click="collect" :disabled="books.length != 0">수집하기</Button>
 
       <Button v-if="loading" disabled>
         <Loader2 class="w-4 h-4 mr-2 animate-spin" />
@@ -150,6 +135,6 @@ import { columns } from "./columns";
       <Button variant="secondary" @click="allSelect">전체 조회</Button>
       <PagesBookCombobox @select="comboselect" />
     </div>
-    <PagesBookDataTable :columns="columns" :data="book.data" />
+    <PagesBookDataTable :columns="columns" :data="books" />
   </div>
 </template>
