@@ -630,7 +630,7 @@ const _routes = [
         meta: {},
         alias: [],
         redirect: void 0,
-        component: () => import('./_nuxt/_kr_-j9bRqRtA.mjs').then((m) => m.default || m)
+        component: () => import('./_nuxt/_kr_-0LxN1rhx.mjs').then((m) => m.default || m)
       },
       {
         name: "book-board-board.columns",
@@ -646,7 +646,7 @@ const _routes = [
         meta: {},
         alias: [],
         redirect: void 0,
-        component: () => import('./_nuxt/index-rUMMC9ZA.mjs').then((m) => m.default || m)
+        component: () => import('./_nuxt/index-YFAn4fL9.mjs').then((m) => m.default || m)
       }
     ],
     name: void 0,
@@ -669,7 +669,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0,
-    component: () => import('./_nuxt/columns-jjOgHaIx.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/columns-yFwicqFI.mjs').then((m) => m.default || m)
   },
   {
     name: "book-list",
@@ -677,7 +677,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0,
-    component: () => import('./_nuxt/list-nZ0qJp5I.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/list-jeOlrUFl.mjs').then((m) => m.default || m)
   },
   {
     name: "index",
@@ -693,7 +693,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0,
-    component: () => import('./_nuxt/columns--cgBjp_h.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/columns-DZXMHuc8.mjs').then((m) => m.default || m)
   },
   {
     name: "stock-learning",
@@ -709,7 +709,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0,
-    component: () => import('./_nuxt/list-aaJ17twA.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/list-uAkgfzL3.mjs').then((m) => m.default || m)
   },
   {
     name: "stock-prediction",
