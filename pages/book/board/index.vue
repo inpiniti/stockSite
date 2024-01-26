@@ -23,6 +23,7 @@ function boardWriteOpen() {
       <Card
         v-for="book in books"
         :class="{ 'opacity-50': !book.dc, 'cursor-pointer': book.dc }"
+        @click="if (book.dc) navigateTo(`/book/board/${book.kr}`);"
       >
         <CardHeader>
           <CardTitle
