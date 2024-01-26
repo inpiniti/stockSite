@@ -15,7 +15,7 @@ import { CaretSortIcon, CheckIcon } from '@radix-icons/vue';
 import { _ as _sfc_main$e } from './DataTable-1fJvN7nm.mjs';
 import { a as useBooks, f as fetchBooks } from './useBooks-Deguqr8N.mjs';
 import { u as useFetch } from './fetch-smb1T55z.mjs';
-import { columns } from './columns-yFwicqFI.mjs';
+import { columns } from './columns-DZXMHuc8.mjs';
 import { cva } from 'class-variance-authority';
 import '@vueuse/core';
 import 'clsx';

@@ -4,7 +4,7 @@ import { a as useRuntimeConfig } from '../server.mjs';
 import { u as useFetch } from './fetch-smb1T55z.mjs';
 import { defineComponent, withAsyncContext, computed, mergeProps, unref, useSSRContext } from 'vue';
 import { ssrRenderAttrs, ssrRenderComponent } from 'vue/server-renderer';
-import { columns } from './columns-DZXMHuc8.mjs';
+import { columns } from './columns-yFwicqFI.mjs';
 import './Input-7SuzJlwq.mjs';
 import '@vueuse/core';
 import './index-K3pjwam9.mjs';

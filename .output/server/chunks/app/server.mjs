@@ -646,7 +646,7 @@ const _routes = [
         meta: {},
         alias: [],
         redirect: void 0,
-        component: () => import('./_nuxt/index-YFAn4fL9.mjs').then((m) => m.default || m)
+        component: () => import('./_nuxt/index-xe8JCzLY.mjs').then((m) => m.default || m)
       }
     ],
     name: void 0,
@@ -669,7 +669,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0,
-    component: () => import('./_nuxt/columns-yFwicqFI.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/columns-DZXMHuc8.mjs').then((m) => m.default || m)
   },
   {
     name: "book-list",
@@ -693,7 +693,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0,
-    component: () => import('./_nuxt/columns-DZXMHuc8.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/columns-yFwicqFI.mjs').then((m) => m.default || m)
   },
   {
     name: "stock-learning",
