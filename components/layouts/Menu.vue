@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 const { darkmode, toggleDarkmode } = useDarkmode();
 const emailRef = ref();
 function email() {
@@ -10,6 +10,53 @@ function github() {
 function blog() {
   window.open("https://velog.io/@inpiniti/posts");
 }
+const youTube = useYouTube();
+
+const nowVideo = ref();
+
+function play() {
+  nowVideo.value = nowTouTube();
+  if (player.value) {
+    player.value.playVideo();
+  }
+}
+
+function next() {
+  nowVideo.value = nextYouTube();
+  if (player.value) {
+    player.value.playVideo();
+  }
+}
+
+function prev() {
+  nowVideo.value = prevYouTube();
+  if (player.value) {
+    player.value.playVideo();
+  }
+}
+
+const youtubeOpen = ref(false);
+const youtubePlayer = ref(null);
+const player = ref(null);
+
+onMounted(() => {
+  // const tag = document.createElement("script");
+  // tag.src = "https://www.youtube.com/iframe_api";
+  // const firstScriptTag = document.getElementsByTagName("script")[0];
+  // firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag);
+  // window.onYouTubeIframeAPIReady = () => {
+  //   player.value = new YT.Player(youtubePlayer.value, {
+  //     height: "360",
+  //     width: "640",
+  //     videoId: nowVideo.value,
+  //     events: {
+  //       onReady: (event) => {
+  //         event.target.playVideo();
+  //       },
+  //     },
+  //   });
+  // };
+});
 </script>
 
 <template>
@@ -49,54 +96,6 @@ function blog() {
             </MenubarContent>
           </MenubarMenu>
           <MenubarMenu>
-            <MenubarTrigger>Edit</MenubarTrigger>
-            <MenubarContent>
-              <MenubarItem>
-                Undo <MenubarShortcut>⌘Z</MenubarShortcut>
-              </MenubarItem>
-              <MenubarItem>
-                Redo <MenubarShortcut>⇧⌘Z</MenubarShortcut>
-              </MenubarItem>
-              <MenubarSeparator />
-              <MenubarSub>
-                <MenubarSubTrigger>Find</MenubarSubTrigger>
-                <MenubarSubContent>
-                  <MenubarItem>Search the web</MenubarItem>
-                  <MenubarSeparator />
-                  <MenubarItem>Find...</MenubarItem>
-                  <MenubarItem>Find Next</MenubarItem>
-                  <MenubarItem>Find Previous</MenubarItem>
-                </MenubarSubContent>
-              </MenubarSub>
-              <MenubarSeparator />
-              <MenubarItem>Cut</MenubarItem>
-              <MenubarItem>Copy</MenubarItem>
-              <MenubarItem>Paste</MenubarItem>
-            </MenubarContent>
-          </MenubarMenu>
-          <MenubarMenu>
-            <MenubarTrigger>View</MenubarTrigger>
-            <MenubarContent>
-              <MenubarCheckboxItem
-                >Always Show Bookmarks Bar</MenubarCheckboxItem
-              >
-              <MenubarCheckboxItem checked>
-                Always Show Full URLs
-              </MenubarCheckboxItem>
-              <MenubarSeparator />
-              <MenubarItem inset>
-                Reload <MenubarShortcut>⌘R</MenubarShortcut>
-              </MenubarItem>
-              <MenubarItem disabled inset>
-                Force Reload <MenubarShortcut>⇧⌘R</MenubarShortcut>
-              </MenubarItem>
-              <MenubarSeparator />
-              <MenubarItem inset> Toggle Fullscreen </MenubarItem>
-              <MenubarSeparator />
-              <MenubarItem inset> Hide Sidebar </MenubarItem>
-            </MenubarContent>
-          </MenubarMenu>
-          <MenubarMenu>
             <MenubarTrigger>만든사람</MenubarTrigger>
             <MenubarContent>
               <MenubarRadioGroup value="benoit">
@@ -118,6 +117,19 @@ function blog() {
           </MenubarMenu>
         </div>
         <div class="flex items-center justify-center pr-4">
+          <div class="text-sm text-neutral-400">
+            {{ nowVideo?.snippet?.title }}
+          </div>
+          <Button @click="prev" variant="ghost">
+            <font-awesome-icon :icon="['fas', 'backward-step']" />
+          </Button>
+          <Button @click="play" variant="ghost">
+            <font-awesome-icon :icon="['fas', 'play']" />
+          </Button>
+          <Button @click="next" variant="ghost">
+            <font-awesome-icon :icon="['fas', 'forward-step']" />
+          </Button>
+
           <MenubarMenu>
             <div class="flex items-center space-x-2">
               <Button class="w-10" variant="ghost" @click="toggleDarkmode">
@@ -130,5 +142,11 @@ function blog() {
         </div>
       </div>
     </Menubar>
+    <div v-show="false">
+      <div ref="youtubePlayer"></div>
+      <Button @click="play">play</Button>
+      <Button @click="next">next</Button>
+      <Button @click="prev">prev</Button>
+    </div>
   </div>
 </template>

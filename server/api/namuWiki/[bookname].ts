@@ -74,7 +74,78 @@ export default defineEventHandler(async (event) => {
     }
   });
 
-  return data;
+  if (genreContents.length == 0) {
+    // 장르를 못찾았으므로 다시 찾는다.
+
+    // tbody > tr > td > div > strong > span 를 찾는다.
+    $("tbody > tr > td > div > strong > span").each((index, element) => {
+      const genre = $(element).text();
+      if (genre === "르") {
+        // 해당하는 td 의 다음 td 가 장르의 내용에 해당한다.
+        const nextTd = $(element).parents("td").next();
+
+        // 장르의 내용은 td > div > a 의 text 의 리스트로 되어 있다.
+        nextTd.find("div > a").each((i, el) => {
+          genreContents.push($(el).text());
+        });
+
+        // 장르를 찾았으므로 루프를 종료한다.
+        return false;
+      }
+    });
+  }
+
+  if (genreContents.length == 0) {
+    // 장르를 못찾았으므로 다시 찾는다.
+
+    // tbody > tr > td > div > strong 를 찾는다.
+    $("tbody > tr > td > div > strong").each((index, element) => {
+      const genre = $(element).text();
+      if (genre === "장르") {
+        // 해당하는 td 의 다음 td 가 장르의 내용에 해당한다.
+        const nextTd = $(element).parents("td").next();
+
+        // 장르의 내용은 td > div > a 의 text 의 리스트로 되어 있다.
+        nextTd.find("div > a").each((i, el) => {
+          genreContents.push($(el).text());
+        });
+
+        // 장르를 찾았으므로 루프를 종료한다.
+        return false;
+      }
+    });
+  }
+
+  if (genreContents.length == 0) {
+    // 장르를 못찾았으므로 다시 찾는다.
+
+    // tbody > tr > td > div > div > strong > span 를 찾는다.
+    $("tbody > tr > td > div > div > strong > span").each((index, element) => {
+      const genre = $(element).text();
+      if (genre === "장르") {
+        // 해당하는 td 의 다음 td 가 장르의 내용에 해당한다.
+        const nextTd = $(element).parents("td").next();
+
+        // 장르의 내용은 td > div > a 의 text 의 리스트로 되어 있다.
+        nextTd.find("div > a").each((i, el) => {
+          genreContents.push($(el).text());
+        });
+
+        // 장르를 찾았으므로 루프를 종료한다.
+        return false;
+      }
+    });
+  }
+
+  // genreContents 값들중에 [1], [2] 이런건 배열에서 제거한다.
+  genreContents = genreContents.filter((genre: string) => {
+    return !genre.match(/\[\d+\]/);
+  });
+
+  return {
+    data: data,
+    gneres: genreContents,
+  };
 });
 
 // h2를 찾는다.

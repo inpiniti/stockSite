@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { Loader2 } from "lucide-vue-next";
 import { createClient } from "@supabase/supabase-js";
+import { useToast } from "@/components/ui/toast/use-toast";
+
+const { toast } = useToast();
 
 // Create a single supabase client for interacting with your database
 const supabase = createClient(
@@ -15,19 +18,40 @@ const loading = ref(false);
 
 onMounted(() => {
   select();
+
+  const _uniqueBooks = uniqueBooks();
+  const _uniqueGenre = uniqueGenre();
+
+  const result = _uniqueBooks.filter(
+    (book: any) => !_uniqueGenre.some((genre: any) => genre.kr === book.kr)
+  );
+
+  console.log(result);
 });
 
 watch(clicked, () => {
   select();
 });
 
+// 장르가 있는지 없는지 유무 포함
+const computedBooks = computed(() => {
+  return books.value.map((book: any) => {
+    const isGenre =
+      uniqueGenre().filter((genre: any) => genre.kr === book.kr).length > 0;
+    return { ...book, isGenre: isGenre };
+  });
+});
+
 async function select(date?: string) {
-  const { toast } = useToast();
   toast({
     title: "fetchBooks",
-    description: "books 를 가져옵니다.",
+    description: "books 를 가져오는중",
   });
   await fetchBooks(date);
+  toast({
+    title: "fetchBooks",
+    description: "books 를 가져옴",
+  });
 }
 
 function allSelect() {
@@ -114,8 +138,45 @@ function bookUpdated() {
   }
 }
 
+// 책 리스트를 불러온다. (장르가 없는 경우 업데이트를 함)
+async function genreUpdate() {
+  const _uniqueBooks = uniqueBooks();
+  const _uniqueGenre = uniqueGenre();
+
+  const result = _uniqueBooks.filter(
+    (book: any) => !_uniqueGenre.some((genre: any) => genre.kr === book.kr)
+  );
+
+  for (const book of result) {
+    const book_name = book.namu ? book.namu : book.kr;
+    const { data } = await useFetch<any>(`/api/namuWiki/${book_name}`);
+    if (data.value?.gneres) {
+      await useSupabase()
+        .value.from("genre")
+        .insert(
+          data.value?.gneres.map((gnere: any) => {
+            return {
+              kr: book.kr,
+              genre_name: gnere,
+            };
+          })
+        );
+      toast({
+        title: "fetchGenre",
+        description: `${book.kr} 의 장르를 업데이트 함`,
+      });
+    } else {
+      toast({
+        title: "fetchGenre",
+        description: `${book.kr} 의 장르를 업데이트 실패함`,
+      });
+    }
+
+    await new Promise((resolve) => setTimeout(resolve, 1000)); // 1초 딜레이
+  }
+}
+
 import { columns } from "./columns";
-import { useToast } from "~/components/ui/toast";
 </script>
 <template>
   <div class="p-4 flex flex-col gap-4">
@@ -125,7 +186,10 @@ import { useToast } from "~/components/ui/toast";
       description="책 리스트를 볼 수 있으며, 책 편집을 하는 화면 입니다."
     />
     <div class="flex gap-2">
-      <Button @click="collect" :disabled="books.length != 0">수집하기</Button>
+      <Button @click="collect" :disabled="computedBooks.length != 0"
+        >수집하기</Button
+      >
+      <Button @click="genreUpdate">장르 업데이트</Button>
 
       <Button v-if="loading" disabled>
         <Loader2 class="w-4 h-4 mr-2 animate-spin" />
@@ -135,6 +199,6 @@ import { useToast } from "~/components/ui/toast";
       <Button variant="secondary" @click="allSelect">전체 조회</Button>
       <PagesBookCombobox @select="comboselect" />
     </div>
-    <PagesBookDataTable :columns="columns" :data="books" />
+    <PagesBookDataTable :columns="columns" :data="computedBooks" />
   </div>
 </template>

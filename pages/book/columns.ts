@@ -2,6 +2,7 @@ import type { ColumnDef } from "@tanstack/vue-table";
 import DropdownAction from "@/components/pages/book/DataTableDropDown.vue";
 import { ArrowUpDown, ChevronDown } from "lucide-vue-next";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -14,6 +15,7 @@ export interface Book {
   date: string;
   name: string;
   img: string;
+  isGenre: boolean;
 }
 
 export const columns: ColumnDef<Book>[] = [
@@ -87,6 +89,14 @@ export const columns: ColumnDef<Book>[] = [
   {
     accessorKey: "name",
     header: "name",
+  },
+  {
+    accessorKey: "isGenre",
+    header: "장르 유무",
+    cell: ({ row }) => {
+      const isGenre = row.getValue("isGenre");
+      return h(Checkbox, { class: "h-4 w-4", checked: isGenre });
+    },
   },
   {
     id: "actions",

@@ -26,4 +26,9 @@ export default defineNuxtConfig({
     },
   },
   css: ["@fortawesome/fontawesome-svg-core/styles.css"],
+  app: {
+    head: {
+      script: [{ src: "https://apis.google.com/js/api.js" }],
+    },
+  },
 });

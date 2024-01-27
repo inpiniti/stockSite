@@ -4,9 +4,11 @@ if (process.client) {
 }
 onMounted(() => {
   fetchBooks();
+  getGenre();
 });
 </script>
 <template>
+  <Toaster />
   <NuxtLayout>
     <NuxtPage />
   </NuxtLayout>

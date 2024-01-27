@@ -35,3 +35,30 @@ export function getDatesUntilTarget() {
 export function replaceDomain(url: string): string {
   return url.replace(/(https:\/\/)(.*)(\.dcinside)/, "$1images$3");
 }
+
+export function timeAgo(dateString: any) {
+  const now = new Date();
+  const past = new Date(dateString);
+  const diffMs = now.getTime() - past.getTime();
+
+  const diffSecs = Math.floor(diffMs / 1000);
+  const diffMins = Math.floor(diffSecs / 60);
+  const diffHours = Math.floor(diffMins / 60);
+  const diffDays = Math.floor(diffHours / 24);
+  const diffMonths = Math.floor(diffDays / 30);
+  const diffYears = Math.floor(diffDays / 365);
+
+  if (diffSecs < 60) {
+    return `${diffSecs}초 전`;
+  } else if (diffMins < 60) {
+    return `${diffMins}분 전`;
+  } else if (diffHours < 24) {
+    return `${diffHours}시간 전`;
+  } else if (diffDays < 30) {
+    return `${diffDays}일 전`;
+  } else if (diffMonths < 12) {
+    return `${diffMonths}개월 전`;
+  } else {
+    return `${diffYears}년 전`;
+  }
+}
