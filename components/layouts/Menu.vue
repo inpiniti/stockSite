@@ -165,7 +165,7 @@ onMounted(() => {
         </div>
       </div>
     </Menubar>
-    <div v-show="false">
+    <div v-show="true">
       <div ref="youtubePlayer"></div>
       <Button @click="play">play</Button>
       <Button @click="next">next</Button>
