@@ -21,7 +21,6 @@ const popoverData = ref({
   op_ed: "",
   season: "",
   cool: "",
-  thumbnail: "",
 });
 
 // 유튜브 리스트에 유튜브 추가
@@ -63,15 +62,6 @@ async function refresh() {
 
   youtubeList.value = data;
 }
-
-// clickThumbnail
-async function clickThumbnail() {
-  const searchQuery = `${props.kr} ${popoverData.value.title} ${popoverData.value.op_ed}`;
-  const result = await searchVideos(searchQuery);
-
-  popoverData.value.thumbnail =
-    result.value.items[0].snippet.thumbnails.high.url;
-}
 </script>
 <template>
   <Sheet :open="isOpen" @update:open="emit('update:open')">
@@ -97,16 +87,6 @@ async function clickThumbnail() {
               </p>
             </div>
             <div class="grid gap-2">
-              <div class="grid grid-cols-3 items-center gap-4">
-                <Label for="width">thumbnail</Label>
-                <Input
-                  v-model="popoverData.thumbnail"
-                  id="width"
-                  type="text"
-                  class="col-span-2 h-8"
-                />
-                <img :src="popoverData?.thumbnail" />
-              </div>
               <div class="grid grid-cols-3 items-center gap-4">
                 <Label for="width">title</Label>
                 <Input
@@ -177,7 +157,6 @@ async function clickThumbnail() {
               </div>
             </div>
             <div class="flex gap-2">
-              <Button variant="outline" @click="clickThumbnail">썸네일</Button>
               <Button variant="outline" @click="add"> add </Button>
             </div>
           </div>
@@ -186,14 +165,23 @@ async function clickThumbnail() {
       <div class="flex flex-col gap-2 mt-2">
         <div v-for="video in youtubeList" :key="video.id.videoId">
           <div class="flex gap-2">
-            <img :src="video.thumbnail" class="w-28 rounded-md" />
+            <iframe
+              class="w-36 h-20 rounded-md"
+              id="player"
+              type="text/html"
+              :src="`http://www.youtube.com/embed/${video.video_id}?enablejsapi=1`"
+              frameborder="0"
+            ></iframe>
             <div class="flex flex-col grow-[0]">
               <div class="text-sm font-bold text-clamp">
                 {{ video.title }}
               </div>
               <div class="text-xs">
-                {{ video.kr }} {{ video.season }}기 {{ video.cool }}쿨
+                {{ video.season }}기 {{ video.cool }}쿨
                 {{ video.op_ed }}
+              </div>
+              <div class="text-xs">
+                {{ video.view_count }}
               </div>
               <div
                 class="text-xs mt-1 px-2 py-1 rounded-md ring-1 ring-neutral-200 w-fit cursor-pointer"

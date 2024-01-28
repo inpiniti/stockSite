@@ -70,7 +70,7 @@ async function youtubeListOpen(book) {
       description="유튜브를 연동해서 음악을 재생시킬수 있습니다."
     />
     <div
-      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 pt-4"
+      class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-4 xl:grid-cols-5 gap-4 pt-4"
     >
       <Card
         v-for="book in books"

@@ -108,10 +108,16 @@ onMounted(() => {
     }
   };
 });
+
+const youtubeListOpen = ref(false);
 </script>
 
 <template>
   <div>
+    <DialogYoutubeList
+      :open="youtubeListOpen"
+      @update:open="youtubeListOpen = !youtubeListOpen"
+    />
     <DialogEmail ref="emailRef" />
     <Menubar>
       <div class="flex flex-row justify-between w-full">
@@ -145,18 +151,22 @@ onMounted(() => {
         <div class="flex items-center justify-center pr-4">
           <div class="flex gap-2 items-center">
             <div ref="youtubePlayer"></div>
-            <div class="text-sm text-neutral-400 w-12 marquee" v-if="nowVideo">
+            <div
+              class="text-sm text-neutral-400 w-20 marquee cursor-pointer"
+              v-if="nowVideo"
+              @click="youtubeListOpen = true"
+            >
               {{ nowVideo?.title }} {{ nowVideo?.kr }} {{ nowVideo?.season }}기
               {{ nowVideo?.cool }}쿨
               {{ nowVideo?.op_ed }}
             </div>
-            <div @click="prev">
+            <div @click="prev" class="cursor-pointer">
               <font-awesome-icon :icon="['fas', 'backward-step']" />
             </div>
-            <div @click="play">
+            <div @click="play" class="cursor-pointer">
               <font-awesome-icon :icon="['fas', 'play']" />
             </div>
-            <div @click="next">
+            <div @click="next" class="cursor-pointer">
               <font-awesome-icon :icon="['fas', 'forward-step']" />
             </div>
           </div>
@@ -181,7 +191,7 @@ onMounted(() => {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: clip;
-  animation: marquee 10s linear infinite;
+  animation: marquee 5s linear infinite;
 }
 
 @keyframes marquee {
@@ -189,7 +199,7 @@ onMounted(() => {
     text-indent: 100%;
   }
   100% {
-    text-indent: -100%;
+    text-indent: -250%;
   }
 }
 </style>
