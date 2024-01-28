@@ -15,6 +15,13 @@ export function uniqueGenre() {
   );
 }
 
+// 특정 장르에 해당하는 리스트 반환
+export function getGenreKrList(genreName: string) {
+  return useGenre().value.filter(
+    (genre: any) => genre.genre_name === genreName
+  );
+}
+
 // genre_name 로 중복제거하는데, genre_name 의 갯수도 컬럼에 추가해줘
 export function uniqueGenreByGenre() {
   const genres = useGenre().value;

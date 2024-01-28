@@ -8,8 +8,8 @@ onMounted(() => {
 });
 </script>
 <template>
-  <Toaster />
   <NuxtLayout>
+    <Toaster />
     <NuxtPage />
   </NuxtLayout>
 </template>

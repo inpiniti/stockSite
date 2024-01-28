@@ -1,4 +1,32 @@
 <script setup lang="ts">
+const selectedGenre = ref<string>("all");
+
+async function selecteGenre(genre: string) {
+  selectedGenre.value = genre;
+
+  await thisWeek();
+  await fourWeek();
+  await oneYear();
+
+  datas.value = [
+    {
+      title: "week",
+      단행본: book.value.data,
+      시리즈: bestSelling.value.series,
+    },
+    {
+      title: "month",
+      단행본: weekBook.value.data,
+      시리즈: bestSelling.value.week,
+    },
+    {
+      title: "year",
+      단행본: yearBook.value.data,
+      시리즈: bestSelling.value.year,
+    },
+  ];
+}
+
 const day = ref<string>(getSaturday());
 // db 에서 가져온 데이터
 const book = ref<any>({
@@ -43,23 +71,31 @@ const datas = ref<any>([
 
 const selectedBook = ref<any>({});
 
+const krList = computed(() => {
+  if (selectedGenre.value === "all") return [];
+  return getGenreKrList(selectedGenre.value).map((genre: any) => {
+    return genre.kr;
+  });
+});
+
 // 이번주 만화책 차트
 async function thisWeek() {
-  // 날짜
-  book.value = await useSupabase()
+  let query = useSupabase()
     .value.from("book")
     .select()
-    .eq("date", day.value)
     .order("sales", { ascending: false });
 
-  // BUG 이번주 데이터가 없을 경우, 이전 데이터를 가져옴
-  if (book.value.data.length === 0) {
-    book.value = await useSupabase()
-      .value.from("book")
-      .select()
-      .eq("date", getSaturday(1))
-      .order("sales", { ascending: false });
+  if (krList.value.length > 0) {
+    query = query.in("kr", krList.value);
   }
+
+  if (book.value.data.length === 0) {
+    query = query.eq("date", getSaturday(1));
+  } else {
+    query = query.eq("date", day.value);
+  }
+
+  book.value = await query;
 
   // 누적 데이터
   bestSelling.value.series = restructureData(book.value.data);
@@ -67,13 +103,18 @@ async function thisWeek() {
 
 // 4주간 만화책 차트
 async function fourWeek() {
-  // 날짜
-  weekBook.value = await useSupabase()
+  let query = useSupabase()
     .value.from("book")
     .select()
     .gte("date", getSaturday(4))
     .lte("date", day.value)
     .order("sales", { ascending: false });
+
+  if (krList.value.length > 0) {
+    query = query.in("kr", krList.value);
+  }
+
+  weekBook.value = await query;
 
   weekBook.value.data = restructureNumData(weekBook.value.data);
 
@@ -83,13 +124,18 @@ async function fourWeek() {
 
 // 1년간 만화책 차트
 async function oneYear() {
-  // 날짜
-  yearBook.value = await useSupabase()
+  let query = useSupabase()
     .value.from("book")
     .select()
     .gte("date", getSaturday(52))
     .lte("date", day.value)
     .order("sales", { ascending: false });
+
+  if (krList.value.length > 0) {
+    query = query.in("kr", krList.value);
+  }
+
+  yearBook.value = await query;
 
   yearBook.value.data = restructureNumData(yearBook.value.data);
 
@@ -200,7 +246,21 @@ async function namuOpen(book: any) {
   />
   <div class="flex flex-col p-4 gap-4 w-full">
     <CommonHeader title="책 차트" description="책의 차트를 보여줍니다." />
-    <Tabs default-value="week" class="w-full">
+    <Tabs class="w-full overflow-x-scroll" v-model="selectedGenre">
+      <TabsList>
+        <TabsTrigger value="all" @click="selecteGenre('all')">
+          전체
+        </TabsTrigger>
+        <TabsTrigger
+          v-for="genre in uniqueGenreByGenre()"
+          :value="genre.genre_name"
+          @click="selecteGenre(genre.genre_name)"
+        >
+          {{ genre.genre_name }}
+        </TabsTrigger>
+      </TabsList>
+    </Tabs>
+    <Tabs default-value="month" class="w-full">
       <TabsList>
         <TabsTrigger value="week"> 이번주 </TabsTrigger>
         <TabsTrigger value="month"> 4주간 </TabsTrigger>
@@ -216,7 +276,17 @@ async function namuOpen(book: any) {
             <div
               class="border rounded-md p-4 flex flex-row gap-1 overflow-x-scroll"
             >
-              <div v-for="(book, index) in data?.시리즈?.slice(0, 20)">
+              <div v-if="data?.시리즈?.length == 0">
+                {{
+                  data.title == "week"
+                    ? "이번주"
+                    : data.title == "month"
+                    ? "한달간"
+                    : "1년간"
+                }}의 {{ selectedGenre }} 장르의 시리즈에 집계된 데이터가
+                없습니다.
+              </div>
+              <div v-else v-for="(book, index) in data?.시리즈?.slice(0, 20)">
                 <div
                   class="flex flex-col w-40 cursor-pointer"
                   @click="namuOpen(book)"
@@ -254,6 +324,16 @@ async function namuOpen(book: any) {
             <div
               class="border rounded-md p-4 flex flex-row gap-1 overflow-x-scroll"
             >
+              <div v-if="data?.단행본?.length == 0">
+                {{
+                  data.title == "week"
+                    ? "이번주"
+                    : data.title == "month"
+                    ? "한달간"
+                    : "1년간"
+                }}의 {{ selectedGenre }} 장르의 단행본에 집계된 데이터가
+                없습니다.
+              </div>
               <div v-for="(book, index) in data?.단행본?.slice(0, 20)">
                 <div class="flex flex-col w-40">
                   <div class="shrink-0">

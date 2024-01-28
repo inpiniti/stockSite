@@ -7,78 +7,19 @@ const clientId = ref(
 );
 const clientSecret = ref("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");
 const youtubeList = ref();
-
-async function youtubeListOpen(book) {
-  execute();
-
-  isOpen.value = true;
-  const searchQuery = book.kr;
-  //   const { data } = await useFetch(
-  //     `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&q=${searchQuery} ed&key=${apiKey.value}`
-  //   );
-  //youtubeList.value = data.value.items;
-}
+const searchQuery = ref("");
 
 function addVideo(video) {
   useYouTube().value.push(video);
 }
 
-onBeforeMount(() => {
-  gapi.load("client:auth2", function () {
-    gapi.auth2.init({ client_id: clientId.value });
-  });
-});
+async function youtubeListOpen(book) {
+  // 선택한 제목 셋팅
+  searchQuery.value = book.kr;
 
-onMounted(() => {
-  setTimeout(() => {
-    authenticate().then(loadClient);
-  }, 1000);
-});
-
-function authenticate() {
-  return gapi.auth2
-    .getAuthInstance()
-    .signIn({ scope: "https://www.googleapis.com/auth/youtube.force-ssl" })
-    .then(
-      function () {
-        console.log("Sign-in successful");
-      },
-      function (err) {
-        console.error("Error signing in", err);
-      }
-    );
-}
-function loadClient() {
-  gapi.client.setApiKey(apiKey.value);
-  return gapi.client
-    .load("https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest")
-    .then(
-      function () {
-        console.log("GAPI client loaded for API");
-      },
-      function (err) {
-        console.error("Error loading GAPI client for API", err);
-      }
-    );
-}
-// Make sure the client is loaded and sign-in is complete before calling this method.
-function execute() {
-  return gapi?.client?.youtube?.search
-    .list({
-      part: ["snippet"],
-      eventType: "completed",
-      forMine: true,
-      type: ["video"],
-    })
-    .then(
-      function (response) {
-        // Handle the results here (response.result has the parsed body).
-        console.log("Response", response);
-      },
-      function (err) {
-        console.error("Execute error", err);
-      }
-    );
+  // 시트창 열기
+  isOpen.value = true;
+  console.log(isOpen.value);
 }
 
 // {
@@ -117,44 +58,11 @@ function execute() {
 //     },
 </script>
 <template>
-  <Sheet :open="isOpen" @update:open="isOpen = false">
-    <SheetContent class="overflow-y-scroll">
-      <SheetHeader>
-        <SheetTitle>Edit profile</SheetTitle>
-        <SheetDescription>
-          Make changes to your profile here. Click save when you're done.
-        </SheetDescription>
-      </SheetHeader>
-      <div class="flex flex-col gap-2">
-        <div
-          v-for="video in youtubeList"
-          :key="video.id.videoId"
-          @click="addVideo(video)"
-        >
-          <div class="flex gap-2">
-            <img
-              class="w-36 h-20 object-cover overflow-hidden rounded-md shrink-0"
-              :src="video.snippet.thumbnails.medium.url"
-            />
-            <div class="flex flex-col grow-[0]">
-              <div class="text-sm font-bold text-clamp">
-                {{ video.snippet.title }}
-              </div>
-              <div class="text-xs">{{ video.snippet.channelTitle }}</div>
-              <div class="text-xs">
-                {{ timeAgo(video.snippet.publishedAt) }}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <SheetFooter>
-        <SheetClose as-child>
-          <Button type="submit"> Save changes </Button>
-        </SheetClose>
-      </SheetFooter>
-    </SheetContent>
-  </Sheet>
+  <SheetYoutube
+    :isOpen="isOpen"
+    @update:open="isOpen = !isOpen"
+    :kr="searchQuery"
+  />
   <DialogBoard ref="boardRef" />
   <div class="p-4">
     <CommonHeader

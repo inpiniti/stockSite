@@ -15,15 +15,23 @@ const youTube = useYouTube();
 const nowVideo = ref();
 
 function play() {
-  nowVideo.value = nowTouTube();
-  if (player.value) {
-    player.value.playVideo();
+  try {
+    nowVideo.value = nowTouTube();
+    if (player.value) {
+      // 비디오를 로드합니다.
+      player.value.loadVideoById(nowVideo.value.video_id);
+      player.value.playVideo();
+    }
+  } catch (e) {
+    console.log(e);
   }
 }
 
 function next() {
   nowVideo.value = nextYouTube();
   if (player.value) {
+    // 비디오를 로드합니다.
+    player.value.loadVideoById(nowVideo.value.video_id);
     player.value.playVideo();
   }
 }
@@ -31,6 +39,8 @@ function next() {
 function prev() {
   nowVideo.value = prevYouTube();
   if (player.value) {
+    // 비디오를 로드합니다.
+    player.value.loadVideoById(nowVideo.value.video_id);
     player.value.playVideo();
   }
 }
@@ -40,22 +50,33 @@ const youtubePlayer = ref(null);
 const player = ref(null);
 
 onMounted(() => {
-  // const tag = document.createElement("script");
-  // tag.src = "https://www.youtube.com/iframe_api";
-  // const firstScriptTag = document.getElementsByTagName("script")[0];
-  // firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag);
-  // window.onYouTubeIframeAPIReady = () => {
-  //   player.value = new YT.Player(youtubePlayer.value, {
-  //     height: "360",
-  //     width: "640",
-  //     videoId: nowVideo.value,
-  //     events: {
-  //       onReady: (event) => {
-  //         event.target.playVideo();
-  //       },
-  //     },
-  //   });
-  // };
+  const tag = document.createElement("script");
+  tag.src = "https://www.youtube.com/iframe_api";
+  const firstScriptTag = document.getElementsByTagName("script")[0];
+  firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag);
+  window.onYouTubeIframeAPIReady = () => {
+    try {
+      player.value = new YT.Player(youtubePlayer.value, {
+        height: "360",
+        width: "640",
+        videoId: nowVideo?.value?.video_id,
+        events: {
+          onReady: (event) => {
+            event.target.playVideo();
+          },
+          onStateChange: (event) => {
+            if (event.data === YT.PlayerState.ENDED) {
+              // 비디오 재생이 끝났을 때 다음 곡을 재생합니다.
+              next();
+            }
+          },
+        },
+      });
+      console.log("player", player.value);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 });
 </script>
 
@@ -70,31 +91,6 @@ onMounted(() => {
               >inpiniti/app</MenubarTrigger
             ></MenubarMenu
           >
-          <MenubarMenu>
-            <MenubarTrigger>File</MenubarTrigger>
-            <MenubarContent>
-              <MenubarItem>
-                New Tab <MenubarShortcut>⌘T</MenubarShortcut>
-              </MenubarItem>
-              <MenubarItem>
-                New Window <MenubarShortcut>⌘N</MenubarShortcut>
-              </MenubarItem>
-              <MenubarItem disabled> New Incognito Window </MenubarItem>
-              <MenubarSeparator />
-              <MenubarSub>
-                <MenubarSubTrigger>Share</MenubarSubTrigger>
-                <MenubarSubContent>
-                  <MenubarItem>Email link</MenubarItem>
-                  <MenubarItem>Messages</MenubarItem>
-                  <MenubarItem>Notes</MenubarItem>
-                </MenubarSubContent>
-              </MenubarSub>
-              <MenubarSeparator />
-              <MenubarItem>
-                Print... <MenubarShortcut>⌘P</MenubarShortcut>
-              </MenubarItem>
-            </MenubarContent>
-          </MenubarMenu>
           <MenubarMenu>
             <MenubarTrigger>만든사람</MenubarTrigger>
             <MenubarContent>
@@ -117,8 +113,10 @@ onMounted(() => {
           </MenubarMenu>
         </div>
         <div class="flex items-center justify-center pr-4">
-          <div class="text-sm text-neutral-400">
-            {{ nowVideo?.snippet?.title }}
+          <div class="text-sm text-neutral-400" v-if="nowVideo">
+            {{ nowVideo?.title }} {{ nowVideo?.kr }} {{ nowVideo?.season }}기
+            {{ nowVideo?.cool }}쿨
+            {{ nowVideo?.op_ed }}
           </div>
           <Button @click="prev" variant="ghost">
             <font-awesome-icon :icon="['fas', 'backward-step']" />
