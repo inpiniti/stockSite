@@ -60,6 +60,9 @@ onMounted(() => {
         height: "360",
         width: "640",
         videoId: nowVideo?.value?.video_id,
+        playerVars: {
+          playsinline: 1,
+        },
         events: {
           onReady: (event) => {
             event.target.playVideo();
