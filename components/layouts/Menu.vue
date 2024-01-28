@@ -15,17 +15,19 @@ const youTube = useYouTube();
 const nowVideo = ref();
 
 function play() {
+  youtubeShow.value = true;
   try {
     nowVideo.value = nowTouTube();
     if (player.value) {
       // 비디오를 로드합니다.
       player.value.loadVideoById(nowVideo.value.video_id);
       player.value.playVideo();
+      youtubeShow.value = false;
     } else {
       if (!this.player) {
         this.player = new YT.Player(this.$refs.youtubePlayer, {
-          height: "360",
-          width: "640",
+          height: "36",
+          width: "64",
           videoId: this.nowVideo?.value?.video_id,
           playerVars: {
             playsinline: 1,
@@ -71,6 +73,9 @@ const youtubeOpen = ref(false);
 const youtubePlayer = ref(null);
 const player = ref(null);
 
+// 유튜브 영상을 안보이게 하기
+const youtubeShow = ref(false);
+
 onMounted(() => {
   const tag = document.createElement("script");
   tag.src = "https://www.youtube.com/iframe_api";
@@ -79,8 +84,8 @@ onMounted(() => {
   window.onYouTubeIframeAPIReady = () => {
     try {
       player.value = new YT.Player(youtubePlayer.value, {
-        height: "360",
-        width: "640",
+        height: "36",
+        width: "64",
         videoId: nowVideo?.value?.video_id,
         playerVars: {
           playsinline: 1,
@@ -167,9 +172,6 @@ onMounted(() => {
     </Menubar>
     <div v-show="true">
       <div ref="youtubePlayer"></div>
-      <Button @click="play">play</Button>
-      <Button @click="next">next</Button>
-      <Button @click="prev">prev</Button>
     </div>
   </div>
 </template>
