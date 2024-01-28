@@ -78,6 +78,27 @@ onMounted(() => {
       console.log("player", player.value);
     } catch (e) {
       console.log(e);
+      if (!this.player) {
+        this.player = new YT.Player(this.$refs.youtubePlayer, {
+          height: "360",
+          width: "640",
+          videoId: this.nowVideo?.value?.video_id,
+          playerVars: {
+            playsinline: 1,
+          },
+          events: {
+            onReady: (event) => {
+              event.target.playVideo();
+            },
+            onStateChange: (event) => {
+              if (event.data === YT.PlayerState.ENDED) {
+                // 비디오 재생이 끝났을 때 다음 곡을 재생합니다.
+                next();
+              }
+            },
+          },
+        });
+      }
     }
   };
 });
