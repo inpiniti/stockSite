@@ -26,8 +26,8 @@ function play() {
     } else {
       if (!this.player) {
         this.player = new YT.Player(this.$refs.youtubePlayer, {
-          height: "36",
-          width: "64",
+          height: "33",
+          width: "59",
           videoId: this.nowVideo?.value?.video_id,
           playerVars: {
             playsinline: 1,
@@ -84,8 +84,8 @@ onMounted(() => {
   window.onYouTubeIframeAPIReady = () => {
     try {
       player.value = new YT.Player(youtubePlayer.value, {
-        height: "36",
-        width: "64",
+        height: "33",
+        width: "59",
         videoId: nowVideo?.value?.video_id,
         playerVars: {
           playsinline: 1,
@@ -143,20 +143,23 @@ onMounted(() => {
           </MenubarMenu>
         </div>
         <div class="flex items-center justify-center pr-4">
-          <div class="text-sm text-neutral-400" v-if="nowVideo">
-            {{ nowVideo?.title }} {{ nowVideo?.kr }} {{ nowVideo?.season }}기
-            {{ nowVideo?.cool }}쿨
-            {{ nowVideo?.op_ed }}
+          <div class="flex gap-2 items-center">
+            <div ref="youtubePlayer"></div>
+            <div class="text-sm text-neutral-400 w-12 marquee" v-if="nowVideo">
+              {{ nowVideo?.title }} {{ nowVideo?.kr }} {{ nowVideo?.season }}기
+              {{ nowVideo?.cool }}쿨
+              {{ nowVideo?.op_ed }}
+            </div>
+            <div @click="prev">
+              <font-awesome-icon :icon="['fas', 'backward-step']" />
+            </div>
+            <div @click="play">
+              <font-awesome-icon :icon="['fas', 'play']" />
+            </div>
+            <div @click="next">
+              <font-awesome-icon :icon="['fas', 'forward-step']" />
+            </div>
           </div>
-          <Button @click="prev" variant="ghost">
-            <font-awesome-icon :icon="['fas', 'backward-step']" />
-          </Button>
-          <Button @click="play" variant="ghost">
-            <font-awesome-icon :icon="['fas', 'play']" />
-          </Button>
-          <Button @click="next" variant="ghost">
-            <font-awesome-icon :icon="['fas', 'forward-step']" />
-          </Button>
 
           <MenubarMenu>
             <div class="flex items-center space-x-2">
@@ -170,8 +173,23 @@ onMounted(() => {
         </div>
       </div>
     </Menubar>
-    <div v-show="true">
-      <div ref="youtubePlayer"></div>
-    </div>
+    <div v-show="true"></div>
   </div>
 </template>
+<style scoped>
+.marquee {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: clip;
+  animation: marquee 10s linear infinite;
+}
+
+@keyframes marquee {
+  0% {
+    text-indent: 100%;
+  }
+  100% {
+    text-indent: -100%;
+  }
+}
+</style>
