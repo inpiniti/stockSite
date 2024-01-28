@@ -43,7 +43,49 @@ const _bookname_ = defineEventHandler(async (event) => {
       return false;
     }
   });
-  return data;
+  if (genreContents.length == 0) {
+    $("tbody > tr > td > div > strong > span").each((index, element) => {
+      const genre = $(element).text();
+      if (genre === "\uB974") {
+        const nextTd = $(element).parents("td").next();
+        nextTd.find("div > a").each((i, el) => {
+          genreContents.push($(el).text());
+        });
+        return false;
+      }
+    });
+  }
+  if (genreContents.length == 0) {
+    $("tbody > tr > td > div > strong").each((index, element) => {
+      const genre = $(element).text();
+      if (genre === "\uC7A5\uB974") {
+        const nextTd = $(element).parents("td").next();
+        nextTd.find("div > a").each((i, el) => {
+          genreContents.push($(el).text());
+        });
+        return false;
+      }
+    });
+  }
+  if (genreContents.length == 0) {
+    $("tbody > tr > td > div > div > strong > span").each((index, element) => {
+      const genre = $(element).text();
+      if (genre === "\uC7A5\uB974") {
+        const nextTd = $(element).parents("td").next();
+        nextTd.find("div > a").each((i, el) => {
+          genreContents.push($(el).text());
+        });
+        return false;
+      }
+    });
+  }
+  genreContents = genreContents.filter((genre) => {
+    return !genre.match(/\[\d+\]/);
+  });
+  return {
+    data,
+    gneres: genreContents
+  };
 });
 
 export { _bookname_ as default };
