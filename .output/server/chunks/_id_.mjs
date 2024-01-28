@@ -7,6 +7,7 @@ import 'path';
 import 'node:fs';
 import 'node:url';
 import 'ipx';
+import '@supabase/supabase-js';
 import 'axios';
 import 'cheerio';
 import 'iconv-lite';
