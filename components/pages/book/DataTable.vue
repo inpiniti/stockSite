@@ -12,9 +12,12 @@ import {
   getFilteredRowModel,
   useVueTable,
   getSortedRowModel,
+  //getPaginationRowModel,
 } from "@tanstack/vue-table";
 
 import { ArrowUpDown, ChevronDown } from "lucide-vue-next";
+
+//import DataTablePagination from "./DataTablePagination.vue";
 
 const props = defineProps<{
   columns: ColumnDef<TData, TValue>[];
@@ -43,6 +46,7 @@ const table = useVueTable({
     valueUpdater(updaterOrValue, columnVisibility),
   onRowSelectionChange: (updaterOrValue) =>
     valueUpdater(updaterOrValue, rowSelection),
+  //getPaginationRowModel: getPaginationRowModel(),
   state: {
     get sorting() {
       return sorting.value;
@@ -57,6 +61,10 @@ const table = useVueTable({
       return rowSelection.value;
     },
   },
+});
+
+defineExpose({
+  table,
 });
 </script>
 
@@ -140,5 +148,6 @@ const table = useVueTable({
         </TableBody>
       </Table>
     </div>
+    <!-- <DataTablePagination :table="table" /> -->
   </div>
 </template>

@@ -20,8 +20,12 @@ function play() {
     nowVideo.value = nowTouTube();
     if (player.value) {
       // 비디오를 로드합니다.
-      player.value.loadVideoById(nowVideo.value.video_id);
+      if (state.value == -1) {
+        player.value.loadVideoById(nowVideo.value.video_id);
+      }
+      //player.value.loadVideoById(nowVideo.value.video_id);
       player.value.playVideo();
+      state.value = 1;
       youtubeShow.value = false;
     } else {
       if (!this.player) {
@@ -51,12 +55,20 @@ function play() {
   }
 }
 
+function pause() {
+  if (player.value) {
+    player.value.pauseVideo();
+    state.value = 0;
+  }
+}
+
 function next() {
   nowVideo.value = nextYouTube();
   if (player.value) {
     // 비디오를 로드합니다.
     player.value.loadVideoById(nowVideo.value.video_id);
     player.value.playVideo();
+    state.value = 1;
   }
 }
 
@@ -66,12 +78,14 @@ function prev() {
     // 비디오를 로드합니다.
     player.value.loadVideoById(nowVideo.value.video_id);
     player.value.playVideo();
+    state.value = 1;
   }
 }
 
 const youtubeOpen = ref(false);
 const youtubePlayer = ref(null);
 const player = ref(null);
+const state = ref(-1);
 
 // 유튜브 영상을 안보이게 하기
 const youtubeShow = ref(false);
@@ -149,24 +163,30 @@ const youtubeListOpen = ref(false);
           </MenubarMenu>
         </div>
         <div class="flex items-center justify-center pr-4">
-          <div class="flex gap-2 items-center">
+          <div class="youtube-player">
             <div ref="youtubePlayer"></div>
-            <div
-              class="text-sm text-neutral-400 w-20 marquee cursor-pointer"
+          </div>
+          <div class="flex items-center">
+            <Badge
+              variant="outline"
+              class="w-20 marquee cursor-pointer"
               v-if="nowVideo"
               @click="youtubeListOpen = true"
             >
               {{ nowVideo?.title }} {{ nowVideo?.kr }} {{ nowVideo?.season }}기
               {{ nowVideo?.cool }}쿨
               {{ nowVideo?.op_ed }}
-            </div>
-            <div @click="prev" class="cursor-pointer">
+            </Badge>
+            <div @click="prev" class="cursor-pointer p-2">
               <font-awesome-icon :icon="['fas', 'backward-step']" />
             </div>
-            <div @click="play" class="cursor-pointer">
+            <div @click="play" v-if="state != 1" class="cursor-pointer p-2">
               <font-awesome-icon :icon="['fas', 'play']" />
             </div>
-            <div @click="next" class="cursor-pointer">
+            <div @click="pause" v-if="state == 1" class="cursor-pointer p-2">
+              <font-awesome-icon :icon="['fas', 'stop']" />
+            </div>
+            <div @click="next" class="cursor-pointer p-2">
               <font-awesome-icon :icon="['fas', 'forward-step']" />
             </div>
           </div>
@@ -192,6 +212,10 @@ const youtubeListOpen = ref(false);
   white-space: nowrap;
   text-overflow: clip;
   animation: marquee 5s linear infinite;
+}
+.youtube-player {
+  position: absolute;
+  top: -999px;
 }
 
 @keyframes marquee {

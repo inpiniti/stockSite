@@ -5,6 +5,7 @@ if (process.client) {
 onMounted(() => {
   fetchBooks();
   getGenre();
+  getMusic();
 });
 </script>
 <template>

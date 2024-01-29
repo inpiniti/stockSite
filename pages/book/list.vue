@@ -17,7 +17,7 @@ const selectedCombo = ref<string>("");
 const loading = ref(false);
 
 onMounted(() => {
-  select();
+  //select();
 
   const _uniqueBooks = uniqueBooks();
   const _uniqueGenre = uniqueGenre();
