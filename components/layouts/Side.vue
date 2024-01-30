@@ -123,6 +123,14 @@ const route = useRoute();
               음악
             </Button>
           </NuxtLink>
+          <NuxtLink to="/book/sale">
+            <Button
+              :variant="route.path == '/book/sale' ? `secondary` : `ghost`"
+              class="w-full justify-start"
+            >
+              책 판매
+            </Button>
+          </NuxtLink>
         </div>
       </div>
       <div class="px-3 py-2">
