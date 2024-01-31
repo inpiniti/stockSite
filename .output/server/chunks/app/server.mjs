@@ -674,7 +674,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0,
-    component: () => import('./_nuxt/columns-OaRyvSfB.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/columns-2gjnA3Gn.mjs').then((m) => m.default || m)
   },
   {
     name: "book-list",
@@ -682,7 +682,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0,
-    component: () => import('./_nuxt/list-FHIud8aQ.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/list-ZkcCiPYP.mjs').then((m) => m.default || m)
   },
   {
     name: "book-music",
@@ -690,7 +690,15 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0,
-    component: () => import('./_nuxt/music---GeYlIz.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/music-NMUccF_K.mjs').then((m) => m.default || m)
+  },
+  {
+    name: "book-sale",
+    path: "/book/sale",
+    meta: {},
+    alias: [],
+    redirect: void 0,
+    component: () => import('./_nuxt/sale-1lBe_g-R.mjs').then((m) => m.default || m)
   },
   {
     name: "book-youtube",
@@ -698,7 +706,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0,
-    component: () => import('./_nuxt/youtube-klPTlmwA.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/youtube-ZwmD0ckT.mjs').then((m) => m.default || m)
   },
   {
     name: "index",
@@ -706,7 +714,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0,
-    component: () => import('./_nuxt/index-CnXpmgkO.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/index-UJBsf8uE.mjs').then((m) => m.default || m)
   },
   {
     name: "stock-columns",
@@ -714,7 +722,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0,
-    component: () => import('./_nuxt/columns-4qFuENFe.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/columns-i_kWWDup.mjs').then((m) => m.default || m)
   },
   {
     name: "stock-learning",
@@ -730,7 +738,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0,
-    component: () => import('./_nuxt/list-7xcyfsgl.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/list-TOgzVNvO.mjs').then((m) => m.default || m)
   },
   {
     name: "stock-prediction",
@@ -1052,7 +1060,7 @@ const plugins = [
 ];
 const layouts = {
   blank: () => import('./_nuxt/blank-dw5w2ZJb.mjs').then((m) => m.default || m),
-  default: () => import('./_nuxt/default-WfhQadXe.mjs').then((m) => m.default || m)
+  default: () => import('./_nuxt/default-PQUWObff.mjs').then((m) => m.default || m)
 };
 const LayoutLoader = defineComponent({
   name: "LayoutLoader",
