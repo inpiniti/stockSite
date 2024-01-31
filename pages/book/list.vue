@@ -72,10 +72,17 @@ async function collect() {
 
 // book.value.data 에서
 // kr 이 없는 책리스트와 kr 이 있는 책 리스트를 반환
+// kr 뿐 아니라 img 까지 없는 리스트로 반환
 function getBookList() {
   const bookList = books.value;
-  const bookListWithKr = bookList.filter((book: any) => book.kr);
-  const bookListWithoutKr = bookList.filter((book: any) => !book.kr);
+  const bookListWithKr = bookList.filter((book: any) => book.kr && book.img);
+  const bookListWithoutKr = bookList.filter(
+    (book: any) => !book.kr || !book.img
+  );
+  console.log(
+    "book.value.data 에서 kr 이 없는 책리스트와 kr 이 있는 책 리스트를 반환"
+  );
+  console.log(bookListWithKr, bookListWithoutKr);
   return { bookListWithKr, bookListWithoutKr };
 }
 
@@ -90,6 +97,10 @@ function getBookListWithKr() {
     const { kr, img } = foundBook || { kr: undefined, img: undefined };
     return { ...book, kr, img };
   });
+  console.log(
+    "kr 이 없는 리스트의 경우 kr 이 있는 리스트를 참조하여 kr 과 img 를 추가하는 작업을 반복"
+  );
+  console.log(bookListWithKrAndImg);
   return bookListWithKrAndImg;
 }
 
@@ -99,11 +110,14 @@ function getBookListWithKrAndImgWithoutUndefined() {
   const bookListWithKrAndImgWithoutUndefined = bookListWithKrAndImg.filter(
     (book: any) => book.kr
   );
+  console.log("bookListWithKrAndImg 의 결과에서 kr 이 undefined 인건 제거");
+  console.log(bookListWithKrAndImgWithoutUndefined);
   return bookListWithKrAndImgWithoutUndefined;
 }
 
 // getBookListWithKr() 의 결과에서 jp 가 중복인건 제거
 function getBookListWithKrAndImg() {
+  console.log("getBookListWithKrAndImg() 의 결과에서 jp 가 중복인건 제거");
   const bookListWithKrAndImg = getBookListWithKrAndImgWithoutUndefined();
   const bookListWithKrAndImgWithoutDuplication = bookListWithKrAndImg.filter(
     (book: any, index: number, self: any) =>
@@ -114,6 +128,7 @@ function getBookListWithKrAndImg() {
 
 // getBookListWithKrAndImg() 의 결과를 db 에 저장
 async function saveBookList() {
+  console.log("getBookListWithKrAndImg() 의 결과를 db 에 저장");
   loading.value = true;
 
   const bookListWithKrAndImgWithoutDuplication = getBookListWithKrAndImg();
