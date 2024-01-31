@@ -1,47 +1,24 @@
 <script setup lang="ts">
-import { Loader2 } from "lucide-vue-next";
-import { createClient } from "@supabase/supabase-js";
 import { useToast } from "@/components/ui/toast/use-toast";
 
 const { toast } = useToast();
+const uniqueGenre = useUniqueGenre().value;
 
 // Create a single supabase client for interacting with your database
-const supabase = createClient(
-  "https://etnyrefdmddqiuatswhb.supabase.co",
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV0bnlyZWZkbWRkcWl1YXRzd2hiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDQ4ODc3MDIsImV4cCI6MjAyMDQ2MzcwMn0.IwIU929Y-H6JsZdvZ2QSEsmbmBLKIND7B7_a3UpRfhs"
-);
 
 const books = useBooks();
-const clicked = useState("clicked", () => false);
 const selectedCombo = ref<string>("");
-const loading = ref(false);
-
-onMounted(() => {
-  //select();
-
-  const _uniqueBooks = uniqueBooks();
-  const _uniqueGenre = uniqueGenre();
-
-  const result = _uniqueBooks.filter(
-    (book: any) => !_uniqueGenre.some((genre: any) => genre.kr === book.kr)
-  );
-
-  console.log(result);
-});
-
-watch(clicked, () => {
-  select();
-});
 
 // 장르가 있는지 없는지 유무 포함
 const computedBooks = computed(() => {
   return books.value.map((book: any) => {
     const isGenre =
-      uniqueGenre().filter((genre: any) => genre.kr === book.kr).length > 0;
+      uniqueGenre.filter((genre: any) => genre.kr === book.kr).length > 0;
     return { ...book, isGenre: isGenre };
   });
 });
 
+// 책 정보 조회
 async function select(date?: string) {
   toast({
     title: "fetchBooks",
@@ -54,10 +31,12 @@ async function select(date?: string) {
   });
 }
 
+// 전체 조회 버튼 클릭시
 function allSelect() {
   select();
 }
 
+// 년 - 월 선택박스에서 선택 시
 function comboselect(value: string) {
   select(value);
   selectedCombo.value = value;
@@ -79,10 +58,6 @@ function getBookList() {
   const bookListWithoutKr = bookList.filter(
     (book: any) => !book.kr || !book.img
   );
-  console.log(
-    "book.value.data 에서 kr 이 없는 책리스트와 kr 이 있는 책 리스트를 반환"
-  );
-  console.log(bookListWithKr, bookListWithoutKr);
   return { bookListWithKr, bookListWithoutKr };
 }
 
@@ -97,10 +72,6 @@ function getBookListWithKr() {
     const { kr, img } = foundBook || { kr: undefined, img: undefined };
     return { ...book, kr, img };
   });
-  console.log(
-    "kr 이 없는 리스트의 경우 kr 이 있는 리스트를 참조하여 kr 과 img 를 추가하는 작업을 반복"
-  );
-  console.log(bookListWithKrAndImg);
   return bookListWithKrAndImg;
 }
 
@@ -110,14 +81,11 @@ function getBookListWithKrAndImgWithoutUndefined() {
   const bookListWithKrAndImgWithoutUndefined = bookListWithKrAndImg.filter(
     (book: any) => book.kr
   );
-  console.log("bookListWithKrAndImg 의 결과에서 kr 이 undefined 인건 제거");
-  console.log(bookListWithKrAndImgWithoutUndefined);
   return bookListWithKrAndImgWithoutUndefined;
 }
 
 // getBookListWithKr() 의 결과에서 jp 가 중복인건 제거
 function getBookListWithKrAndImg() {
-  console.log("getBookListWithKrAndImg() 의 결과에서 jp 가 중복인건 제거");
   const bookListWithKrAndImg = getBookListWithKrAndImgWithoutUndefined();
   const bookListWithKrAndImgWithoutDuplication = bookListWithKrAndImg.filter(
     (book: any, index: number, self: any) =>
@@ -128,23 +96,20 @@ function getBookListWithKrAndImg() {
 
 // getBookListWithKrAndImg() 의 결과를 db 에 저장
 async function saveBookList() {
-  console.log("getBookListWithKrAndImg() 의 결과를 db 에 저장");
-  loading.value = true;
-
   const bookListWithKrAndImgWithoutDuplication = getBookListWithKrAndImg();
 
   bookListWithKrAndImgWithoutDuplication.forEach(async (book: any) => {
-    await supabase
-      .from("book")
+    await useSupabase()
+      .value.from("book")
       .update({
         kr: book.kr,
         img: book.img,
       })
       .eq("jp", book.jp);
   });
-  loading.value = false;
 }
 
+// 다이아로그에서 먼가를 하고나면 실행됨
 function bookUpdated() {
   if (selectedCombo.value == "") {
     select();
@@ -156,10 +121,9 @@ function bookUpdated() {
 // 책 리스트를 불러온다. (장르가 없는 경우 업데이트를 함)
 async function genreUpdate() {
   const _uniqueBooks = uniqueBooks();
-  const _uniqueGenre = uniqueGenre();
 
   const result = _uniqueBooks.filter(
-    (book: any) => !_uniqueGenre.some((genre: any) => genre.kr === book.kr)
+    (book: any) => !uniqueGenre.some((genre: any) => genre.kr === book.kr)
   );
 
   for (const book of result) {
@@ -201,16 +165,9 @@ import { columns } from "./columns";
       description="책 리스트를 볼 수 있으며, 책 편집을 하는 화면 입니다."
     />
     <div class="flex gap-2">
-      <Button @click="collect" :disabled="computedBooks.length != 0"
-        >수집하기</Button
-      >
+      <Button @click="collect" :disabled="books.length != 0">수집하기</Button>
       <Button @click="genreUpdate">장르 업데이트</Button>
-
-      <Button v-if="loading" disabled>
-        <Loader2 class="w-4 h-4 mr-2 animate-spin" />
-        Please wait
-      </Button>
-      <Button v-else @click="saveBookList">kr, img 업데이트</Button>
+      <Button @click="saveBookList">kr, img 업데이트</Button>
       <Button variant="secondary" @click="allSelect">전체 조회</Button>
       <PagesBookCombobox @select="comboselect" />
     </div>

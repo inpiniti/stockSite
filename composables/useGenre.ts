@@ -1,10 +1,12 @@
 export const useGenre = () => useState<any>("useGenre", () => []);
+export const useUniqueGenre = () => useState<any>("useUniqueGenre", () => []);
 
 export async function getGenre() {
   let { data: newGener, error } = await useSupabase()
     .value.from("genre")
     .select();
   useGenre().value = newGener ?? [];
+  useUniqueGenre().value = uniqueGenre();
 }
 
 // kr 로 중복 제거
