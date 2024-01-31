@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col gap-1 p-1 h-screen overflow-hidden">
+  <div class="flex flex-col gap-1 p-1 h-svh overflow-hidden">
     <div class="shrink-0">
       <LayoutsMenu />
     </div>

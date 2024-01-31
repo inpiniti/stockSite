@@ -31,4 +31,8 @@ export default defineNuxtConfig({
       script: [{ src: "https://apis.google.com/js/api.js" }],
     },
   },
+  devServer: {
+    host: "0,0,0,0",
+    port: 3000,
+  },
 });

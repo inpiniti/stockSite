@@ -5,10 +5,12 @@ const books = useBooks();
   <Accordion type="single" collapsible>
     <AccordionItem v-for="book in books" :key="book.id" :value="book.id">
       <AccordionTrigger>
-        <div class="px-4 flex flex-col gap-2 w-full">
+        <div class="px-4 flex flex-col gap-4 w-full">
           <div class="flex gap-4">
-            <div><img class="h-40 rounded-sm" :src="book.img" /></div>
-            <div class="flex flex-col items-start text-xs gap-1">
+            <div class="shrink-0">
+              <img class="h-40 rounded-sm object-cover" :src="book.img" />
+            </div>
+            <div class="flex flex-col flex-1 items-start text-xs gap-1">
               <div class="flex gap-2 text-nowrap text-sm">
                 <div class="text-neutral-500">예약판매</div>
                 <div class="font-semibold">{{ book.kr }}</div>
@@ -28,17 +30,17 @@ const books = useBooks();
                 메피스토펠레스라는 악마가 나타나 솔깃한 제안을 한다. 유혹에
                 넘어간 파우스
               </div>
-              <div>0.0</div>
             </div>
-            <div>
+            <div class="shrink-0 flex flex-col justify-center">
               <div>1/31(수)</div>
               <div>출고예정</div>
             </div>
-            <div>
+            <div class="shrink-0 flex flex-col justify-center gap-4">
               <div><Button variant="secondary">장바구니</Button></div>
               <div><Button>구매하기</Button></div>
             </div>
           </div>
+          <Separator />
           <div class="flex gap-4">
             <div><Badge variant="secondary">리뷰 보기</Badge></div>
             <div><Badge variant="secondary">노래 듣기</Badge></div>

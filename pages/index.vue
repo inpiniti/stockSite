@@ -1,10 +1,10 @@
 <template>
   <div
-    class="w-full h-5/6 flex flex-col items-center justify-center p-48 gap-10"
+    class="w-full h-5/6 flex flex-col items-center justify-center px-8 gap-10"
   >
     <div class="flex flex-col gap-4">
-      <h1 class="text-7xl font-extrabold">Inpiniti</h1>
-      <h1 class="text-7xl font-extrabold text-red-400">Stock App</h1>
+      <h1 class="text-5xl font-extrabold">Inpiniti</h1>
+      <h1 class="text-5xl font-extrabold text-red-400">Stock App</h1>
     </div>
     <div class="flex flex-col gap-2">
       <h2>어서오세요, inpiniti/app 에 여러분을 초대합니다!</h2>
