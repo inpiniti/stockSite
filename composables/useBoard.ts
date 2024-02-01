@@ -1,5 +1,3 @@
-import { get } from "@vueuse/core";
-
 interface Board {
   // 게시판 객체의 구조를 정의하세요.
   id: string;

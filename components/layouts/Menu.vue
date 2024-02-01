@@ -1,5 +1,23 @@
 <script setup>
+import Login from "~/pages/login.vue";
+
 const { darkmode, toggleDarkmode } = useDarkmode();
+
+const auth = useAuth();
+const user = ref(null);
+
+onUpdated(async () => {
+  user = await useSupabase().value.auth.getUser();
+  console.log("user", user);
+  console.log("session", getSession());
+});
+
+async function logininfo() {
+  console.log("useSupabase", useSupabase());
+  console.log("value", useSupabase().value);
+  console.log("auth", useSupabase().value.auth);
+}
+
 const emailRef = ref();
 function email() {
   emailRef.value.onOpen();
@@ -200,6 +218,7 @@ const youtubeListOpen = ref(false);
               </Button>
             </div>
           </MenubarMenu>
+          <Button @click="logininfo">로그인 정보</Button>
         </div>
       </div>
     </Menubar>
