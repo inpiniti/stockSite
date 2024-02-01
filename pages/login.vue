@@ -5,10 +5,12 @@ async function kakao() {
       provider: "kakao",
     }
   );
-  alert(kakao);
   useAuth().value = kakao;
   useAuth().value = await useSupabase().value.auth.getUser();
 }
+definePageMeta({
+  layout: "blank",
+});
 </script>
 
 <template>

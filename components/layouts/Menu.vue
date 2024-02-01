@@ -1,21 +1,17 @@
 <script setup>
-import Login from "~/pages/login.vue";
-
-const { darkmode, toggleDarkmode } = useDarkmode();
-
 const auth = useAuth();
-const user = ref(null);
 
-onUpdated(async () => {
-  user = await useSupabase().value.auth.getUser();
-  console.log("user", user);
-  console.log("session", getSession());
+onMounted(async () => {
+  try {
+    auth.value = (await useSupabase().value.auth.getUser()).data.user;
+  } catch (e) {
+    navigateTo("/login");
+  }
 });
 
 async function logininfo() {
-  console.log("useSupabase", useSupabase());
-  console.log("value", useSupabase().value);
-  console.log("auth", useSupabase().value.auth);
+  useSupabase().value.auth.signOut();
+  navigateTo("/login");
 }
 
 const emailRef = ref();
@@ -101,6 +97,7 @@ function prev() {
 }
 
 const youtubeOpen = ref(false);
+const dialogUserOpen = ref(false);
 const youtubePlayer = ref(null);
 const player = ref(null);
 const state = ref(-1);
@@ -146,6 +143,7 @@ const youtubeListOpen = ref(false);
 
 <template>
   <div>
+    <DialogUser :open="dialogUserOpen" @update:open="dialogUserOpen = false" />
     <DialogYoutubeList
       :open="youtubeListOpen"
       @update:open="youtubeListOpen = !youtubeListOpen"
@@ -209,16 +207,10 @@ const youtubeListOpen = ref(false);
             </div>
           </div>
 
-          <MenubarMenu>
-            <div class="flex items-center space-x-2">
-              <Button class="w-10" variant="ghost" @click="toggleDarkmode">
-                <!-- Could not find one or more icon(s) { prefix: 'far', iconName: 'sun' } {} -->
-                <font-awesome-icon v-if="darkmode" :icon="['fas', 'moon']" />
-                <font-awesome-icon v-else :icon="['far', 'sun']" />
-              </Button>
-            </div>
-          </MenubarMenu>
-          <Button @click="logininfo">로그인 정보</Button>
+          <Avatar class="w-7 h-7 cursor-pointer" @click="dialogUserOpen = true">
+            <AvatarImage :src="auth?.user_metadata?.avatar_url" />
+          </Avatar>
+          <!-- <Button @click="logininfo">로그인 정보</Button> -->
         </div>
       </div>
     </Menubar>
