@@ -5,13 +5,13 @@ onMounted(async () => {
   try {
     auth.value = (await useSupabase().value.auth.getUser()).data.user;
   } catch (e) {
-    navigateTo("/login");
+    auth.value = false;
   }
 });
 
 async function logininfo() {
   useSupabase().value.auth.signOut();
-  navigateTo("/login");
+  auth.value = false;
 }
 
 const emailRef = ref();
@@ -97,6 +97,7 @@ function prev() {
 }
 
 const youtubeOpen = ref(false);
+const loginOpen = ref(false);
 const dialogUserOpen = ref(false);
 const youtubePlayer = ref(null);
 const player = ref(null);
@@ -143,6 +144,7 @@ const youtubeListOpen = ref(false);
 
 <template>
   <div>
+    <DialogLogin :open="loginOpen" @update:open="loginOpen = false" />
     <DialogUser :open="dialogUserOpen" @update:open="dialogUserOpen = false" />
     <DialogYoutubeList
       :open="youtubeListOpen"
@@ -207,14 +209,23 @@ const youtubeListOpen = ref(false);
             </div>
           </div>
 
-          <Avatar class="w-7 h-7 cursor-pointer" @click="dialogUserOpen = true">
+          <Avatar
+            v-if="auth"
+            class="w-7 h-7 cursor-pointer"
+            @click="dialogUserOpen = true"
+          >
             <AvatarImage :src="auth?.user_metadata?.avatar_url" />
           </Avatar>
+          <Button v-else variant="ghost" @click="loginOpen = true">
+            로그인
+          </Button>
+          <Button v-else variant="ghost" @click="loginOpen = true">
+            안녕하세요.
+          </Button>
           <!-- <Button @click="logininfo">로그인 정보</Button> -->
         </div>
       </div>
     </Menubar>
-    <div v-show="true"></div>
   </div>
 </template>
 <style scoped>
