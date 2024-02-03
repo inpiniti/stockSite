@@ -96,6 +96,7 @@ function prev() {
   }
 }
 
+const sideMenuOpen = ref(false);
 const youtubeOpen = ref(false);
 const dialogUserOpen = ref(false);
 const youtubePlayer = ref(null);
@@ -143,6 +144,7 @@ const youtubeListOpen = ref(false);
 
 <template>
   <div>
+    <SheetSide :open="sideMenuOpen" @update:open="sideMenuOpen = false" />
     <DialogUser :open="dialogUserOpen" @update:open="dialogUserOpen = false" />
     <DialogYoutubeList
       :open="youtubeListOpen"
@@ -152,11 +154,17 @@ const youtubeListOpen = ref(false);
     <Menubar>
       <div class="flex flex-row justify-between w-full">
         <div class="flex">
-          <MenubarMenu
-            ><MenubarTrigger class="font-bold"
-              >inpiniti/app</MenubarTrigger
-            ></MenubarMenu
-          >
+          <MenubarMenu>
+            <MenubarTrigger
+              class="lg:hidden block"
+              @click="sideMenuOpen = true"
+            >
+              <font-awesome-icon :icon="['fas', 'bars']" />
+            </MenubarTrigger>
+          </MenubarMenu>
+          <MenubarMenu>
+            <MenubarTrigger class="font-bold">inpiniti</MenubarTrigger>
+          </MenubarMenu>
           <MenubarMenu>
             <MenubarTrigger>만든사람</MenubarTrigger>
             <MenubarContent>

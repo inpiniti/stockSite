@@ -3,7 +3,7 @@ const route = useRoute();
 </script>
 
 <template>
-  <div class="w-56">
+  <Card class="w-56">
     <div class="space-y-4 py-4">
       <div class="px-3 py-2">
         <NuxtLink to="/">
@@ -207,5 +207,5 @@ const route = useRoute();
         </div>
       </div>
     </div>
-  </div>
+  </Card>
 </template>
