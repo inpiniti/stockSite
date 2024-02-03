@@ -15,121 +15,54 @@ const route = useRoute();
         <NuxtLink to="/book/list" @click="emit('update:open')">
           <Button
             :variant="route.path == '/book/list' ? `secondary` : `ghost`"
-            class="w-full justify-start"
+            class="w-full justify-start flex gap-2"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              class="mr-2 h-4 w-4"
-            >
-              <circle cx="12" cy="12" r="10" />
-              <polygon points="10 8 16 12 10 16 10 8" />
-            </svg>
-            목록
+            <font-awesome-icon :icon="['fas', 'database']" />
+            데이터베이스
           </Button>
         </NuxtLink>
         <NuxtLink to="/book/chart" @click="emit('update:open')">
           <Button
             :variant="route.path == '/book/chart' ? `secondary` : `ghost`"
-            class="w-full justify-start"
+            class="w-full justify-start flex gap-2"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              class="mr-2 h-4 w-4"
-            >
-              <rect width="7" height="7" x="3" y="3" rx="1" />
-              <rect width="7" height="7" x="14" y="3" rx="1" />
-              <rect width="7" height="7" x="14" y="14" rx="1" />
-              <rect width="7" height="7" x="3" y="14" rx="1" />
-            </svg>
+            <font-awesome-icon :icon="['fas', 'chart-line']" />
             차트
           </Button>
         </NuxtLink>
         <NuxtLink to="/book/board" @click="emit('update:open')">
           <Button
             :variant="route.path == '/book/board' ? `secondary` : `ghost`"
-            class="w-full justify-start"
+            class="w-full justify-start flex gap-2"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              class="mr-2 h-4 w-4"
-            >
-              <rect width="7" height="7" x="3" y="3" rx="1" />
-              <rect width="7" height="7" x="14" y="3" rx="1" />
-              <rect width="7" height="7" x="14" y="14" rx="1" />
-              <rect width="7" height="7" x="3" y="14" rx="1" />
-            </svg>
+            <font-awesome-icon :icon="['far', 'newspaper']" />
             게시판
           </Button>
         </NuxtLink>
         <NuxtLink to="/book/youtube" @click="emit('update:open')">
           <Button
             :variant="route.path == '/book/youtube' ? `secondary` : `ghost`"
-            class="w-full justify-start"
+            class="w-full justify-start flex gap-2"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              class="mr-2 h-4 w-4"
-            >
-              <rect width="7" height="7" x="3" y="3" rx="1" />
-              <rect width="7" height="7" x="14" y="3" rx="1" />
-              <rect width="7" height="7" x="14" y="14" rx="1" />
-              <rect width="7" height="7" x="3" y="14" rx="1" />
-            </svg>
+            <font-awesome-icon :icon="['fab', 'youtube']" />
             유튜브
           </Button>
         </NuxtLink>
         <NuxtLink to="/book/music" @click="emit('update:open')">
           <Button
             :variant="route.path == '/book/music' ? `secondary` : `ghost`"
-            class="w-full justify-start"
+            class="w-full justify-start flex gap-2"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              class="mr-2 h-4 w-4"
-            >
-              <rect width="7" height="7" x="3" y="3" rx="1" />
-              <rect width="7" height="7" x="14" y="3" rx="1" />
-              <rect width="7" height="7" x="14" y="14" rx="1" />
-              <rect width="7" height="7" x="3" y="14" rx="1" />
-            </svg>
+            <font-awesome-icon :icon="['fas', 'music']" />
             음악
           </Button>
         </NuxtLink>
         <NuxtLink to="/book/sale" @click="emit('update:open')">
           <Button
             :variant="route.path == '/book/sale' ? `secondary` : `ghost`"
-            class="w-full justify-start"
+            class="w-full justify-start flex gap-2"
           >
+            <font-awesome-icon :icon="['fas', 'book']" />
             도서
           </Button>
         </NuxtLink>
