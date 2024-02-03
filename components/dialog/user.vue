@@ -11,7 +11,8 @@ const emit = defineEmits(["update:open"]);
 
 function onLogout() {
   useSupabase().value.auth.signOut();
-  navigateTo("/");
+  auth.value = false;
+  emit("update:open");
 }
 </script>
 <template>
