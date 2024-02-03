@@ -128,7 +128,7 @@ const route = useRoute();
               :variant="route.path == '/book/sale' ? `secondary` : `ghost`"
               class="w-full justify-start"
             >
-              책 판매
+              도서
             </Button>
           </NuxtLink>
         </div>
