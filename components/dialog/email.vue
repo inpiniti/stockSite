@@ -38,7 +38,7 @@ defineExpose({ onOpen });
           만든이에게 궁금한점이나 질문사항이 있으시면 이메일을 보내주세요.
           <Badge variant="outline">연락처</Badge>,
           <Badge variant="outline">이메일 주소</Badge>는 필수는 아니지만, 답변을
-          원하시면 남겨주세요.
+          원하시면 남겨주세요. (구직도 원합니다 ^^;;)
         </DialogDescription>
       </DialogHeader>
       <div class="grid gap-4 py-4">
