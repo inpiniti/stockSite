@@ -82,9 +82,10 @@ onMounted(async () => {
     <Menubar>
       <div class="flex flex-row justify-between w-full">
         <div class="flex">
+          <!-- sm: phone, md: phone, lg: ipad, xl: pc -->
           <MenubarMenu>
             <MenubarTrigger
-              class="lg:hidden block"
+              class="xl:hidden block"
               @click="sheetSideMenuOpen = true"
             >
               <font-awesome-icon :icon="['fas', 'bars']" />

@@ -3,8 +3,9 @@
     <div class="shrink-0">
       <LayoutsMenu />
     </div>
-    <div class="flex lg:flex-row flex-col gap-1 grow-[1] overflow-hidden">
-      <LayoutsSide class="shrink-0 lg:block hidden" />
+    <!-- sm: phone, md: phone, lg: ipad, xl: pc -->
+    <div class="flex xl:flex-row flex-col gap-1 grow-[1] overflow-hidden">
+      <LayoutsSide class="shrink-0 xl:block hidden" />
       <div class="rounded-md border grow-[1] overflow-y-scroll">
         <slot />
       </div>

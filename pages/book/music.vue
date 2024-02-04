@@ -89,55 +89,109 @@ onUnmounted(() => {
 <template>
   <div class="flex h-full overflow-hidden p-4 gap-4">
     <div class="flex flex-col grow-[1]">
-      <Card class="h-full overflow-hidden flex flex-col">
-        <CardHeader class="shrink-0">
-          <CardTitle>음악 차트</CardTitle>
-          <CardDescription>일별, 월별, 누적 차트를 제공합니다.</CardDescription>
-        </CardHeader>
-        <Card class="grow-[1] overflow-y-scroll rounded-lg border mx-6 mb-6">
+      <div class="h-full overflow-hidden flex flex-col gap-4">
+        <CommonHeader
+          title="음악 차트"
+          description="일별, 월별, 누적 차트를 제공합니다."
+        />
+        <Card class="grow-[1] overflow-y-scroll rounded-lg border">
           <div v-for="music in musicListSorted">
             <div
-              class="flex gap-2 p-2"
+              class="flex gap-2 p-2 justify-between"
               :class="{ 'bg-red-50': youTube?.video_id == music.video_id }"
             >
-              <div class="w-96 flex gap-2">
-                <Badge variant="outline">
-                  {{ music.kr }} {{ music.op_ed }} {{ music.season }}기
-                  {{ music.cool }}쿨
-                </Badge>
-                <div class="font-semibold text-sm">
-                  {{ music.title }}
+              <div class="flex gap-2">
+                <img
+                  class="w-12 h-12 object-none rounded-md"
+                  :src="`https://img.youtube.com/vi/${music.video_id}/default.jpg`"
+                />
+                <div class="flex flex-col gap-1 justify-center">
+                  <div class="text-xs text-neutral-400">
+                    {{ music.kr }} {{ music.op_ed }}
+                    {{ music.season ? `${music.season}기` : "" }}
+                    {{ music.cool ? `${music.cool}쿨` : "" }}
+                  </div>
+                  <div class="font-semibold text-sm">
+                    {{ music.title }}
+                  </div>
                 </div>
               </div>
-
-              <div class="w-20">
-                <Badge variant="outline">
+              <div class="flex text-neutral-500 text-sm gap-2 pr-2">
+                <div class="flex items-center">
                   {{ music.view_count }}
-                </Badge>
-              </div>
-              <div class="w-28">
-                <Badge
-                  variant="outline"
-                  class="cursor-pointer"
+                </div>
+                <div
+                  class="flex items-center cursor-pointer"
                   @click="videoAdd(music)"
                 >
-                  재생목록 추가
-                </Badge>
+                  <font-awesome-icon :icon="['fas', 'play']" />
+                </div>
               </div>
             </div>
             <Separator />
           </div>
         </Card>
-      </Card>
+        <Card
+          class="lg:hidden flex shrink-0 bg-neutral-50 w-full p-2 justify-between"
+        >
+          <div class="flex gap-2">
+            <img
+              class="w-12 h-12 object-none rounded-md"
+              :src="`https://img.youtube.com/vi/${
+                useNowYouTube().value?.video_id
+              }/default.jpg`"
+            />
+            <div class="flex flex-col gap-1 justify-center">
+              <div class="text-xs text-neutral-400">
+                {{ useNowYouTube().value?.kr }}
+                {{ useNowYouTube().value?.op_ed }}
+                {{
+                  useNowYouTube().value?.season
+                    ? `${useNowYouTube().value?.season}기`
+                    : ""
+                }}
+                {{
+                  useNowYouTube().value?.cool
+                    ? `${useNowYouTube().value?.cool}쿨`
+                    : ""
+                }}
+              </div>
+              <div class="font-semibold text-sm">
+                {{ useNowYouTube().value?.title }}
+              </div>
+            </div>
+          </div>
+          <div class="flex items-center">
+            <div
+              @click="play"
+              v-if="playerState != 1"
+              class="cursor-pointer p-2"
+            >
+              <font-awesome-icon :icon="['fas', 'play']" />
+            </div>
+            <div
+              @click="pause"
+              v-if="playerState == 1"
+              class="cursor-pointer p-2"
+            >
+              <font-awesome-icon :icon="['fas', 'stop']" />
+            </div>
+            <div @click="next" class="cursor-pointer p-2">
+              <font-awesome-icon :icon="['fas', 'forward-step']" />
+            </div>
+          </div>
+        </Card>
+      </div>
     </div>
 
-    <div class="w-96 shrink-0 h-full">
-      <Card class="h-full flex flex-col">
-        <CardHeader class="shrink-0">
-          <CardTitle>인피니티 플레이어</CardTitle>
-          <CardDescription>현재 재생중인 음악을 표시합니다.</CardDescription>
-        </CardHeader>
-        <CardContent class="shrink-0">
+    <!-- sm: phone, md: phone, lg: ipad, xl: pc -->
+    <div class="w-80 shrink-0 h-full lg:block hidden">
+      <div class="h-full flex flex-col gap-4">
+        <CommonHeader
+          title="플레이어"
+          description="현재 재생중인 음악을 표시합니다."
+        />
+        <div class="shrink-0">
           <div>
             <img
               :src="`https://img.youtube.com/vi/${
@@ -188,8 +242,8 @@ onUnmounted(() => {
               <font-awesome-icon :icon="['fas', 'forward-step']" />
             </div>
           </div>
-        </CardContent>
-        <Card class="mx-6 mb-6 grow-[1] overflow-y-scroll">
+        </div>
+        <Card class="grow-[1] overflow-y-scroll">
           <div v-for="music in youTubeList">
             <div
               class="flex gap-2 p-2"
@@ -208,7 +262,7 @@ onUnmounted(() => {
             <Separator />
           </div>
         </Card>
-      </Card>
+      </div>
     </div>
   </div>
 </template>
