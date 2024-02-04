@@ -1072,7 +1072,7 @@ const plugins = [
 ];
 const layouts = {
   blank: () => import('./_nuxt/blank-dw5w2ZJb.mjs').then((m) => m.default || m),
-  default: () => import('./_nuxt/default-oQ380W8P.mjs').then((m) => m.default || m)
+  default: () => import('./_nuxt/default-GHeV3YhA.mjs').then((m) => m.default || m)
 };
 const LayoutLoader = defineComponent({
   name: "LayoutLoader",
