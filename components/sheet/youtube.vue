@@ -37,6 +37,7 @@ async function add() {
 // 재생목록에 음악 추가
 function videoAdd(video: any) {
   useYouTube().value.unshift(video);
+  firstPlay();
   toast({
     title: "재생목록 추가",
     description: `${video.title} 재생목록을 추가했습니다.`,

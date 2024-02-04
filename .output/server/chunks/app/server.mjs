@@ -7,6 +7,7 @@ import { config, library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { far } from '@fortawesome/free-regular-svg-icons';
+import { fab } from '@fortawesome/free-brands-svg-icons';
 import { ssrRenderComponent, ssrRenderList, ssrInterpolate, ssrRenderVNode, ssrRenderSlot, ssrRenderSuspense } from 'vue/server-renderer';
 import { cva } from 'class-variance-authority';
 import { ToastRoot, useEmitAsProps, ToastViewport, ToastClose, ToastTitle, ToastDescription, ToastProvider } from 'radix-vue';
@@ -625,6 +626,9 @@ const createError = (error) => {
   });
   return nuxtError;
 };
+const __nuxt_page_meta = {
+  layout: "blank"
+};
 const _routes = [
   {
     path: "/book/board",
@@ -635,7 +639,7 @@ const _routes = [
         meta: {},
         alias: [],
         redirect: void 0,
-        component: () => import('./_nuxt/_kr_-P__uIEFc.mjs').then((m) => m.default || m)
+        component: () => import('./_nuxt/_kr_-xgEkj2Hz.mjs').then((m) => m.default || m)
       },
       {
         name: "book-board-board.columns",
@@ -651,14 +655,14 @@ const _routes = [
         meta: {},
         alias: [],
         redirect: void 0,
-        component: () => import('./_nuxt/index-YVkifdvg.mjs').then((m) => m.default || m)
+        component: () => import('./_nuxt/index-0EBK99ja.mjs').then((m) => m.default || m)
       }
     ],
     name: void 0,
     meta: {},
     alias: [],
     redirect: void 0,
-    component: () => import('./_nuxt/board--BQcWJkg.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/board-QXAslvlS.mjs').then((m) => m.default || m)
   },
   {
     name: "book-chart",
@@ -666,7 +670,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0,
-    component: () => import('./_nuxt/chart-c5e2j_2V.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/chart-2zpSAhUg.mjs').then((m) => m.default || m)
   },
   {
     name: "book-columns",
@@ -674,7 +678,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0,
-    component: () => import('./_nuxt/columns-2gjnA3Gn.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/columns-53-PS3De.mjs').then((m) => m.default || m)
   },
   {
     name: "book-list",
@@ -682,7 +686,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0,
-    component: () => import('./_nuxt/list-ZkcCiPYP.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/list-Hm2Sq1vt.mjs').then((m) => m.default || m)
   },
   {
     name: "book-music",
@@ -690,7 +694,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0,
-    component: () => import('./_nuxt/music-NMUccF_K.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/music-PTMeqdf_.mjs').then((m) => m.default || m)
   },
   {
     name: "book-sale",
@@ -698,7 +702,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0,
-    component: () => import('./_nuxt/sale-1lBe_g-R.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/sale-RSoarMn2.mjs').then((m) => m.default || m)
   },
   {
     name: "book-youtube",
@@ -706,7 +710,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0,
-    component: () => import('./_nuxt/youtube-ZwmD0ckT.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/youtube-EHutTQH8.mjs').then((m) => m.default || m)
   },
   {
     name: "index",
@@ -714,7 +718,15 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0,
-    component: () => import('./_nuxt/index-UJBsf8uE.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/index-jj-nAZ0k.mjs').then((m) => m.default || m)
+  },
+  {
+    name: (__nuxt_page_meta == null ? void 0 : __nuxt_page_meta.name) ?? "login",
+    path: (__nuxt_page_meta == null ? void 0 : __nuxt_page_meta.path) ?? "/login",
+    meta: __nuxt_page_meta || {},
+    alias: (__nuxt_page_meta == null ? void 0 : __nuxt_page_meta.alias) || [],
+    redirect: (__nuxt_page_meta == null ? void 0 : __nuxt_page_meta.redirect) || void 0,
+    component: () => import('./_nuxt/login-u13yUIhK.mjs').then((m) => m.default || m)
   },
   {
     name: "stock-columns",
@@ -722,7 +734,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0,
-    component: () => import('./_nuxt/columns-i_kWWDup.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/columns-5YV6GZE6.mjs').then((m) => m.default || m)
   },
   {
     name: "stock-learning",
@@ -738,7 +750,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0,
-    component: () => import('./_nuxt/list-TOgzVNvO.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/list-7sIiaLp2.mjs').then((m) => m.default || m)
   },
   {
     name: "stock-prediction",
@@ -1047,7 +1059,7 @@ const components_plugin_KR1HBZs4kY = /* @__PURE__ */ defineNuxtPlugin({
   name: "nuxt:global-components"
 });
 config.autoAddCss = false;
-library.add(fas, far);
+library.add(fas, far, fab);
 const fontawesome_klhsrycjcK = /* @__PURE__ */ defineNuxtPlugin((nuxtApp) => {
   nuxtApp.vueApp.component("font-awesome-icon", FontAwesomeIcon, {});
 });
@@ -1060,7 +1072,7 @@ const plugins = [
 ];
 const layouts = {
   blank: () => import('./_nuxt/blank-dw5w2ZJb.mjs').then((m) => m.default || m),
-  default: () => import('./_nuxt/default-PQUWObff.mjs').then((m) => m.default || m)
+  default: () => import('./_nuxt/default-oQ380W8P.mjs').then((m) => m.default || m)
 };
 const LayoutLoader = defineComponent({
   name: "LayoutLoader",
@@ -1824,8 +1836,8 @@ const _sfc_main$1 = {
     const statusMessage = _error.statusMessage ?? (is404 ? "Page Not Found" : "Internal Server Error");
     const description = _error.message || _error.toString();
     const stack = void 0;
-    const _Error404 = defineAsyncComponent(() => import('./_nuxt/error-404-w3yOZnlx.mjs').then((r) => r.default || r));
-    const _Error = defineAsyncComponent(() => import('./_nuxt/error-500-qYcu52xj.mjs').then((r) => r.default || r));
+    const _Error404 = defineAsyncComponent(() => import('./_nuxt/error-404-CRqhgB1L.mjs').then((r) => r.default || r));
+    const _Error = defineAsyncComponent(() => import('./_nuxt/error-500-ox1t6Rb0.mjs').then((r) => r.default || r));
     const ErrorTemplate = is404 ? _Error404 : _Error;
     return (_ctx, _push, _parent, _attrs) => {
       _push(ssrRenderComponent(unref(ErrorTemplate), mergeProps({ statusCode: unref(statusCode), statusMessage: unref(statusMessage), description: unref(description), stack: unref(stack) }, _attrs), null, _parent));
@@ -1843,7 +1855,7 @@ const _sfc_main = {
   __name: "nuxt-root",
   __ssrInlineRender: true,
   setup(__props) {
-    const IslandRenderer = defineAsyncComponent(() => import('./_nuxt/island-renderer--INOGE78.mjs').then((r) => r.default || r));
+    const IslandRenderer = defineAsyncComponent(() => import('./_nuxt/island-renderer-sUEIlpjd.mjs').then((r) => r.default || r));
     const nuxtApp = /* @__PURE__ */ useNuxtApp();
     nuxtApp.deferHydration();
     nuxtApp.ssrContext.url;

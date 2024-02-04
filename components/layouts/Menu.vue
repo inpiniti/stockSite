@@ -1,20 +1,10 @@
 <script setup>
 const auth = useAuth();
+const player = usePlayer();
+const refYoutubePlayer = useYoutubePlayerRef();
+const nowVideo = useNowYouTube();
+const state = useYoutubeState();
 
-onMounted(async () => {
-  try {
-    auth.value = (await useSupabase().value.auth.getUser()).data.user;
-  } catch (e) {
-    auth.value = false;
-  }
-});
-
-async function logininfo() {
-  useSupabase().value.auth.signOut();
-  auth.value = false;
-}
-
-const emailRef = ref();
 function email() {
   emailRef.value.onOpen();
 }
@@ -24,97 +14,30 @@ function github() {
 function blog() {
   window.open("https://velog.io/@inpiniti/posts");
 }
-const youTube = useYouTube();
 
-const nowVideo = ref();
+const emailRef = ref();
+const youtubePlayerRef = ref();
 
-function play() {
-  youtubeShow.value = true;
-  try {
-    nowVideo.value = nowTouTube();
-    if (player.value) {
-      // 비디오를 로드합니다.
-      if (state.value == -1) {
-        player.value.loadVideoById(nowVideo.value.video_id);
-      }
-      //player.value.loadVideoById(nowVideo.value.video_id);
-      player.value.playVideo();
-      state.value = 1;
-      youtubeShow.value = false;
-    } else {
-      if (!this.player) {
-        this.player = new YT.Player(this.$refs.youtubePlayer, {
-          height: "33",
-          width: "59",
-          videoId: this.nowVideo?.value?.video_id,
-          playerVars: {
-            playsinline: 1,
-          },
-          events: {
-            onReady: (event) => {
-              event.target.playVideo();
-            },
-            onStateChange: (event) => {
-              if (event.data === YT.PlayerState.ENDED) {
-                // 비디오 재생이 끝났을 때 다음 곡을 재생합니다.
-                next();
-              }
-            },
-          },
-        });
-      }
-    }
-  } catch (e) {
-    console.log(e);
-  }
-}
-
-function pause() {
-  if (player.value) {
-    player.value.pauseVideo();
-    state.value = 0;
-  }
-}
-
-function next() {
-  nowVideo.value = nextYouTube();
-  if (player.value) {
-    // 비디오를 로드합니다.
-    player.value.loadVideoById(nowVideo.value.video_id);
-    player.value.playVideo();
-    state.value = 1;
-  }
-}
-
-function prev() {
-  nowVideo.value = prevYouTube();
-  if (player.value) {
-    // 비디오를 로드합니다.
-    player.value.loadVideoById(nowVideo.value.video_id);
-    player.value.playVideo();
-    state.value = 1;
-  }
-}
-
-const sideMenuOpen = ref(false);
-const youtubeOpen = ref(false);
-const loginOpen = ref(false);
+const sheetSideMenuOpen = ref(false);
+const dialogLoginOpen = ref(false);
 const dialogUserOpen = ref(false);
-const youtubePlayer = ref(null);
-const player = ref(null);
-const state = ref(-1);
+const dialogYoutubeListOpen = ref(false);
 
-// 유튜브 영상을 안보이게 하기
-const youtubeShow = ref(false);
+onMounted(async () => {
+  try {
+    auth.value = (await useSupabase().value.auth.getUser()).data.user;
+  } catch (e) {
+    auth.value = false;
+  }
 
-onMounted(() => {
+  refYoutubePlayer.value = youtubePlayerRef.value;
   const tag = document.createElement("script");
   tag.src = "https://www.youtube.com/iframe_api";
   const firstScriptTag = document.getElementsByTagName("script")[0];
   firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag);
   window.onYouTubeIframeAPIReady = () => {
     try {
-      player.value = new YT.Player(youtubePlayer.value, {
+      player.value = new YT.Player(youtubePlayerRef.value, {
         height: "33",
         width: "59",
         videoId: nowVideo?.value?.video_id,
@@ -139,18 +62,21 @@ onMounted(() => {
     }
   };
 });
-
-const youtubeListOpen = ref(false);
 </script>
-
 <template>
   <div>
-    <SheetSide :open="sideMenuOpen" @update:open="sideMenuOpen = false" />
-    <DialogLogin :open="loginOpen" @update:open="loginOpen = false" />
+    <SheetSide
+      :open="sheetSideMenuOpen"
+      @update:open="sheetSideMenuOpen = false"
+    />
+    <DialogLogin
+      :open="dialogLoginOpen"
+      @update:open="dialogLoginOpen = false"
+    />
     <DialogUser :open="dialogUserOpen" @update:open="dialogUserOpen = false" />
     <DialogYoutubeList
-      :open="youtubeListOpen"
-      @update:open="youtubeListOpen = !youtubeListOpen"
+      :open="dialogYoutubeListOpen"
+      @update:open="dialogYoutubeListOpen = !dialogYoutubeListOpen"
     />
     <DialogEmail ref="emailRef" />
     <Menubar>
@@ -159,7 +85,7 @@ const youtubeListOpen = ref(false);
           <MenubarMenu>
             <MenubarTrigger
               class="lg:hidden block"
-              @click="sideMenuOpen = true"
+              @click="sheetSideMenuOpen = true"
             >
               <font-awesome-icon :icon="['fas', 'bars']" />
             </MenubarTrigger>
@@ -190,14 +116,14 @@ const youtubeListOpen = ref(false);
         </div>
         <div class="flex items-center justify-center pr-4">
           <div class="youtube-player">
-            <div ref="youtubePlayer"></div>
+            <div ref="youtubePlayerRef"></div>
           </div>
           <div class="flex items-center">
             <Badge
               variant="outline"
               class="w-20 marquee cursor-pointer"
               v-if="nowVideo"
-              @click="youtubeListOpen = true"
+              @click="dialogYoutubeListOpen = true"
             >
               {{ nowVideo?.title }} {{ nowVideo?.kr }} {{ nowVideo?.season }}기
               {{ nowVideo?.cool }}쿨
@@ -224,10 +150,10 @@ const youtubeListOpen = ref(false);
           >
             <AvatarImage :src="auth?.user_metadata?.avatar_url" />
           </Avatar>
-          <Button v-else variant="ghost" @click="loginOpen = true">
+          <Button v-else variant="ghost" @click="dialogLoginOpen = true">
             로그인
           </Button>
-          <Button v-else variant="ghost" @click="loginOpen = true">
+          <Button v-else variant="ghost" @click="dialogLoginOpen = true">
             안녕하세요.
           </Button>
           <!-- <Button @click="logininfo">로그인 정보</Button> -->
