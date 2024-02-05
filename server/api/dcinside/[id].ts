@@ -42,7 +42,12 @@ function parsing($: CheerioAPI) {
     const writer = $(this).find(".gall_writer").text().trim();
     if (subject !== "설문" && subject !== "공지" && writer !== "운영자") {
       const num = Number($(this).find(".gall_num").text());
-      const title = $(this).find(".gall_tit a:first").text();
+
+      const gall_tit = $(this).find(".gall_tit a:first");
+      // gall_tit > em 의 class 에 icon_pic 이 있는지?
+      const is_icon_pic = gall_tit.find("em.icon_pic").length > 0;
+      const title = gall_tit.text();
+
       const secondATagText = $(this).find(".gall_tit a:nth-child(2)").text();
       const matchResult = secondATagText.match(/\d+/);
       const number = Number(matchResult ? matchResult[0] : 0);
@@ -58,19 +63,21 @@ function parsing($: CheerioAPI) {
       const replyMatchResult = reply_num_text.match(/\d+/);
       const reply_num = replyMatchResult ? Number(replyMatchResult[0]) : 0;
 
-      data.push({
-        type: "dcinside",
-        num,
-        subject,
-        title,
-        number,
-        link,
-        writer,
-        date,
-        count,
-        recommend,
-        reply_num,
-      });
+      if (is_icon_pic) {
+        data.push({
+          type: "dcinside",
+          num, // no 임
+          subject,
+          title,
+          number,
+          link,
+          writer,
+          date,
+          count,
+          recommend,
+          reply_num,
+        });
+      }
     }
   });
 
