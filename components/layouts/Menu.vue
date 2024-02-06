@@ -79,7 +79,7 @@ onMounted(async () => {
       @update:open="dialogYoutubeListOpen = !dialogYoutubeListOpen"
     />
     <DialogEmail ref="emailRef" />
-    <Menubar>
+    <Menubar class="lg:border-border border-0">
       <div class="flex flex-row justify-between w-full">
         <div class="flex">
           <!-- sm: phone, md: phone, lg: ipad, xl: pc -->
