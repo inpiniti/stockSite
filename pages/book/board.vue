@@ -30,7 +30,7 @@ onMounted(async () => {
             </div>
           </div>
           <img
-            class="lg:rounded-md md:h-72 w-full h-fit object-cover"
+            class="lg:rounded-md md:h-72 w-full object-fill"
             :src="
               book.link
                 ? replaceDomain(book.link).replace(/co\.kr/g, 'com')
