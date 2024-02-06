@@ -2,7 +2,10 @@
 const books = ref<any[]>([]);
 
 onMounted(async () => {
-  const { data, error } = await useSupabase().value.from("board").select();
+  const { data, error } = await useSupabase()
+    .value.from("board")
+    .select()
+    .neq("link", null);
   if (error) {
     console.error(error);
   } else {
@@ -17,7 +20,9 @@ onMounted(async () => {
       <li v-for="book in books" :key="book.id">
         <img
           class="rounded-md h-72 w-full object-cover"
-          :src="replaceDomain(book.link).replace(/co\.kr/g, 'com')"
+          :src="
+            book.link ? replaceDomain(book.link).replace(/co\.kr/g, 'com') : ''
+          "
         />
         <div>
           {{ book.title }}

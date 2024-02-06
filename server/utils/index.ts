@@ -19,3 +19,18 @@ export async function fetchData(base_url: string, options: string = "utf-8") {
 
   return $;
 }
+
+// books 에서 kr 로 중복 제거
+export async function uniqueBooks() {
+  const { data: books, error } = await useSupabase()
+    .from("book")
+    .select("kr, dc")
+    .neq("dc", null);
+
+  return books
+    ? books.filter(
+        (book: any, index: number, self: any) =>
+          index === self.findIndex((b: any) => b.kr === book.kr)
+      )
+    : [];
+}

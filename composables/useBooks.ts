@@ -2,6 +2,10 @@ import { useStorage } from "@vueuse/core";
 
 export const useBooks = () => useStorage("books", () => <any>[]);
 
+// distinct kr, dc
+export const distinctKrDcBooks = () =>
+  useStorage("distinctKrDcBooks", () => <any>[]);
+
 export async function fetchBooks(date?: string) {
   const books = useBooks();
   try {
