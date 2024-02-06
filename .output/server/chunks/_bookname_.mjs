@@ -1,4 +1,4 @@
-import { d as defineEventHandler, g as getRouterParam } from './nitro/node-server.mjs';
+import { d as defineEventHandler, g as getRouterParam } from './user.mjs';
 import axios from 'axios';
 import cheerio from 'cheerio';
 import iconv from 'iconv-lite';
@@ -6,6 +6,8 @@ import 'node:http';
 import 'node:https';
 import 'fs';
 import 'path';
+import '@supabase/supabase-js';
+import 'node-cron';
 import 'node:fs';
 import 'node:url';
 import 'ipx';

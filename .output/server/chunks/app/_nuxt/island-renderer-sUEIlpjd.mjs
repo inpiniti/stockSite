@@ -1,10 +1,15 @@
 import { defineComponent, onErrorCaptured, createVNode } from 'vue';
 import { c as createError } from '../server.mjs';
-import '../../nitro/node-server.mjs';
+import '../../user.mjs';
 import 'node:http';
 import 'node:https';
 import 'fs';
 import 'path';
+import '@supabase/supabase-js';
+import 'axios';
+import 'cheerio';
+import 'iconv-lite';
+import 'node-cron';
 import 'node:fs';
 import 'node:url';
 import 'ipx';

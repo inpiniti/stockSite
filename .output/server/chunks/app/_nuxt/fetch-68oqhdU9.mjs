@@ -1,5 +1,5 @@
 import { computed, toValue, reactive, ref, shallowRef, toRef, getCurrentInstance, onServerPrefetch, unref } from 'vue';
-import { v as hash } from '../../nitro/node-server.mjs';
+import { h as hash } from '../../user.mjs';
 import { j as fetchDefaults, h as asyncDataDefaults, g as useNuxtApp, c as createError } from '../server.mjs';
 
 function useRequestEvent(nuxtApp = useNuxtApp()) {

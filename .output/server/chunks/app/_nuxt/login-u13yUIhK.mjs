@@ -8,11 +8,16 @@ import { _ as _sfc_main$6 } from './Label-qeIRde0b.mjs';
 import { _ as _sfc_main$7 } from './Input-eHzHGyo6.mjs';
 import { u as useSupabase } from './useSupabase-m2hz1Dji.mjs';
 import { u as useAuth } from './useAuth-5v19ALM2.mjs';
-import '../../nitro/node-server.mjs';
+import '../../user.mjs';
 import 'node:http';
 import 'node:https';
 import 'fs';
 import 'path';
+import '@supabase/supabase-js';
+import 'axios';
+import 'cheerio';
+import 'iconv-lite';
+import 'node-cron';
 import 'node:fs';
 import 'node:url';
 import 'ipx';
@@ -31,7 +36,6 @@ import 'tailwind-merge';
 import 'lucide-vue-next';
 import '@vueuse/core';
 import './state-1iJA_-lt.mjs';
-import '@supabase/supabase-js';
 
 const _sfc_main$1 = /* @__PURE__ */ defineComponent({
   __name: "CardFooter",

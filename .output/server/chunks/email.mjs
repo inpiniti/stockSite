@@ -1,9 +1,14 @@
-import { d as defineEventHandler } from './nitro/node-server.mjs';
+import { d as defineEventHandler } from './user.mjs';
 import nodemailer from 'nodemailer';
 import 'node:http';
 import 'node:https';
 import 'fs';
 import 'path';
+import '@supabase/supabase-js';
+import 'axios';
+import 'cheerio';
+import 'iconv-lite';
+import 'node-cron';
 import 'node:fs';
 import 'node:url';
 import 'ipx';

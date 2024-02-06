@@ -1,5 +1,5 @@
 import { getRequestDependencies, getPreloadLinks, getPrefetchLinks, createRenderer } from 'vue-bundle-renderer/runtime';
-import { e as eventHandler, s as setResponseHeader, b as send, c as getResponseStatus, f as setResponseStatus, u as useNitroApp, h as setResponseHeaders, j as joinURL, i as useRuntimeConfig, a as getQuery, k as createError, l as getRouteRules, m as getResponseStatusText } from '../nitro/node-server.mjs';
+import { q as eventHandler, r as setResponseHeader, t as send, v as getResponseStatus, x as setResponseStatus, y as useNitroApp, z as setResponseHeaders, j as joinURL, i as useRuntimeConfig, a as getQuery, m as createError, A as getRouteRules, B as getResponseStatusText } from '../user.mjs';
 import { stringify, uneval } from 'devalue';
 import { renderToString } from 'vue/server-renderer';
 import { renderSSRHead } from '@unhead/ssr';
@@ -10,6 +10,11 @@ import 'node:http';
 import 'node:https';
 import 'fs';
 import 'path';
+import '@supabase/supabase-js';
+import 'axios';
+import 'cheerio';
+import 'iconv-lite';
+import 'node-cron';
 import 'node:fs';
 import 'node:url';
 import 'ipx';

@@ -1,5 +1,5 @@
 import { hasInjectionContext, getCurrentInstance, version, unref, inject, defineComponent, h, computed, ref, provide, useSSRContext, shallowReactive, watch, Suspense, nextTick, Transition, mergeProps, withCtx, createTextVNode, toDisplayString, isVNode, createVNode, resolveDynamicComponent, openBlock, createBlock, createCommentVNode, Fragment, renderList, renderSlot, createApp, effectScope, reactive, defineAsyncComponent, onErrorCaptured, onServerPrefetch, toRef, shallowRef, isReadonly, isRef, isShallow, isReactive, toRaw } from 'vue';
-import { i as useRuntimeConfig$1, $ as $fetch, w as withQuery, n as hasProtocol, p as parseURL, o as isScriptProtocol, j as joinURL, k as createError$1, q as defu, r as sanitizeStatusCode, t as createHooks } from '../nitro/node-server.mjs';
+import { i as useRuntimeConfig$1, $ as $fetch, k as withQuery, b as hasProtocol, p as parseURL, l as isScriptProtocol, j as joinURL, m as createError$1, n as defu, s as sanitizeStatusCode, o as createHooks } from '../user.mjs';
 import { getActiveHead } from 'unhead';
 import { defineHeadPlugin } from '@unhead/shared';
 import { useRoute as useRoute$1, RouterView, createMemoryHistory, createRouter, START_LOCATION } from 'vue-router';
@@ -18,6 +18,11 @@ import 'node:http';
 import 'node:https';
 import 'fs';
 import 'path';
+import '@supabase/supabase-js';
+import 'axios';
+import 'cheerio';
+import 'iconv-lite';
+import 'node-cron';
 import 'node:fs';
 import 'node:url';
 import 'ipx';
@@ -665,6 +670,14 @@ const _routes = [
     component: () => import('./_nuxt/board-QXAslvlS.mjs').then((m) => m.default || m)
   },
   {
+    name: "book-board2",
+    path: "/book/board2",
+    meta: {},
+    alias: [],
+    redirect: void 0,
+    component: () => import('./_nuxt/board2-zYlpQXMK.mjs').then((m) => m.default || m)
+  },
+  {
     name: "book-chart",
     path: "/book/chart",
     meta: {},
@@ -710,7 +723,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0,
-    component: () => import('./_nuxt/youtube-zQZTqJQ2.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/youtube--RZZrft7.mjs').then((m) => m.default || m)
   },
   {
     name: "index",
@@ -718,7 +731,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0,
-    component: () => import('./_nuxt/index-jj-nAZ0k.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/index-A_zaNSLu.mjs').then((m) => m.default || m)
   },
   {
     name: (__nuxt_page_meta == null ? void 0 : __nuxt_page_meta.name) ?? "login",
@@ -1072,7 +1085,7 @@ const plugins = [
 ];
 const layouts = {
   blank: () => import('./_nuxt/blank-dw5w2ZJb.mjs').then((m) => m.default || m),
-  default: () => import('./_nuxt/default-eW-6BA-_.mjs').then((m) => m.default || m)
+  default: () => import('./_nuxt/default-Gx4bNeXB.mjs').then((m) => m.default || m)
 };
 const LayoutLoader = defineComponent({
   name: "LayoutLoader",

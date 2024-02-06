@@ -14,11 +14,16 @@ import { useVueTable, getCoreRowModel, getSortedRowModel, getFilteredRowModel, F
 import { ChevronDown } from 'lucide-vue-next';
 import { columns } from './board.columns-rzK5GhPN.mjs';
 import 'radix-vue';
-import '../../nitro/node-server.mjs';
+import '../../user.mjs';
 import 'node:http';
 import 'node:https';
 import 'fs';
 import 'path';
+import '@supabase/supabase-js';
+import 'axios';
+import 'cheerio';
+import 'iconv-lite';
+import 'node-cron';
 import 'node:fs';
 import 'node:url';
 import 'ipx';
