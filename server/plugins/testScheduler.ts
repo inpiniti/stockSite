@@ -82,7 +82,7 @@ async function getReply(kr: string, dc: string, board: any, maxNum: number) {
     await insertBoard(kr, board, reply);
   } else {
     // maxNum > board.num 이면 update
-    await updateBoard(kr, board, reply);
+    //await updateBoard(kr, board, reply);
   }
 }
 
