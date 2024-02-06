@@ -11,6 +11,8 @@ function startScheduler() {
   // 주술회전
   scheduler
     .run(async () => {
+      // book 에서 kr 과 dc 만 조회해 오는데 중복은 제거 함
+
       console.log("주술회전 게시글 조회");
       // 게시글 조회
       try {
