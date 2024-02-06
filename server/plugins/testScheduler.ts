@@ -19,7 +19,7 @@ function startScheduler() {
         await getBoard(book.kr, book.dc);
       }
     })
-    .everyFifteenMinutes();
+    .everyTenMinutes();
   // 오후 9시 6분에 실행하려면
   //.cron("47 22 * * *");
 
