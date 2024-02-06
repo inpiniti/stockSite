@@ -9,9 +9,9 @@ export default defineNitroPlugin(() => {
 function startScheduler() {
   const scheduler = useScheduler();
 
-  // 주술회전
   scheduler
     .run(async () => {
+      console.log("스케줄러 시작");
       // book 에서 kr 과 dc 만 조회해 오는데 중복은 제거 함
       const books = await uniqueBooks();
 
