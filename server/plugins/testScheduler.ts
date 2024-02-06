@@ -57,9 +57,12 @@ async function getBoard(kr: string, dc: string) {
 
     for (const board of boards.data) {
       // 덧글 조회
-      await getReply(kr, dc, board, maxNum);
-      // 1초 대기
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      if (maxNum < board.num) {
+        await getReply(kr, dc, board, maxNum);
+        // 1초 대기
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+      } else {
+      }
     }
   } catch (error) {
     console.log(error);
