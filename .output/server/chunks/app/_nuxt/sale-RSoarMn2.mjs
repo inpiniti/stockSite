@@ -12,6 +12,11 @@ import 'node:http';
 import 'node:https';
 import 'fs';
 import 'path';
+import '@supabase/supabase-js';
+import 'axios';
+import 'cheerio';
+import 'iconv-lite';
+import 'node-cron';
 import 'node:fs';
 import 'node:url';
 import 'ipx';
@@ -28,7 +33,6 @@ import 'clsx';
 import 'tailwind-merge';
 import './useSupabase-m2hz1Dji.mjs';
 import './state-1iJA_-lt.mjs';
-import '@supabase/supabase-js';
 import '@vueuse/core';
 
 const _sfc_main$4 = /* @__PURE__ */ defineComponent({
