@@ -1,5 +1,5 @@
 import { hasInjectionContext, getCurrentInstance, version, unref, inject, defineComponent, h, computed, ref, provide, useSSRContext, shallowReactive, watch, Suspense, nextTick, Transition, mergeProps, withCtx, createTextVNode, toDisplayString, isVNode, createVNode, resolveDynamicComponent, openBlock, createBlock, createCommentVNode, Fragment, renderList, renderSlot, createApp, effectScope, reactive, defineAsyncComponent, onErrorCaptured, onServerPrefetch, toRef, shallowRef, isReadonly, isRef, isShallow, isReactive, toRaw } from 'vue';
-import { i as useRuntimeConfig$1, $ as $fetch, k as withQuery, b as hasProtocol, p as parseURL, l as isScriptProtocol, j as joinURL, m as createError$1, n as defu, s as sanitizeStatusCode, o as createHooks } from '../user.mjs';
+import { u as useRuntimeConfig$1, $ as $fetch, f as withQuery, b as hasProtocol, p as parseURL, i as isScriptProtocol, j as joinURL, k as createError$1, l as defu, s as sanitizeStatusCode, m as createHooks } from '../user.mjs';
 import { getActiveHead } from 'unhead';
 import { defineHeadPlugin } from '@unhead/shared';
 import { useRoute as useRoute$1, RouterView, createMemoryHistory, createRouter, START_LOCATION } from 'vue-router';
@@ -18,11 +18,6 @@ import 'node:http';
 import 'node:https';
 import 'fs';
 import 'path';
-import '@supabase/supabase-js';
-import 'axios';
-import 'cheerio';
-import 'iconv-lite';
-import 'node-cron';
 import 'node:fs';
 import 'node:url';
 import 'ipx';
@@ -667,15 +662,15 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0,
-    component: () => import('./_nuxt/board-QXAslvlS.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/board-zB9nl65E.mjs').then((m) => m.default || m)
   },
   {
-    name: "book-board2",
-    path: "/book/board2",
+    name: "book-board3",
+    path: "/book/board3",
     meta: {},
     alias: [],
     redirect: void 0,
-    component: () => import('./_nuxt/board2-cqQIIpOf.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/board3-3YXZfiBd.mjs').then((m) => m.default || m)
   },
   {
     name: "book-chart",
@@ -1085,7 +1080,7 @@ const plugins = [
 ];
 const layouts = {
   blank: () => import('./_nuxt/blank-dw5w2ZJb.mjs').then((m) => m.default || m),
-  default: () => import('./_nuxt/default-eW-6BA-_.mjs').then((m) => m.default || m)
+  default: () => import('./_nuxt/default-4ZjA1Uis.mjs').then((m) => m.default || m)
 };
 const LayoutLoader = defineComponent({
   name: "LayoutLoader",
