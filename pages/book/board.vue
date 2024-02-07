@@ -1,5 +1,12 @@
 <script setup lang="ts">
+import InfiniteLoading from "v3-infinite-loading";
+import "v3-infinite-loading/lib/style.css"; //required if you're not going to override default slots
+
 const books = ref<any[]>([]);
+const page = ref(1);
+const pageBooks = computed(() => {
+  return books.value.slice(0, page.value * 20);
+});
 
 onMounted(async () => {
   const { data, error } = await useSupabase()
@@ -13,13 +20,17 @@ onMounted(async () => {
     books.value = data ?? [];
   }
 });
+function infiniteHandler($state: any) {
+  page.value++;
+  $state.loaded();
+}
 </script>
 <template>
   <div>
     <div
       class="grid sm:grid-cols-1 md:grid-cols-2 lg:md:grid-cols-3 xl:md:grid-cols-4 gap-4 overflow-hidden"
     >
-      <div v-for="book in books" :key="book.id" class="w-screen">
+      <div v-for="book in pageBooks" :key="book.id" class="w-screen">
         <div class="relative w-full">
           <div class="absolute z-10 p-2 text-white">
             <div class="font-bold">
@@ -76,5 +87,6 @@ onMounted(async () => {
         </div>
       </div>
     </div>
+    <InfiniteLoading v-if="pageBooks.length > 0" @infinite="infiniteHandler" />
   </div>
 </template>
