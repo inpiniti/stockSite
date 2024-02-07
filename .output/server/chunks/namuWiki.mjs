@@ -6,6 +6,8 @@ import 'node:http';
 import 'node:https';
 import 'fs';
 import 'path';
+import '@supabase/supabase-js';
+import 'node-cron';
 import 'node:fs';
 import 'node:url';
 import 'ipx';
