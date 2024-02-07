@@ -9,7 +9,7 @@ export default defineNitroPlugin(() => {
 function startScheduler() {
   const scheduler = useScheduler();
 
-  /* scheduler
+  scheduler
     .run(async () => {
       console.log("스케줄러 시작");
       // book 에서 kr 과 dc 만 조회해 오는데 중복은 제거 함
@@ -19,7 +19,7 @@ function startScheduler() {
         await getBoard(book.kr, book.dc);
       }
     })
-    .everyTenMinutes(); */
+    .everyTenMinutes();
   // 오후 9시 6분에 실행하려면
   //.cron("47 22 * * *");
 
