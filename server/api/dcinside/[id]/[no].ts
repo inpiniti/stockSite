@@ -55,6 +55,12 @@ function parsing($: CheerioAPI, kr: string) {
       return $(this).attr("src");
     })
     .get();
+
+  // images 에 http 가 없는 애들은 빼줘
+  const filteredImages = images.filter((image) => {
+    return image.includes("http");
+  });
+
   // $(".write_div") 에 이미지도 있으면, src 리스트화 해줘
   // { content: '', images: [] } 이렇게
 
@@ -62,6 +68,6 @@ function parsing($: CheerioAPI, kr: string) {
 
   return {
     content: content,
-    images: images,
+    images: filteredImages,
   };
 }
