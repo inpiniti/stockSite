@@ -34,6 +34,8 @@
     "cheerio": "^1.0.0-rc.12",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
+    "embla-carousel": "^8.0.0-rc22",
+    "embla-carousel-vue": "^8.0.0-rc22",
     "ipx": "^3.0.0",
     "lucide-vue-next": "^0.309.0",
     "moment": "^2.30.1",

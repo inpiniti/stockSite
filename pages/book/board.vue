@@ -24,6 +24,18 @@ function infiniteHandler($state: any) {
   page.value++;
   $state.loaded();
 }
+// 이미지가 배열 스트링으로 되어 있을 텐데 처리
+function imgLinkParse(link: string) {
+  // link 문자열에 []가 없으면 []로 감싸주고
+  if (link.includes("[")) {
+    console.log(JSON.parse(link));
+    return JSON.parse(link);
+  } else {
+    let arr = [];
+    console.log(arr.push(link));
+    return arr.push(link);
+  }
+}
 </script>
 <template>
   <div>
@@ -40,14 +52,17 @@ function infiniteHandler($state: any) {
               {{ book.writer }}
             </div>
           </div>
-          <img
-            class="lg:rounded-md md:h-72 w-full object-fill"
-            :src="
-              book.link
-                ? replaceDomain(book.link).replace(/co\.kr/g, 'com')
-                : ''
-            "
-          />
+          <!-- 이미지 옆으로 넘길수 있도록 처리 -->
+          <Carousel>
+            <CarouselContent>
+              <CarouselItem v-for="img in imgLinkParse(book.link)">
+                <img
+                  class="lg:rounded-md md:h-72 w-full object-fill"
+                  :src="replaceDomain(img).replace(/co\.kr/g, 'com')"
+                />
+              </CarouselItem>
+            </CarouselContent>
+          </Carousel>
           <div
             class="absolute top-0 left-0 w-full h-full lg:rounded-md"
             style="
@@ -56,6 +71,7 @@ function infiniteHandler($state: any) {
                 rgba(0, 0, 0, 0.5),
                 rgba(0, 0, 0, 0) 50%
               );
+              pointer-events: none;
             "
           ></div>
         </div>
