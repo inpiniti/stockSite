@@ -48,10 +48,13 @@ function parsing($, kr) {
   const images = $(".write_div img").map(function() {
     return $(this).attr("src");
   }).get();
+  const filteredImages = images.filter((image) => {
+    return image.includes("http");
+  });
   const content = $(".write_div").text().trim();
   return {
     content,
-    images
+    images: filteredImages
   };
 }
 
