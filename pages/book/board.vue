@@ -31,9 +31,9 @@ function imgLinkParse(link: string) {
     console.log(JSON.parse(link));
     return JSON.parse(link);
   } else {
-    let arr = [];
-    console.log(arr.push(link));
-    return arr.push(link);
+    let arr: string[] = [];
+    arr.push(link);
+    return arr;
   }
 }
 </script>
