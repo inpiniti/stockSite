@@ -7,13 +7,17 @@ export default defineEventHandler(async (event) => {
     return "id or kr is not exist";
   }
 
-  const $ = await fetchData(
-    `https://gall.dcinside.com/mgallery/board/lists/?id=${id}`
-  );
+  let data: any = [];
 
-  const parsedData = parsing($);
+  for (let i = 1; i <= 10; i++) {
+    const $ = await fetchData(
+      `https://gall.dcinside.com/mgallery/board/lists/?id=${id}&page=${i}`
+    );
+    const parsedData = parsing($);
+    data = [...data, ...parsedData];
+  }
 
-  return parsedData;
+  return data;
 });
 
 import { CheerioAPI } from "cheerio";

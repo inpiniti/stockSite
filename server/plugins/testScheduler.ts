@@ -62,6 +62,8 @@ async function getBoard(kr: string, dc: string) {
         // 1초 대기
         await new Promise((resolve) => setTimeout(resolve, 1000));
       } else {
+        // 덧글 업데이트
+        await updateBoard(kr, board);
       }
     }
   } catch (error) {
@@ -104,7 +106,7 @@ async function insertBoard(kr: string, board: any, reply: any) {
         type: board.type,
         num: board.num,
         number: board.reply_num, // 덧글 수
-        link: reply.data.images[0],
+        link: JSON.stringify(reply.data.images),
         count: board.count, // 조회수
         recommend: board.recommend, // 덧글
         kr: kr,
@@ -114,7 +116,7 @@ async function insertBoard(kr: string, board: any, reply: any) {
 }
 
 // board update
-async function updateBoard(kr: string, board: any, reply: any) {
+async function updateBoard(kr: string, board: any) {
   // maxNum > board.num 이면 update
   const { data, error } = await useSupabase()
     .from("board")
@@ -122,7 +124,7 @@ async function updateBoard(kr: string, board: any, reply: any) {
       title: board.title,
       writer: board.writer,
       date: board.date,
-      content: reply.data.content,
+      //content: reply.data.content,
       book: "",
       subject: board.subject,
       type: board.type,
