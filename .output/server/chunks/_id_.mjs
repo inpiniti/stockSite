@@ -17,11 +17,15 @@ const _id_ = defineEventHandler(async (event) => {
   if (!id) {
     return "id or kr is not exist";
   }
-  const $ = await fetchData(
-    `https://gall.dcinside.com/mgallery/board/lists/?id=${id}`
-  );
-  const parsedData = parsing($);
-  return parsedData;
+  let data = [];
+  for (let i = 1; i <= 10; i++) {
+    const $ = await fetchData(
+      `https://gall.dcinside.com/mgallery/board/lists/?id=${id}&page=${i}`
+    );
+    const parsedData = parsing($);
+    data = [...data, ...parsedData];
+  }
+  return data;
 });
 function parsing($) {
   let data = [];
