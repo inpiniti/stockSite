@@ -2,10 +2,10 @@
 import InfiniteLoading from "v3-infinite-loading";
 import "v3-infinite-loading/lib/style.css"; //required if you're not going to override default slots
 
-const books = ref<any[]>([]);
+const boards = ref<any[]>([]);
 const page = ref(1);
-const pageBooks = computed(() => {
-  return books.value.slice(0, page.value * 20);
+const pageBoards = computed(() => {
+  return boards.value.slice(0, page.value * 20);
 });
 
 onMounted(async () => {
@@ -17,7 +17,7 @@ onMounted(async () => {
   if (error) {
     console.error(error);
   } else {
-    books.value = data ?? [];
+    boards.value = data ?? [];
   }
 });
 function infiniteHandler($state: any) {
@@ -35,36 +35,67 @@ function imgLinkParse(link: string) {
     return arr;
   }
 }
+
+const boardDetail = ref(false);
+const reply = ref();
+
+async function onClickBoardDetail(board: any) {
+  const { dc } = findBook(board.kr);
+
+  // 덧글 조회
+  const { data: newData } = await useFetch(
+    `/api/dcinside/${dc}/${board.num}?kr=${board.kr}`
+  );
+
+  reply.value = newData.value;
+  if (reply.value?.comment?.comments) {
+    reply.value.comment.comments = reply.value?.comment?.comments.filter(
+      (comment: any) => {
+        return comment.no != 0;
+      }
+    );
+  }
+
+  boardDetail.value = !boardDetail.value;
+}
 </script>
 <template>
+  <SheetBoardDetail
+    :open="boardDetail"
+    :reply="reply"
+    @update:open="boardDetail = !boardDetail"
+  />
   <div>
     <div
       class="grid sm:grid-cols-1 md:grid-cols-2 lg:md:grid-cols-3 xl:md:grid-cols-4 gap-4 overflow-hidden"
     >
-      <div v-for="book in pageBooks" :key="book.id" class="w-screen">
+      <div v-for="board in pageBoards" :key="board.id" class="w-screen">
         <div class="relative w-full">
-          <div class="absolute z-10 p-2 text-white">
+          <div
+            class="absolute z-10 p-2 text-white"
+            style="pointer-events: none"
+          >
             <div class="font-bold">
-              {{ book.title }}
+              {{ board.title }}
             </div>
             <div class="text-sm">
-              {{ book.writer }}
+              {{ board.writer }}
             </div>
           </div>
           <!-- 이미지 옆으로 넘길수 있도록 처리 -->
           <Carousel>
             <CarouselContent>
               <CarouselItem
-                v-for="(img, index) in imgLinkParse(book.link)"
+                v-for="(img, index) in imgLinkParse(board.link)"
                 :key="index"
               >
-                <div class="relative">
+                <div class="relative h-full">
                   <img
-                    class="lg:rounded-md md:h-72 w-full object-fill"
+                    class="lg:rounded-md md:h-72 min-h-96 max-h-256 h-full w-full object-scale-down"
                     :src="replaceDomain(img).replace(/co\.kr/g, 'com')"
                   />
                   <Badge class="absolute top-4 right-4 bg-opacity-50 bg-black">
-                    {{ index + 1 }} / {{ imgLinkParse(book.link).length }}
+                    {{ index + 1 }} / {{ imgLinkParse(board.link).length }}
                   </Badge>
                 </div>
               </CarouselItem>
@@ -76,40 +107,60 @@ function imgLinkParse(link: string) {
               background: linear-gradient(
                 to bottom,
                 rgba(0, 0, 0, 0.5),
-                rgba(0, 0, 0, 0) 50%
+                rgba(0, 0, 0, 0) 50%,
+                rgba(0, 0, 0, 0) 50%,
+                rgba(0, 0, 0, 0.5)
               );
               pointer-events: none;
             "
           ></div>
-        </div>
-        <div class="px-2 flex flex-col w-full">
-          <div class="">
-            <div class="line-clamp-3 overflow-hidden">
-              {{ book.content }}
-            </div>
-            <div class="flex text-xs text-neutral-400 gap-2">
-              <div>
-                <font-awesome-icon :icon="['far', 'calendar-check']" />
-                {{ book.date }}
+
+          <div
+            class="p-4 flex w-full absolute bottom-0 text-white justify-between gap-4 items-end"
+          >
+            <div class="flex-col" style="pointer-events: none">
+              <div class="line-clamp-3 overflow-hidden">
+                {{ board.content }}
+              </div>
+              <div class="flex text-xs gap-2">
+                <div class="font-normal">
+                  {{ timeAgo(board.date) }}
+                </div>
               </div>
             </div>
-            <div class="flex text-xs text-neutral-400 gap-2">
-              <div>
+            <div class="flex flex-col gap-2 text-xl items-center">
+              <div
+                class="flex flex-col gap-1 items-center"
+                @click="onClickBoardDetail(board)"
+              >
                 <font-awesome-icon :icon="['far', 'comment']" />
-                {{ book.number }}
+                <div class="text-sm">
+                  {{ board.number }}
+                </div>
               </div>
-              <div>
-                <font-awesome-icon :icon="['far', 'eye']" /> {{ book.count }}
+              <div
+                class="flex flex-col gap-1 items-center"
+                style="pointer-events: none"
+              >
+                <font-awesome-icon :icon="['far', 'eye']" />
+                <div class="text-sm">
+                  {{ board.count }}
+                </div>
               </div>
-              <div>
+              <div
+                class="flex flex-col gap-1 items-center"
+                style="pointer-events: none"
+              >
                 <font-awesome-icon :icon="['fas', 'star']" />
-                {{ book.recommend }}
+                <div class="text-sm">
+                  {{ board.recommend }}
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <InfiniteLoading v-if="pageBooks.length > 0" @infinite="infiniteHandler" />
+    <InfiniteLoading v-if="pageBoards.length > 0" @infinite="infiniteHandler" />
   </div>
 </template>

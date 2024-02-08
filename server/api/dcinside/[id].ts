@@ -9,7 +9,7 @@ export default defineEventHandler(async (event) => {
 
   let data: any = [];
 
-  for (let i = 1; i <= 10; i++) {
+  for (let i = 1; i <= 2; i++) {
     const $ = await fetchData(
       `https://gall.dcinside.com/mgallery/board/lists/?id=${id}&page=${i}`
     );
