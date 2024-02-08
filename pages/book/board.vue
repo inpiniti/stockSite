@@ -28,7 +28,6 @@ function infiniteHandler($state: any) {
 function imgLinkParse(link: string) {
   // link 문자열에 []가 없으면 []로 감싸주고
   if (link.includes("[")) {
-    console.log(JSON.parse(link));
     return JSON.parse(link);
   } else {
     let arr: string[] = [];
@@ -55,11 +54,19 @@ function imgLinkParse(link: string) {
           <!-- 이미지 옆으로 넘길수 있도록 처리 -->
           <Carousel>
             <CarouselContent>
-              <CarouselItem v-for="img in imgLinkParse(book.link)">
-                <img
-                  class="lg:rounded-md md:h-72 w-full object-fill"
-                  :src="replaceDomain(img).replace(/co\.kr/g, 'com')"
-                />
+              <CarouselItem
+                v-for="(img, index) in imgLinkParse(book.link)"
+                :key="index"
+              >
+                <div class="relative">
+                  <img
+                    class="lg:rounded-md md:h-72 w-full object-fill"
+                    :src="replaceDomain(img).replace(/co\.kr/g, 'com')"
+                  />
+                  <Badge class="absolute top-4 right-4 bg-opacity-50 bg-black">
+                    {{ index + 1 }} / {{ imgLinkParse(book.link).length }}
+                  </Badge>
+                </div>
               </CarouselItem>
             </CarouselContent>
           </Carousel>
