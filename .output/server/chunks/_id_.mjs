@@ -18,7 +18,7 @@ const _id_ = defineEventHandler(async (event) => {
     return "id or kr is not exist";
   }
   let data = [];
-  for (let i = 1; i <= 10; i++) {
+  for (let i = 1; i <= 2; i++) {
     const $ = await fetchData(
       `https://gall.dcinside.com/mgallery/board/lists/?id=${id}&page=${i}`
     );
