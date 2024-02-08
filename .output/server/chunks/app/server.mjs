@@ -648,7 +648,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0 ,
-    component: () => import('./_nuxt/board--5Wu1Jm2.mjs').then((m) => m.default || m),
+    component: () => import('./_nuxt/board-JeaOinCF.mjs').then((m) => m.default || m),
     children: [
       {
         name: "book-board-kr",
@@ -672,7 +672,7 @@ const _routes = [
         meta: {},
         alias: [],
         redirect: void 0 ,
-        component: () => import('./_nuxt/index-Fiyr_SlX.mjs').then((m) => m.default || m)
+        component: () => import('./_nuxt/index-batCOWm3.mjs').then((m) => m.default || m)
       }
     ]
   },
@@ -706,7 +706,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0 ,
-    component: () => import('./_nuxt/list-9HADIjSE.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/list-5H-MmFzG.mjs').then((m) => m.default || m)
   },
   {
     name: "book-music",
@@ -722,7 +722,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0 ,
-    component: () => import('./_nuxt/sale-ePHXl3g7.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/sale-ClU2fahY.mjs').then((m) => m.default || m)
   },
   {
     name: "book-youtube",
@@ -730,7 +730,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0 ,
-    component: () => import('./_nuxt/youtube-qAyGThfK.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/youtube-wfjwY9WT.mjs').then((m) => m.default || m)
   },
   {
     name: "index",
