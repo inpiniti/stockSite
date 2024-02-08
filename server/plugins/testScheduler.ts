@@ -9,17 +9,17 @@ export default defineNitroPlugin(() => {
 function startScheduler() {
   const scheduler = useScheduler();
 
-  scheduler
-    .run(async () => {
-      console.log("스케줄러 시작");
-      // book 에서 kr 과 dc 만 조회해 오는데 중복은 제거 함
-      const books = await uniqueBooks();
+  // scheduler
+  //   .run(async () => {
+  //     console.log("스케줄러 시작");
+  //     // book 에서 kr 과 dc 만 조회해 오는데 중복은 제거 함
+  //     const books = await uniqueBooks();
 
-      for (const book of books) {
-        await getBoard(book.kr, book.dc);
-      }
-    })
-    .everyTenMinutes();
+  //     for (const book of books) {
+  //       await getBoard(book.kr, book.dc);
+  //     }
+  //   })
+  //   .everyTenMinutes();
   // 오후 9시 6분에 실행하려면
   //.cron("47 22 * * *");
 

@@ -43,3 +43,13 @@ export function uniqueBooks() {
       index === self.findIndex((b: any) => b.kr === book.kr)
   );
 }
+
+// kr가 키가 되고 img가 값이 되는 객체 생성
+export function krImgBooks() {
+  const books = useBooks().value;
+  const krImg = books.reduce((acc: any, book: any) => {
+    acc[book.kr] = book.img;
+    return acc;
+  }, {});
+  return krImg;
+}

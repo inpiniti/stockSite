@@ -3,6 +3,9 @@ import InfiniteLoading from "v3-infinite-loading";
 import "v3-infinite-loading/lib/style.css"; //required if you're not going to override default slots
 
 const boards = ref<any[]>([]);
+
+const KR_IMG_BOOKS = krImgBooks();
+
 const page = ref(1);
 const pageBoards = computed(() => {
   return boards.value.slice(0, page.value * 20);
@@ -117,20 +120,29 @@ async function onClickBoardDetail(board: any) {
 
           <div
             class="p-4 flex w-full absolute bottom-0 text-white justify-between gap-4 items-end"
+            style="pointer-events: none"
           >
-            <div class="flex-col" style="pointer-events: none">
-              <div class="line-clamp-3 overflow-hidden">
-                {{ board.content }}
-              </div>
-              <div class="flex text-xs gap-2">
-                <div class="font-normal">
-                  {{ timeAgo(board.date) }}
+            <div class="flex gap-4">
+              <img
+                class="w-fit h-24 rounded-md"
+                :src="KR_IMG_BOOKS[board.kr]"
+              />
+              <div class="flex-col">
+                <div class="line-clamp-3 overflow-hidden">
+                  {{ board.content }}
+                </div>
+                <div class="flex text-xs gap-2">
+                  <div class="font-normal">
+                    {{ timeAgo(board.date) }}
+                  </div>
                 </div>
               </div>
             </div>
+
             <div class="flex flex-col gap-2 text-xl items-center">
               <div
                 class="flex flex-col gap-1 items-center"
+                style="pointer-events: auto"
                 @click="onClickBoardDetail(board)"
               >
                 <font-awesome-icon :icon="['far', 'comment']" />
@@ -138,19 +150,13 @@ async function onClickBoardDetail(board: any) {
                   {{ board.number }}
                 </div>
               </div>
-              <div
-                class="flex flex-col gap-1 items-center"
-                style="pointer-events: none"
-              >
+              <div class="flex flex-col gap-1 items-center">
                 <font-awesome-icon :icon="['far', 'eye']" />
                 <div class="text-sm">
                   {{ board.count }}
                 </div>
               </div>
-              <div
-                class="flex flex-col gap-1 items-center"
-                style="pointer-events: none"
-              >
+              <div class="flex flex-col gap-1 items-center">
                 <font-awesome-icon :icon="['fas', 'star']" />
                 <div class="text-sm">
                   {{ board.recommend }}
