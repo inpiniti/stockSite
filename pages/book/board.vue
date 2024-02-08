@@ -122,9 +122,9 @@ async function onClickBoardDetail(board: any) {
             class="p-4 flex w-full absolute bottom-0 text-white justify-between gap-4 items-end"
             style="pointer-events: none"
           >
-            <div class="flex gap-4">
+            <div class="flex gap-4 items-end">
               <img
-                class="w-fit h-24 rounded-md"
+                class="h-16 rounded-md object-cover"
                 :src="KR_IMG_BOOKS[board.kr]"
               />
               <div class="flex-col">
