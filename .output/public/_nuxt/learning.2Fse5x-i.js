@@ -1,1 +1,0 @@
-import{_ as o}from"./Header.vue.uJH5GaMP.js";import{_ as t}from"./_plugin-vue_export-helper.x3n3nnut.js";import{c,b as n,o as r}from"./entry.yfXRElsi.js";const s={},_={class:"p-4"};function a(i,m){const e=o;return r(),c("div",_,[n(e,{title:"주식 학습 모델",description:"학습된 주식의 모델을 보여줍니다."})])}const l=t(s,[["render",a]]);export{l as default};
