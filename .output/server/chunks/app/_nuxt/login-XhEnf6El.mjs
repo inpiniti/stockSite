@@ -13,6 +13,11 @@ import 'node:http';
 import 'node:https';
 import 'fs';
 import 'path';
+import '@supabase/supabase-js';
+import 'axios';
+import 'cheerio';
+import 'iconv-lite';
+import 'node-cron';
 import 'node:fs';
 import 'node:url';
 import 'ipx';
@@ -32,7 +37,6 @@ import 'tailwind-merge';
 import 'lucide-vue-next';
 import '@vueuse/core';
 import './state-0C5oRJ7z.mjs';
-import '@supabase/supabase-js';
 
 const _sfc_main$1 = /* @__PURE__ */ defineComponent({
   __name: "CardFooter",

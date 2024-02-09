@@ -28,6 +28,11 @@ import 'node:http';
 import 'node:https';
 import 'fs';
 import 'path';
+import '@supabase/supabase-js';
+import 'axios';
+import 'cheerio';
+import 'iconv-lite';
+import 'node-cron';
 import 'node:fs';
 import 'node:url';
 import 'ipx';
@@ -42,7 +47,6 @@ import '@fortawesome/free-brands-svg-icons';
 import '@yeger/vue-masonry-wall';
 import 'clsx';
 import 'tailwind-merge';
-import '@supabase/supabase-js';
 
 const useDarkmode = () => {
   const darkmode = useStorage("darkmode", false);

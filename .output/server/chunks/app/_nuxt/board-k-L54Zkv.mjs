@@ -21,6 +21,11 @@ import 'node:http';
 import 'node:https';
 import 'fs';
 import 'path';
+import '@supabase/supabase-js';
+import 'axios';
+import 'cheerio';
+import 'iconv-lite';
+import 'node-cron';
 import 'node:fs';
 import 'node:url';
 import 'ipx';
@@ -36,7 +41,6 @@ import '@yeger/vue-masonry-wall';
 import 'clsx';
 import 'tailwind-merge';
 import './useSupabase-vnVKN2Il.mjs';
-import '@supabase/supabase-js';
 
 const [useProvideCarousel, useInjectCarousel] = createInjectionState(
   ({
