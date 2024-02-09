@@ -10,6 +10,8 @@ let grid: any = null;
 
 const KR_IMG_BOOKS = krImgBooks();
 
+const PAGE = 5;
+
 const page = ref(1);
 const pageBoards = ref<any>([]);
 // computed(() => {
@@ -26,7 +28,7 @@ onMounted(async () => {
     console.error(error);
   } else {
     boards.value = data ?? [];
-    pageBoards.value = [...boards.value.slice(0, 20)];
+    pageBoards.value = [...boards.value.slice(0, PAGE)];
 
     grid = document.querySelector(".grid");
 
@@ -57,23 +59,12 @@ function infiniteHandler($state: any) {
       // 예: 데이터를 불러오는 코드
       page.value++;
       const nextpage = [
-        ...boards.value.slice((page.value - 1) * 20, page.value * 20),
+        ...boards.value.slice((page.value - 1) * PAGE, page.value * PAGE),
       ];
 
       pageBoards.value.push(...nextpage);
 
       //pageBoards.value = [...pageBoards.value, ...nextpage];
-
-      setTimeout(() => {
-        $state.loaded();
-      });
-    } catch (error) {
-      // 오류 처리
-      console.error(error);
-    } finally {
-      // 실행 중 플래그를 해제
-      clearTimeout(time);
-      boardAddState.value = false;
 
       grid = document.querySelector(".grid");
 
@@ -85,13 +76,14 @@ function infiniteHandler($state: any) {
         });
       });
 
-      // 스크롤 위치 복원
-      // setTimeout(() => {
-      //   nextTick(() => {
-      //     console.log(scrollPosition);
-      //     scrollContainer.value.scrollTo(0, scrollPosition);
-      //   });
-      // });
+      setTimeout(() => {
+        $state.loaded();
+        clearTimeout(time);
+        boardAddState.value = false;
+      }, 1000);
+    } catch (error) {
+      // 오류 처리
+      console.error(error);
     }
   }); // 1000ms (1초) 딜레이
 }
@@ -256,33 +248,22 @@ async function onClickBoardDetail(board: any) {
       </div>
     </div>
     <!-- </masonry-wall> -->
+
     <div class="w-full rounded-md p-2 flex items-center justify-center">
-      <font-awesome-icon :icon="['fas', 'circle-notch']" spin />
+      <InfiniteLoading
+        v-if="pageBoards.length > 0"
+        @infinite="infiniteHandler"
+      />
     </div>
-    <InfiniteLoading v-if="pageBoards.length > 0" @infinite="infiniteHandler" />
   </div>
 </template>
 <style scoped>
 /* ---- grid ---- */
-
-.grid {
-}
 
 /* clear fix */
 .grid:after {
   content: "";
   display: block;
   clear: both;
-}
-
-/* ---- .grid-item ---- */
-
-.grid-item {
-  float: left;
-}
-
-.grid-item img {
-  display: block;
-  max-width: 100%;
 }
 </style>
