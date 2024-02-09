@@ -84,7 +84,39 @@ module.exports = {
         192: "48rem",
         256: "64rem",
       },
+      gridColumnCount: {
+        5: "5",
+        4: "4",
+        3: "3",
+        2: "2",
+        1: "1",
+      },
+      gridColumnGap: {
+        1: "1em",
+      },
     },
   },
-  plugins: [animate],
+  plugins: [
+    animate,
+    function ({ addUtilities }) {
+      const newUtilities = {
+        ".column-count-5": {
+          columnCount: "5",
+        },
+        ".column-count-4": {
+          columnCount: "4",
+        },
+        ".column-count-3": {
+          columnCount: "3",
+        },
+        ".column-count-2": {
+          columnCount: "2",
+        },
+        ".column-gap-1": {
+          columnGap: "1em",
+        },
+      };
+      addUtilities(newUtilities);
+    },
+  ],
 };

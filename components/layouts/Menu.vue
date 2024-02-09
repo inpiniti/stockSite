@@ -93,9 +93,6 @@ onMounted(async () => {
           </MenubarMenu>
           <MenubarMenu>
             <MenubarTrigger class="font-bold">inpiniti</MenubarTrigger>
-          </MenubarMenu>
-          <MenubarMenu>
-            <MenubarTrigger>만든사람</MenubarTrigger>
             <MenubarContent>
               <MenubarRadioGroup value="benoit">
                 <MenubarRadioItem value="andy" @click="email">
