@@ -160,13 +160,15 @@ async function onClickBoardDetail(board: any) {
       >
         <div class="relative w-full">
           <div
-            class="absolute z-10 p-2 text-white"
+            class="absolute z-10 p-2 text-white w-2/3"
             style="pointer-events: none"
           >
-            <div class="font-bold">
+            <div class="font-bold line-clamp-2">
               {{ (board as any).title }}
             </div>
-            <div class="text-sm">
+            <div
+              class="text-sm overflow-hidden whitespace-nowrap overflow-ellipsis"
+            >
               {{ (board as any).writer }}
             </div>
           </div>
@@ -179,10 +181,10 @@ async function onClickBoardDetail(board: any) {
               >
                 <div class="relative h-full">
                   <img
-                    class="md:rounded-md min-h-96 max-h-256 h-full w-full object-scale-down"
+                    class="md:rounded-md min-h-56 max-h-256 h-full w-full object-scale-down"
                     :src="replaceDomain(img).replace(/co\.kr/g, 'com')"
                   />
-                  <Badge class="absolute top-4 right-4 bg-opacity-50 bg-black">
+                  <Badge class="absolute top-3 right-3 bg-opacity-50 bg-black">
                     {{ index + 1 }} /
                     {{ imgLinkParse((board as any).link).length }}
                   </Badge>
@@ -214,7 +216,7 @@ async function onClickBoardDetail(board: any) {
                 :src="KR_IMG_BOOKS[(board as any).kr]"
               />
               <div class="flex-col flex-1 overflow-hidden">
-                <div class="line-clamp-3">
+                <div class="line-clamp-2">
                   {{ (board as any).content }}
                 </div>
                 <div class="flex text-xs gap-2">
