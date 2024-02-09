@@ -28,7 +28,7 @@ onMounted(async () => {
     console.error(error);
   } else {
     boards.value = data ?? [];
-    pageBoards.value = [...boards.value.slice(0, PAGE)];
+    pageBoards.value = [...boards.value.slice(0, 30)];
 
     grid = document.querySelector(".grid");
 
