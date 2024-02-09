@@ -1,5 +1,5 @@
 import { hasInjectionContext, inject, version, unref, defineComponent, h, computed, ref, provide, useSSRContext, shallowReactive, watch, Suspense, nextTick, Transition, mergeProps, withCtx, createTextVNode, toDisplayString, isVNode, createVNode, resolveDynamicComponent, openBlock, createBlock, createCommentVNode, Fragment, renderList, renderSlot, createApp, effectScope, reactive, getCurrentInstance, defineAsyncComponent, onErrorCaptured, onServerPrefetch, toRef, shallowRef, isReadonly, isRef, isShallow, isReactive, toRaw } from 'vue';
-import { i as useRuntimeConfig$1, $ as $fetch, k as withQuery, b as hasProtocol, p as parseURL, l as isScriptProtocol, j as joinURL, m as createError$1, n as defu, s as sanitizeStatusCode, o as createHooks } from '../user.mjs';
+import { u as useRuntimeConfig$1, $ as $fetch, f as withQuery, b as hasProtocol, p as parseURL, i as isScriptProtocol, j as joinURL, k as createError$1, l as defu, s as sanitizeStatusCode, m as createHooks } from '../user.mjs';
 import { getActiveHead } from 'unhead';
 import { defineHeadPlugin } from '@unhead/shared';
 import { useRoute as useRoute$1, RouterView, createMemoryHistory, createRouter, START_LOCATION } from 'vue-router';
@@ -19,11 +19,6 @@ import 'node:http';
 import 'node:https';
 import 'fs';
 import 'path';
-import '@supabase/supabase-js';
-import 'axios';
-import 'cheerio';
-import 'iconv-lite';
-import 'node-cron';
 import 'node:fs';
 import 'node:url';
 import 'ipx';
@@ -649,7 +644,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0 ,
-    component: () => import('./_nuxt/_board-xE_ZM-Oo.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/_board-2XcAdCqN.mjs').then((m) => m.default || m)
   },
   {
     name: void 0,
@@ -657,7 +652,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0 ,
-    component: () => import('./_nuxt/board-k-L54Zkv.mjs').then((m) => m.default || m),
+    component: () => import('./_nuxt/board-Ts15Pv8f.mjs').then((m) => m.default || m),
     children: [
       {
         name: "book-board-kr",
@@ -681,7 +676,7 @@ const _routes = [
         meta: {},
         alias: [],
         redirect: void 0 ,
-        component: () => import('./_nuxt/index-rQpVoIKh.mjs').then((m) => m.default || m)
+        component: () => import('./_nuxt/index-eeeE_I7g.mjs').then((m) => m.default || m)
       }
     ]
   },
@@ -715,7 +710,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0 ,
-    component: () => import('./_nuxt/list-jRTNVcVY.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/list-B7rypnVN.mjs').then((m) => m.default || m)
   },
   {
     name: "book-music",
@@ -731,7 +726,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0 ,
-    component: () => import('./_nuxt/sale-gBJgmxmw.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/sale-yaFMv2yX.mjs').then((m) => m.default || m)
   },
   {
     name: "book-youtube",
@@ -739,7 +734,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0 ,
-    component: () => import('./_nuxt/youtube-jsl7DISv.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/youtube-dOe_uUF8.mjs').then((m) => m.default || m)
   },
   {
     name: "index",
@@ -1112,7 +1107,7 @@ const plugins = [
 ];
 const layouts = {
   blank: () => import('./_nuxt/blank-dw5w2ZJb.mjs').then((m) => m.default || m),
-  default: () => import('./_nuxt/default-3mONiOkQ.mjs').then((m) => m.default || m)
+  default: () => import('./_nuxt/default-YDCyVpY5.mjs').then((m) => m.default || m)
 };
 const LayoutLoader = defineComponent({
   name: "LayoutLoader",

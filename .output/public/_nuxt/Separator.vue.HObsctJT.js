@@ -1,0 +1,1 @@
+import{n as e,o as n,P as r,G as t,x as s,H as l,ao as c}from"./entry.yfXRElsi.js";const _=e({__name:"Separator",props:{orientation:{},decorative:{type:Boolean},asChild:{type:Boolean},as:{},class:{}},setup(o){const a=o;return(p,i)=>(n(),r(s(c),{class:t([s(l)("shrink-0 bg-border",a.class),a.orientation==="vertical"?"w-px h-full":"h-px w-full"])},null,8,["class"]))}});export{_};

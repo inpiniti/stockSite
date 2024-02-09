@@ -17,11 +17,6 @@ import 'node:http';
 import 'node:https';
 import 'fs';
 import 'path';
-import '@supabase/supabase-js';
-import 'axios';
-import 'cheerio';
-import 'iconv-lite';
-import 'node-cron';
 import 'node:fs';
 import 'node:url';
 import 'ipx';
@@ -37,6 +32,7 @@ import '@yeger/vue-masonry-wall';
 import 'clsx';
 import 'tailwind-merge';
 import './state-0C5oRJ7z.mjs';
+import '@supabase/supabase-js';
 
 const _sfc_main$2 = /* @__PURE__ */ defineComponent({
   __name: "namuWiki",
