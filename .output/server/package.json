@@ -40,6 +40,8 @@
     "@vue/shared": "3.4.15",
     "@vueuse/core": "10.7.2",
     "@vueuse/shared": "10.7.2",
+    "@yeger/vue-masonry-wall": "5.0.6",
+    "@yeger/vue-masonry-wall-core": "5.0.5",
     "asynckit": "0.4.0",
     "axios": "1.6.7",
     "boolbase": "1.0.0",

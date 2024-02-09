@@ -1,16 +1,16 @@
-import { d as defineEventHandler, u as useSupabase } from './user.mjs';
+import { d as defineEventHandler } from './user.mjs';
+import { u as useSupabase } from './index.mjs';
 import axios from 'axios';
 import iconv from 'iconv-lite';
 import 'node:http';
 import 'node:https';
 import 'fs';
 import 'path';
-import '@supabase/supabase-js';
-import 'cheerio';
-import 'node-cron';
 import 'node:fs';
 import 'node:url';
 import 'ipx';
+import '@supabase/supabase-js';
+import 'cheerio';
 
 const youtube = defineEventHandler(async (event) => {
   const { data: video_ids } = await useSupabase().from("youtube").select("video_id");
