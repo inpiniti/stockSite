@@ -94,6 +94,14 @@ module.exports = {
       gridColumnGap: {
         1: "1em",
       },
+      screens: {
+        "3xl": "1920px",
+        "4xl": "2560px",
+        "5xl": "3840px",
+      },
+      spacing: {
+        "1/7": "14.2857143%",
+      },
     },
   },
   plugins: [

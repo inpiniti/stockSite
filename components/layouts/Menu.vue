@@ -154,6 +154,9 @@ onMounted(async () => {
           <Button v-else variant="ghost" @click="dialogLoginOpen = true">
             안녕하세요.
           </Button>
+          <Button variant="ghost" @click="useDarkmode().toggleDarkmode()">
+            dark
+          </Button>
           <!-- <Button @click="logininfo">로그인 정보</Button> -->
         </div>
       </div>

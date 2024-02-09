@@ -2,7 +2,11 @@
 import InfiniteLoading from "v3-infinite-loading";
 import "v3-infinite-loading/lib/style.css"; //required if you're not going to override default slots
 
+import imagesLoaded from "imagesloaded";
+
 const boards = ref<any[]>([]);
+
+let grid: any = null;
 
 const KR_IMG_BOOKS = krImgBooks();
 
@@ -23,22 +27,32 @@ onMounted(async () => {
   } else {
     boards.value = data ?? [];
     pageBoards.value = [...boards.value.slice(0, 20)];
+
+    grid = document.querySelector(".grid");
+
+    imagesLoaded(grid, function () {
+      // init Isotope after all images have loaded
+      new Masonry(grid, {
+        itemSelector: ".grid-item",
+        percentPosition: true,
+      });
+    });
   }
 });
 
 const boardAddState = ref(false);
-const scrollContainer = useState("scrollContainer", () => null);
+//const scrollContainer = useState("scrollContainer", () => null);
 
 function infiniteHandler($state: any) {
   if (boardAddState.value) return;
   boardAddState.value = true;
 
-  let scrollPosition = 0;
+  //let scrollPosition = 0;
 
   // 딜레이 후 함수의 주요 로직 실행
   const time = setTimeout(() => {
     try {
-      scrollPosition = scrollContainer.value.scrollTop;
+      //scrollPosition = scrollContainer.value.scrollTop;
       // 여기에 함수의 주요 로직을 작성
       // 예: 데이터를 불러오는 코드
       page.value++;
@@ -46,7 +60,9 @@ function infiniteHandler($state: any) {
         ...boards.value.slice((page.value - 1) * 20, page.value * 20),
       ];
 
-      pageBoards.value = [...pageBoards.value, ...nextpage];
+      pageBoards.value.push(...nextpage);
+
+      //pageBoards.value = [...pageBoards.value, ...nextpage];
 
       setTimeout(() => {
         $state.loaded();
@@ -59,13 +75,23 @@ function infiniteHandler($state: any) {
       clearTimeout(time);
       boardAddState.value = false;
 
-      // 스크롤 위치 복원
-      setTimeout(() => {
-        nextTick(() => {
-          console.log(scrollPosition);
-          scrollContainer.value.scrollTo(0, scrollPosition);
+      grid = document.querySelector(".grid");
+
+      imagesLoaded(grid, function () {
+        // init Isotope after all images have loaded
+        new Masonry(grid, {
+          itemSelector: ".grid-item",
+          percentPosition: true,
         });
       });
+
+      // 스크롤 위치 복원
+      // setTimeout(() => {
+      //   nextTick(() => {
+      //     console.log(scrollPosition);
+      //     scrollContainer.value.scrollTo(0, scrollPosition);
+      //   });
+      // });
     }
   }); // 1000ms (1초) 딜레이
 }
@@ -110,7 +136,7 @@ async function onClickBoardDetail(board: any) {
     :reply="reply"
     @update:open="boardDetail = !boardDetail"
   />
-  <div>
+  <div class="md:p-2 md:py-4">
     <!-- <div
       class="grid sm:grid-cols-1 md:grid-cols-2 lg:md:grid-cols-3 xl:md:grid-cols-4 gap-4 overflow-hidden"
     > -->
@@ -119,13 +145,19 @@ async function onClickBoardDetail(board: any) {
       style="column-gap: 1em"
     > -->
 
-    <masonry-wall
+    <!-- <masonry-wall
       :items="pageBoards"
       :ssr-columns="20"
       :column-width="300"
       :gap="16"
-    >
-      <template #default="{ item: board }" class="sm:w-screen md:w-full mb-4">
+    > -->
+    <div class="grid">
+      <div class="grid-sizer"></div>
+
+      <div
+        class="w-screen mb-4 grid-item md:px-2 md:w-1/2 lg:w-1/3 xl:w-1/4 2xl:w-1/5 3xl:w-1/6 4xl:w-1/7"
+        v-for="board in pageBoards"
+      >
         <div class="relative w-full">
           <div
             class="absolute z-10 p-2 text-white"
@@ -147,7 +179,7 @@ async function onClickBoardDetail(board: any) {
               >
                 <div class="relative h-full">
                   <img
-                    class="lg:rounded-md min-h-96 max-h-256 h-full w-full object-scale-down"
+                    class="md:rounded-md min-h-96 max-h-256 h-full w-full object-scale-down"
                     :src="replaceDomain(img).replace(/co\.kr/g, 'com')"
                   />
                   <Badge class="absolute top-4 right-4 bg-opacity-50 bg-black">
@@ -159,7 +191,7 @@ async function onClickBoardDetail(board: any) {
             </CarouselContent>
           </Carousel>
           <div
-            class="absolute top-0 left-0 w-full h-full lg:rounded-md"
+            class="absolute top-0 left-0 w-full h-full md:rounded-md"
             style="
               background: linear-gradient(
                 to bottom,
@@ -173,16 +205,16 @@ async function onClickBoardDetail(board: any) {
           ></div>
 
           <div
-            class="p-4 flex w-full absolute bottom-0 text-white justify-between gap-4 items-end"
+            class="p-4 flex w-full absolute bottom-0 text-white justify-between gap-4 items-end overflow-hidden"
             style="pointer-events: none"
           >
-            <div class="flex gap-4 items-end">
+            <div class="flex gap-4 items-end flex-1 overflow-hidden">
               <img
-                class="h-16 rounded-md object-cover"
+                class="h-16 rounded-md object-cover shrink-0"
                 :src="KR_IMG_BOOKS[(board as any).kr]"
               />
-              <div class="flex-col">
-                <div class="line-clamp-3 overflow-hidden">
+              <div class="flex-col flex-1 overflow-hidden">
+                <div class="line-clamp-3">
                   {{ (board as any).content }}
                 </div>
                 <div class="flex text-xs gap-2">
@@ -193,7 +225,7 @@ async function onClickBoardDetail(board: any) {
               </div>
             </div>
 
-            <div class="flex flex-col gap-2 text-xl items-center">
+            <div class="flex flex-col gap-2 text-xl items-center shrink-0">
               <div
                 class="flex flex-col gap-1 items-center"
                 style="pointer-events: auto"
@@ -219,8 +251,9 @@ async function onClickBoardDetail(board: any) {
             </div>
           </div>
         </div>
-      </template>
-    </masonry-wall>
+      </div>
+    </div>
+    <!-- </masonry-wall> -->
     <div class="w-full rounded-md p-2 flex items-center justify-center">
       <font-awesome-icon :icon="['fas', 'circle-notch']" spin />
     </div>
@@ -228,10 +261,26 @@ async function onClickBoardDetail(board: any) {
   </div>
 </template>
 <style scoped>
+/* ---- grid ---- */
+
 .grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  grid-auto-rows: minmax(100px, auto);
-  gap: 1em;
+}
+
+/* clear fix */
+.grid:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+/* ---- .grid-item ---- */
+
+.grid-item {
+  float: left;
+}
+
+.grid-item img {
+  display: block;
+  max-width: 100%;
 }
 </style>
