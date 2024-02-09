@@ -657,7 +657,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0 ,
-    component: () => import('./_nuxt/board-XFcJp2vo.mjs').then((m) => m.default || m),
+    component: () => import('./_nuxt/board-Nt6X4vKY.mjs').then((m) => m.default || m),
     children: [
       {
         name: "book-board-kr",
