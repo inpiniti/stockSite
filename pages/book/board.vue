@@ -1,29 +1,55 @@
 <script setup lang="ts">
+import { useToast } from "@/components/ui/toast/use-toast";
 import InfiniteLoading from "v3-infinite-loading";
 import "v3-infinite-loading/lib/style.css"; //required if you're not going to override default slots
 
 import imagesLoaded from "imagesloaded";
 
 const boards = ref<any[]>([]);
+const boards_kr = ref<any[]>([]);
+const selectedOrderBy = ref("date");
+
+function updateSelectedOrderBy() {
+  searchBooks(selectedBook.value);
+}
 
 let grid: any = null;
 
 const KR_IMG_BOOKS = krImgBooks();
+const books = uniqueBooks();
+const selectedBook = ref();
 
-const PAGE = 5;
+function changeSelectedBook() {
+  page.value = 10;
+  console.log("changeSelectedBook");
+  searchBooks(selectedBook.value);
+}
 
-const page = ref(1);
+const PAGE = 2;
+
+const page = ref(10);
 const pageBoards = ref<any>([]);
 // computed(() => {
 //   return boards.value.slice(0, page.value * 20);
 // });
 
 onMounted(async () => {
-  const { data, error } = await useSupabase()
-    .value.from("board")
-    .select()
-    .neq("link", null)
-    .order("date", { ascending: false });
+  searchBooks();
+  boards_kr.value = await getKr();
+});
+
+async function searchBooks(kr?: string) {
+  let query = useSupabase().value.from("board").select().neq("link", null);
+
+  // .eq("kr", kr)
+  if (kr) {
+    // kr이 존재하는 경우에만 .eq("kr", kr)를 적용
+    query = query.eq("kr", kr);
+  }
+
+  const { data, error } = await query.order(selectedOrderBy.value, {
+    ascending: false,
+  });
   if (error) {
     console.error(error);
   } else {
@@ -40,13 +66,21 @@ onMounted(async () => {
       });
     });
   }
-});
+}
 
 const boardAddState = ref(false);
 //const scrollContainer = useState("scrollContainer", () => null);
 
 function infiniteHandler($state: any) {
   if (boardAddState.value) return;
+  console.log(`${boards.value.length} < ${(page.value - 1) * PAGE}`);
+  if (boards.value.length < (page.value - 1) * PAGE) {
+    const { toast } = useToast();
+    toast({
+      title: "게시판 끝에 도달하였습니다.",
+    });
+    return;
+  }
   boardAddState.value = true;
 
   //let scrollPosition = 0;
@@ -77,13 +111,19 @@ function infiniteHandler($state: any) {
       });
 
       setTimeout(() => {
-        $state.loaded();
+        if (boards.value.length < page.value * PAGE) {
+          $state.loaded();
+        } else {
+          $state.complete();
+        }
+
         clearTimeout(time);
         boardAddState.value = false;
-      }, 1000);
+      }, 100);
     } catch (error) {
       // 오류 처리
       console.error(error);
+      $state.error();
     }
   }); // 1000ms (1초) 딜레이
 }
@@ -128,6 +168,41 @@ async function onClickBoardDetail(board: any) {
     :reply="reply"
     @update:open="boardDetail = !boardDetail"
   />
+  <div class="pt-4 px-4 flex gap-4">
+    <Select v-model="selectedBook" @update:model-value="changeSelectedBook">
+      <SelectTrigger class="w-fit">
+        <SelectValue placeholder="Select 만화책" />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectGroup>
+          <SelectItem :value="book.kr" v-for="book in boards_kr">
+            <div class="flex items-center gap-2">
+              <img
+                class="h-8 w-fit rounded-md object-cover"
+                :src="KR_IMG_BOOKS[book.kr]"
+              />
+              <div>
+                {{ book.kr }}
+              </div>
+            </div>
+          </SelectItem>
+        </SelectGroup>
+      </SelectContent>
+    </Select>
+    <!-- [ ] orderBy -->
+    <Tabs
+      v-model="selectedOrderBy"
+      @update:model-value="updateSelectedOrderBy"
+      class="w-[400px]"
+    >
+      <TabsList>
+        <TabsTrigger value="date"> 시간순 </TabsTrigger>
+        <TabsTrigger value="recommend"> 추천순 </TabsTrigger>
+        <TabsTrigger value="number"> 덧글순 </TabsTrigger>
+        <TabsTrigger value="count"> 조회순 </TabsTrigger>
+      </TabsList>
+    </Tabs>
+  </div>
   <!-- [ ] 모바일인 경우는 일반 -->
   <div class="sm:hidden">
     <div class="w-screen mb-4" v-for="board in pageBoards">
@@ -229,7 +304,7 @@ async function onClickBoardDetail(board: any) {
     </div>
     <div class="w-full rounded-md p-2 flex items-center justify-center">
       <InfiniteLoading
-        v-if="pageBoards.length > 0"
+        v-if="pageBoards.length > 0 && boardAddState == false"
         @infinite="infiniteHandler"
       />
     </div>
@@ -357,7 +432,7 @@ async function onClickBoardDetail(board: any) {
 
     <div class="w-full rounded-md p-2 flex items-center justify-center">
       <InfiniteLoading
-        v-if="pageBoards.length > 0"
+        v-if="pageBoards.length > 0 && boardAddState == false"
         @infinite="infiniteHandler"
       />
     </div>
