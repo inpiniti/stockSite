@@ -7,7 +7,29 @@ import imagesLoaded from "imagesloaded";
 
 const boards = ref<any[]>([]);
 const boards_kr = ref<any[]>([]);
+const boards_subject = ref<any[]>([
+  "스포",
+  "핫산",
+  "건국담",
+  "창작",
+  "번역",
+  "짤",
+  "유출",
+  "게임",
+  "팬아트",
+  "분석",
+  "창조",
+  "정보",
+  "일반",
+  "이벤트",
+  "구매",
+  "원작",
+  "질문",
+  "성지",
+  "잡담",
+]);
 const selectedOrderBy = ref("date");
+const selectedSubject = ref();
 
 function updateSelectedOrderBy() {
   searchBooks(selectedBook.value);
@@ -20,14 +42,14 @@ const books = uniqueBooks();
 const selectedBook = ref();
 
 function changeSelectedBook() {
-  page.value = 10;
+  page.value = 1;
   console.log("changeSelectedBook");
   searchBooks(selectedBook.value);
 }
 
-const PAGE = 2;
+const PAGE = 1;
 
-const page = ref(10);
+const page = ref(1);
 const pageBoards = ref<any>([]);
 // computed(() => {
 //   return boards.value.slice(0, page.value * 20);
@@ -36,6 +58,7 @@ const pageBoards = ref<any>([]);
 onMounted(async () => {
   searchBooks();
   boards_kr.value = await getKr();
+  //boards_subject.value = await getSubject();
 });
 
 async function searchBooks(kr?: string) {
@@ -47,6 +70,10 @@ async function searchBooks(kr?: string) {
     query = query.eq("kr", kr);
   }
 
+  if (selectedSubject.value) {
+    query = query.ilike("subject", `%${selectedSubject.value}%`);
+  }
+
   const { data, error } = await query.order(selectedOrderBy.value, {
     ascending: false,
   });
@@ -54,7 +81,7 @@ async function searchBooks(kr?: string) {
     console.error(error);
   } else {
     boards.value = data ?? [];
-    pageBoards.value = [...boards.value.slice(0, 20)];
+    pageBoards.value = [...boards.value.slice(0, page.value * PAGE)];
 
     grid = document.querySelector(".grid");
 
@@ -119,7 +146,7 @@ function infiniteHandler($state: any) {
 
         clearTimeout(time);
         boardAddState.value = false;
-      }, 100);
+      }, 300);
     } catch (error) {
       // 오류 처리
       console.error(error);
@@ -168,7 +195,9 @@ async function onClickBoardDetail(board: any) {
     :reply="reply"
     @update:open="boardDetail = !boardDetail"
   />
-  <div class="pt-4 px-4 flex gap-4">
+  <div
+    class="p-4 flex gap-4 fixed top-13 rounded-t-sm w-full z-20 bg-white border-b"
+  >
     <Select v-model="selectedBook" @update:model-value="changeSelectedBook">
       <SelectTrigger class="w-fit">
         <SelectValue placeholder="Select 만화책" />
@@ -185,6 +214,18 @@ async function onClickBoardDetail(board: any) {
                 {{ book.kr }}
               </div>
             </div>
+          </SelectItem>
+        </SelectGroup>
+      </SelectContent>
+    </Select>
+    <Select v-model="selectedSubject" @update:model-value="changeSelectedBook">
+      <SelectTrigger class="w-fit">
+        <SelectValue placeholder="Select Subject" />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectGroup>
+          <SelectItem :value="subject" v-for="subject in boards_subject">
+            {{ subject }}
           </SelectItem>
         </SelectGroup>
       </SelectContent>
@@ -309,7 +350,7 @@ async function onClickBoardDetail(board: any) {
       />
     </div>
   </div>
-  <div class="md:p-2 md:py-4 hidden sm:block">
+  <div class="md:p-2 md:py-4 md:pt-20 hidden sm:block">
     <!-- <div
       class="grid sm:grid-cols-1 md:grid-cols-2 lg:md:grid-cols-3 xl:md:grid-cols-4 gap-4 overflow-hidden"
     > -->

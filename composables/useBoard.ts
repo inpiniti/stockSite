@@ -23,12 +23,28 @@ export const useBoard = () => {
 };
 
 // supabase 에서 board 를 가져오는데, kr만 가져오는데, 중복은 제거 하고 싶다.
-export async function getKr(boards: Board[]) {
+export async function getKr() {
   // group by
   const { data, error } = await useSupabase()
     .value.from("board_kr")
     .select()
     .order("kr");
+
+  if (error) {
+    console.error(error);
+    return [];
+  }
+
+  return data ?? [];
+}
+
+// supabase 에서 board 를 가져오는데, subject만 가져오는데, 중복은 제거 하고 싶다.
+export async function getSubject() {
+  // group by
+  const { data, error } = await useSupabase()
+    .value.from("board_subject")
+    .select()
+    .order("subject");
 
   if (error) {
     console.error(error);
