@@ -25,6 +25,15 @@ const _id_ = defineEventHandler(async (event) => {
     const parsedData = parsing($);
     data = [...data, ...parsedData];
   }
+  if (data.length == 0) {
+    for (let i = 1; i <= 5; i++) {
+      const $ = await fetchData(
+        `https://gall.dcinside.com/board/lists?id=${id}&page=${i}`
+      );
+      const parsedData = parsing($);
+      data = [...data, ...parsedData];
+    }
+  }
   return data;
 });
 function parsing($) {
