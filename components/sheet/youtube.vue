@@ -45,9 +45,6 @@ function videoAdd(video: any) {
 }
 
 onUpdated(async () => {
-  console.log(props.isOpen);
-  console.log(props);
-
   if (props.isOpen) {
     // 유튜브 리스트 가져오기
     refresh();

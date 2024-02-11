@@ -19,7 +19,6 @@ async function youtubeListOpen(book) {
 
   // 시트창 열기
   isOpen.value = true;
-  console.log(isOpen.value);
 }
 
 // {

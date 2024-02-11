@@ -84,10 +84,7 @@ onMounted(async () => {
         <div class="flex">
           <!-- sm: phone, md: phone, lg: ipad, xl: pc -->
           <MenubarMenu>
-            <MenubarTrigger
-              class="xl:hidden block"
-              @click="sheetSideMenuOpen = true"
-            >
+            <MenubarTrigger @click="sheetSideMenuOpen = true">
               <font-awesome-icon :icon="['fas', 'bars']" />
             </MenubarTrigger>
           </MenubarMenu>

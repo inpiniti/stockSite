@@ -40,7 +40,6 @@ function test() {
   // 스크롤 위치 복원
   setTimeout(() => {
     nextTick(() => {
-      console.log(scrollPosition);
       scrollContainer.value.scrollTo(0, scrollPosition);
     });
   });
