@@ -20,6 +20,7 @@ function startScheduler() {
       }
     })
     .everyTenMinutes();
+  //.everySeconds(10);
   // 오후 9시 6분에 실행하려면
   //.cron("47 22 * * *");
 

@@ -1,5 +1,6 @@
 export default defineEventHandler(async (event) => {
   const id = getRouterParam(event, "id");
+
   //const { kr } = getQuery(event);
 
   // id, kr 이 없으면 리턴한다.
@@ -15,6 +16,17 @@ export default defineEventHandler(async (event) => {
     );
     const parsedData = parsing($);
     data = [...data, ...parsedData];
+  }
+
+  // 수집안되고 있던 게시판 처리
+  if (data.length == 0) {
+    for (let i = 1; i <= 5; i++) {
+      const $ = await fetchData(
+        `https://gall.dcinside.com/board/lists?id=${id}&page=${i}`
+      );
+      const parsedData = parsing($);
+      data = [...data, ...parsedData];
+    }
   }
 
   return data;
