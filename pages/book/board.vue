@@ -4,6 +4,17 @@ import InfiniteLoading from "v3-infinite-loading";
 import "v3-infinite-loading/lib/style.css"; //required if you're not going to override default slots
 
 import imagesLoaded from "imagesloaded";
+// 페이징 처리
+import { collapseTextChangeRangesAcrossMultipleVersions } from "typescript";
+
+const PAGE = 10;
+// 불러온 데이터에서 page 처리
+const page = ref(1);
+
+// db에서 가져올때 page 처리
+const server_page = ref(1);
+const server_limit = ref(100);
+const totalPage = ref(0);
 
 const boards = ref<any[]>([]);
 const boards_kr = ref<any[]>([]);
@@ -31,8 +42,13 @@ const boards_subject = ref<any[]>([
 const selectedOrderBy = ref("date");
 const selectedSubject = ref();
 
+// 정렬 변경시
 function updateSelectedOrderBy() {
-  searchBooks(selectedBook.value);
+  boardAddState.value = false;
+  server_page.value = 1;
+
+  page.value = 1;
+  searchBooks();
 }
 
 let grid: any = null;
@@ -41,15 +57,15 @@ const KR_IMG_BOOKS = krImgBooks();
 const books = uniqueBooks();
 const selectedBook = ref();
 
+// 책 선택시 & 부제목 선택시
 function changeSelectedBook() {
+  boardAddState.value = false;
+  server_page.value = 1;
+
   page.value = 1;
-  console.log("changeSelectedBook");
-  searchBooks(selectedBook.value);
+  searchBooks();
 }
 
-const PAGE = 1;
-
-const page = ref(1);
 const pageBoards = ref<any>([]);
 // computed(() => {
 //   return boards.value.slice(0, page.value * 20);
@@ -61,17 +77,38 @@ onMounted(async () => {
   //boards_subject.value = await getSubject();
 });
 
-async function searchBooks(kr?: string) {
-  let query = useSupabase().value.from("board").select().neq("link", null);
+// 책 정보 조회
+async function searchBooks() {
+  console.log("searchBooks");
+  let query = useSupabase()
+    .value.from("board")
+    .select()
+    .neq("link", null)
+    .range(
+      (server_page.value - 1) * server_limit.value,
+      server_page.value * server_limit.value - 1
+    );
+
+  let count_query = useSupabase()
+    .value.from("board")
+    .select("*", { count: "exact", head: true })
+    .neq("link", null);
 
   // .eq("kr", kr)
-  if (kr) {
-    // kr이 존재하는 경우에만 .eq("kr", kr)를 적용
-    query = query.eq("kr", kr);
-  }
+  // if (kr) {
+  //   // kr이 존재하는 경우에만 .eq("kr", kr)를 적용
+  //   query = query.eq("kr", kr);
+  //   count_query = count_query.eq("kr", kr);
+  // }
 
   if (selectedSubject.value) {
     query = query.ilike("subject", `%${selectedSubject.value}%`);
+    count_query = count_query.ilike("subject", `%${selectedSubject.value}%`);
+  }
+
+  if (selectedBook.value) {
+    query = query.eq("kr", selectedBook.value);
+    count_query = count_query.eq("kr", selectedBook.value);
   }
 
   const { data, error } = await query.order(selectedOrderBy.value, {
@@ -81,31 +118,54 @@ async function searchBooks(kr?: string) {
     console.error(error);
   } else {
     boards.value = data ?? [];
-    pageBoards.value = [...boards.value.slice(0, page.value * PAGE)];
+    pageBoards.value = [
+      ...pageBoards.value,
+      ...boards.value.slice(0, page.value * PAGE),
+    ];
 
-    grid = document.querySelector(".grid");
-
-    imagesLoaded(grid, function () {
-      // init Isotope after all images have loaded
-      new Masonry(grid, {
-        itemSelector: ".grid-item",
-        percentPosition: true,
-      });
-    });
+    gridReorder();
   }
+  const {
+    data: countData,
+    error: countError,
+    status,
+    count,
+  } = await count_query;
+  if (countError) {
+    console.error(countError);
+  } else {
+    console.log(countData);
+    console.log(status);
+    console.log(count);
+    totalPage.value = count || 0;
+  }
+}
+
+// 페이지 변경시
+function changePage(newPage: number) {
+  page.value = 1;
+  server_page.value = newPage;
+  boardAddState.value = false;
+
+  const scrollContainer = useState("scrollContainer", () => null);
+  scrollContainer.value.scrollTop = 0;
+
+  searchBooks();
 }
 
 const boardAddState = ref(false);
 //const scrollContainer = useState("scrollContainer", () => null);
 
+// 무한 스크롤 작동시
 function infiniteHandler($state: any) {
+  console.log("infiniteHandler");
   if (boardAddState.value) return;
   console.log(`${boards.value.length} < ${(page.value - 1) * PAGE}`);
-  if (boards.value.length < (page.value - 1) * PAGE) {
-    const { toast } = useToast();
-    toast({
-      title: "게시판 끝에 도달하였습니다.",
-    });
+  if (boards.value.length == page.value * PAGE) {
+    page.value = 1;
+    server_page.value = server_page.value + 1;
+    boardAddState.value = false;
+    searchBooks();
     return;
   }
   boardAddState.value = true;
@@ -115,27 +175,19 @@ function infiniteHandler($state: any) {
   // 딜레이 후 함수의 주요 로직 실행
   const time = setTimeout(() => {
     try {
-      //scrollPosition = scrollContainer.value.scrollTop;
       // 여기에 함수의 주요 로직을 작성
       // 예: 데이터를 불러오는 코드
       page.value++;
       const nextpage = [
         ...boards.value.slice((page.value - 1) * PAGE, page.value * PAGE),
       ];
+      if (nextpage.length == 0) return;
 
       pageBoards.value.push(...nextpage);
 
-      //pageBoards.value = [...pageBoards.value, ...nextpage];
+      pageBoards.value = [...pageBoards.value, ...nextpage];
 
-      grid = document.querySelector(".grid");
-
-      imagesLoaded(grid, function () {
-        // init Isotope after all images have loaded
-        new Masonry(grid, {
-          itemSelector: ".grid-item",
-          percentPosition: true,
-        });
-      });
+      //gridReorder();
 
       setTimeout(() => {
         if (boards.value.length < page.value * PAGE) {
@@ -146,7 +198,7 @@ function infiniteHandler($state: any) {
 
         clearTimeout(time);
         boardAddState.value = false;
-      }, 300);
+      });
     } catch (error) {
       // 오류 처리
       console.error(error);
@@ -154,6 +206,39 @@ function infiniteHandler($state: any) {
     }
   }); // 1000ms (1초) 딜레이
 }
+
+// grid 재정렬
+function gridReorder() {
+  console.log("gridReorder");
+  grid = document.querySelector(".grid");
+  console.log(grid);
+
+  let timeouts = [];
+  for (let i = 0; i < 100; i++) {
+    let timeoutId = setTimeout(() => {
+      new Masonry(grid, {
+        itemSelector: ".grid-item",
+        percentPosition: true,
+      });
+    }, 1000 * i);
+    timeouts.push(timeoutId);
+  }
+
+  // imagesLoaded(grid, function () {
+  //   console.log("imagesLoaded");
+
+  //   for (let timeoutId of timeouts) {
+  //     clearTimeout(timeoutId);
+  //   }
+
+  //   // init Isotope after all images have loaded
+  //   new Masonry(grid, {
+  //     itemSelector: ".grid-item",
+  //     percentPosition: true,
+  //   });
+  // });
+}
+
 // 이미지가 배열 스트링으로 되어 있을 텐데 처리
 function imgLinkParse(link: string) {
   // link 문자열에 []가 없으면 []로 감싸주고
@@ -370,7 +455,7 @@ async function onClickBoardDetail(board: any) {
 
       <div
         class="w-screen mb-4 grid-item md:px-2 md:w-1/2 lg:w-1/3 xl:w-1/4 2xl:w-1/5 3xl:w-1/6 4xl:w-1/7"
-        v-for="board in pageBoards"
+        v-for="board in boards"
       >
         <div class="relative w-full">
           <div
@@ -471,12 +556,47 @@ async function onClickBoardDetail(board: any) {
     </div>
     <!-- </masonry-wall> -->
 
-    <div class="w-full rounded-md p-2 flex items-center justify-center">
+    <Pagination
+      class="flex justify-center"
+      :total="totalPage / 10"
+      :sibling-count="1"
+      show-edges
+      :default-page="1"
+    >
+      <PaginationList v-slot="{ items }" class="flex items-center gap-1">
+        <PaginationFirst />
+        <PaginationPrev />
+
+        <template v-for="(item, index) in items">
+          <PaginationListItem
+            v-if="item.type === 'page'"
+            :key="index"
+            :value="item.value"
+            as-child
+          >
+            <Button
+              class="w-10 h-10 p-0"
+              :variant="item.value === server_page ? 'default' : 'outline'"
+              @click="changePage(item.value)"
+            >
+              {{ item.value }}
+            </Button>
+          </PaginationListItem>
+          <PaginationEllipsis v-else :key="item.type" :index="index" />
+        </template>
+
+        <PaginationNext />
+        <PaginationLast />
+      </PaginationList>
+    </Pagination>
+
+    <!-- <div class="w-full rounded-md p-2 items-center justify-center h-0 hidden">
       <InfiniteLoading
+        class="h-0"
         v-if="pageBoards.length > 0 && boardAddState == false"
         @infinite="infiniteHandler"
       />
-    </div>
+    </div> -->
   </div>
 </template>
 <style scoped>
