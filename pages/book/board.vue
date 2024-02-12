@@ -51,6 +51,8 @@ function updateSelectedOrderBy() {
   server_page.value = 1;
 
   page.value = 1;
+  document.documentElement.scrollTop = 0;
+  pageBoards.value = [];
   searchBooks();
 }
 
@@ -66,6 +68,8 @@ function changeSelectedBook() {
   server_page.value = 1;
 
   page.value = 1;
+  document.documentElement.scrollTop = 0;
+  pageBoards.value = [];
   searchBooks();
 }
 
@@ -82,8 +86,6 @@ onMounted(async () => {
 
 // 책 정보 조회
 async function searchBooks() {
-  document.documentElement.scrollTop = 0;
-
   console.log("searchBooks");
   let query = useSupabase()
     .value.from("board")
@@ -152,6 +154,8 @@ function changePage(newPage: number) {
   server_page.value = newPage;
   boardAddState.value = false;
 
+  document.documentElement.scrollTop = 0;
+  pageBoards.value = [];
   searchBooks();
 }
 
@@ -186,7 +190,7 @@ function infiniteHandler($state: any) {
 
       pageBoards.value.push(...nextpage);
 
-      pageBoards.value = [...pageBoards.value, ...nextpage];
+      //pageBoards.value = [...pageBoards.value, ...nextpage];
 
       //gridReorder();
 
@@ -344,7 +348,7 @@ async function onClickBoardDetail(board: any) {
     </Menubar>
   </div>
   <!-- [ ] 모바일인 경우는 일반 -->
-  <div class="sm:hidden">
+  <div class="sm:hidden pt-10">
     <div class="w-screen mb-4" v-for="board in pageBoards">
       <div class="relative w-full">
         <div
