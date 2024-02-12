@@ -108,12 +108,12 @@ async function searchBooks() {
   //   count_query = count_query.eq("kr", kr);
   // }
 
-  if (selectedSubject.value) {
+  if (selectedSubject.value && selectedSubject.value != "all") {
     query = query.ilike("subject", `%${selectedSubject.value}%`);
     count_query = count_query.ilike("subject", `%${selectedSubject.value}%`);
   }
 
-  if (selectedBook.value) {
+  if (selectedBook.value && selectedBook.value != "all") {
     query = query.eq("kr", selectedBook.value);
     count_query = count_query.eq("kr", selectedBook.value);
   }
@@ -295,15 +295,16 @@ async function onClickBoardDetail(board: any) {
       <!-- sm: phone, md: phone, lg: ipad, xl: pc -->
 
       <Select v-model="selectedBook" @update:model-value="changeSelectedBook">
-        <SelectTrigger class="w-fit border-0">
+        <SelectTrigger class="w-fit border-0 max-w-48">
           <SelectValue placeholder="comic" />
         </SelectTrigger>
-        <SelectContent>
+        <SelectContent class="max-w-96">
           <SelectGroup>
-            <SelectItem :value="book.kr" v-for="book in boards_kr">
+            <SelectItem value="all">전체</SelectItem>
+            <SelectItem class="pl-0" :value="book.kr" v-for="book in boards_kr">
               <div class="flex items-center gap-2">
                 <img
-                  class="h-8 w-fit rounded-md object-cover"
+                  class="h-8 rounded-md object-scale-down"
                   :src="KR_IMG_BOOKS[book.kr]"
                 />
                 <div>
@@ -323,7 +324,12 @@ async function onClickBoardDetail(board: any) {
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
-            <SelectItem :value="subject" v-for="subject in boards_subject">
+            <SelectItem class="pl-0" value="all">전체</SelectItem>
+            <SelectItem
+              class="pl-0"
+              :value="subject"
+              v-for="subject in boards_subject"
+            >
               {{ subject }}
             </SelectItem>
           </SelectGroup>
@@ -338,10 +344,10 @@ async function onClickBoardDetail(board: any) {
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
-            <SelectItem value="date"> 시간순 </SelectItem>
-            <SelectItem value="recommend"> 추천순 </SelectItem>
-            <SelectItem value="number"> 덧글순 </SelectItem>
-            <SelectItem value="count"> 조회순 </SelectItem>
+            <SelectItem class="pl-0" value="date"> 시간순 </SelectItem>
+            <SelectItem class="pl-0" value="recommend"> 추천순 </SelectItem>
+            <SelectItem class="pl-0" value="number"> 덧글순 </SelectItem>
+            <SelectItem class="pl-0" value="count"> 조회순 </SelectItem>
           </SelectGroup>
         </SelectContent>
       </Select>
