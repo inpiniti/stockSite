@@ -12,10 +12,6 @@ export default defineEventHandler(async (event) => {
 
   const esno = "3eabc219ebdd65fe3eef84ed";
 
-  const $ = await fetchData(
-    `https://gall.dcinside.com/mgallery/board/view/?id=${id}&no=${no}`
-  );
-
   const queryString = `id=${id}&no=${no}&cmt_id=${id}&cmt_no=${no}&e_s_n_o=${esno}`;
 
   const formData = new FormData();
@@ -33,7 +29,19 @@ export default defineEventHandler(async (event) => {
     }
   );
 
-  const data = parsing($, String(kr));
+  let $ = await fetchData(
+    `https://gall.dcinside.com/mgallery/board/view/?id=${id}&no=${no}`
+  );
+
+  let data = parsing($, String(kr));
+
+  if (data.content === "") {
+    $ = await fetchData(
+      `https://gall.dcinside.com/board/view/?id=${id}&no=${no}`
+    );
+
+    data = parsing($, String(kr));
+  }
 
   try {
     //const result = await useSupabase().from("board").insert(data);
