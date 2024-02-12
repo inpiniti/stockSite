@@ -657,7 +657,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0 ,
-    component: () => import('./_nuxt/board-bFiIszU2.mjs').then((m) => m.default || m),
+    component: () => import('./_nuxt/board-bnnHPmUI.mjs').then((m) => m.default || m),
     children: [
       {
         name: "book-board-kr",
@@ -699,7 +699,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0 ,
-    component: () => import('./_nuxt/chart-tkrVZ3rn.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/chart-nc4_MmNT.mjs').then((m) => m.default || m)
   },
   {
     name: "book-columns",
@@ -1112,7 +1112,7 @@ const plugins = [
 ];
 const layouts = {
   blank: () => import('./_nuxt/blank-dw5w2ZJb.mjs').then((m) => m.default || m),
-  default: () => import('./_nuxt/default-ZcGGAO7R.mjs').then((m) => m.default || m)
+  default: () => import('./_nuxt/default-3uKIdB9N.mjs').then((m) => m.default || m)
 };
 const LayoutLoader = defineComponent({
   name: "LayoutLoader",
