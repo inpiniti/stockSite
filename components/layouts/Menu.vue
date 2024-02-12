@@ -64,7 +64,7 @@ onMounted(async () => {
 });
 </script>
 <template>
-  <div>
+  <div class="bg-white dark:bg-black">
     <SheetSide
       :open="sheetSideMenuOpen"
       @update:open="sheetSideMenuOpen = false"
@@ -79,7 +79,7 @@ onMounted(async () => {
       @update:open="dialogYoutubeListOpen = !dialogYoutubeListOpen"
     />
     <DialogEmail ref="emailRef" />
-    <Menubar class="lg:border-border border-0 bg-white dark:bg-black">
+    <Menubar class="border-0">
       <div class="flex flex-row justify-between w-full">
         <div class="flex">
           <!-- sm: phone, md: phone, lg: ipad, xl: pc -->

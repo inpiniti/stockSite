@@ -16,6 +16,9 @@ const server_page = ref(1);
 const server_limit = ref(100);
 const totalPage = ref(0);
 
+// 스크롤을 위로 하는지 아래로 하는지에 따라서 메뉴를 숨기거나 보이게 하기 위함
+const isScrollingDown = useState("isScrollingDown");
+
 const boards = ref<any[]>([]);
 const boards_kr = ref<any[]>([]);
 const boards_subject = ref<any[]>([
@@ -79,6 +82,8 @@ onMounted(async () => {
 
 // 책 정보 조회
 async function searchBooks() {
+  document.documentElement.scrollTop = 0;
+
   console.log("searchBooks");
   let query = useSupabase()
     .value.from("board")
@@ -147,14 +152,10 @@ function changePage(newPage: number) {
   server_page.value = newPage;
   boardAddState.value = false;
 
-  const scrollContainer = useState("scrollContainer", () => null);
-  scrollContainer.value.scrollTop = 0;
-
   searchBooks();
 }
 
 const boardAddState = ref(false);
-//const scrollContainer = useState("scrollContainer", () => null);
 
 // 무한 스크롤 작동시
 function infiniteHandler($state: any) {
@@ -281,53 +282,66 @@ async function onClickBoardDetail(board: any) {
     @update:open="boardDetail = !boardDetail"
   />
   <div
-    class="p-4 flex gap-4 fixed top-13 rounded-t-sm w-full z-20 bg-white border-b"
+    class="fixed top-13 w-full z-20 border-y bg-white dark:bg-black"
+    :class="{ hidden: isScrollingDown }"
   >
-    <Select v-model="selectedBook" @update:model-value="changeSelectedBook">
-      <SelectTrigger class="w-fit">
-        <SelectValue placeholder="Select 만화책" />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectGroup>
-          <SelectItem :value="book.kr" v-for="book in boards_kr">
-            <div class="flex items-center gap-2">
-              <img
-                class="h-8 w-fit rounded-md object-cover"
-                :src="KR_IMG_BOOKS[book.kr]"
-              />
-              <div>
-                {{ book.kr }}
-              </div>
-            </div>
-          </SelectItem>
-        </SelectGroup>
-      </SelectContent>
-    </Select>
-    <Select v-model="selectedSubject" @update:model-value="changeSelectedBook">
-      <SelectTrigger class="w-fit">
-        <SelectValue placeholder="Select Subject" />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectGroup>
-          <SelectItem :value="subject" v-for="subject in boards_subject">
-            {{ subject }}
-          </SelectItem>
-        </SelectGroup>
-      </SelectContent>
-    </Select>
     <!-- [ ] orderBy -->
-    <Tabs
-      v-model="selectedOrderBy"
-      @update:model-value="updateSelectedOrderBy"
-      class="w-[400px]"
-    >
-      <TabsList>
-        <TabsTrigger value="date"> 시간순 </TabsTrigger>
-        <TabsTrigger value="recommend"> 추천순 </TabsTrigger>
-        <TabsTrigger value="number"> 덧글순 </TabsTrigger>
-        <TabsTrigger value="count"> 조회순 </TabsTrigger>
-      </TabsList>
-    </Tabs>
+
+    <Menubar class="border-0">
+      <!-- sm: phone, md: phone, lg: ipad, xl: pc -->
+
+      <Select v-model="selectedBook" @update:model-value="changeSelectedBook">
+        <SelectTrigger class="w-fit border-0">
+          <SelectValue placeholder="comic" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectGroup>
+            <SelectItem :value="book.kr" v-for="book in boards_kr">
+              <div class="flex items-center gap-2">
+                <img
+                  class="h-8 w-fit rounded-md object-cover"
+                  :src="KR_IMG_BOOKS[book.kr]"
+                />
+                <div>
+                  {{ book.kr }}
+                </div>
+              </div>
+            </SelectItem>
+          </SelectGroup>
+        </SelectContent>
+      </Select>
+      <Select
+        v-model="selectedSubject"
+        @update:model-value="changeSelectedBook"
+      >
+        <SelectTrigger class="w-fit border-0">
+          <SelectValue placeholder="sub" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectGroup>
+            <SelectItem :value="subject" v-for="subject in boards_subject">
+              {{ subject }}
+            </SelectItem>
+          </SelectGroup>
+        </SelectContent>
+      </Select>
+      <Select
+        v-model="selectedOrderBy"
+        @update:model-value="updateSelectedOrderBy"
+      >
+        <SelectTrigger class="w-fit border-0">
+          <SelectValue placeholder="order" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectGroup>
+            <SelectItem value="date"> 시간순 </SelectItem>
+            <SelectItem value="recommend"> 추천순 </SelectItem>
+            <SelectItem value="number"> 덧글순 </SelectItem>
+            <SelectItem value="count"> 조회순 </SelectItem>
+          </SelectGroup>
+        </SelectContent>
+      </Select>
+    </Menubar>
   </div>
   <!-- [ ] 모바일인 경우는 일반 -->
   <div class="sm:hidden">
@@ -435,7 +449,7 @@ async function onClickBoardDetail(board: any) {
       />
     </div>
   </div>
-  <div class="md:p-2 md:py-4 md:pt-20 hidden sm:block">
+  <div class="md:p-2 md:py-4 md:pt-14 hidden sm:block">
     <!-- <div
       class="grid sm:grid-cols-1 md:grid-cols-2 lg:md:grid-cols-3 xl:md:grid-cols-4 gap-4 overflow-hidden"
     > -->

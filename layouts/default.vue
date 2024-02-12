@@ -26,14 +26,7 @@ function handleScroll() {
 </script>
 <template>
   <div ref="scrollContainer">
-    <div
-      class="sticky top-0 z-20 transition-all duration-500 ease-in-out transform"
-      :class="{
-        hidden: isScrollingDown,
-        'translate-y-0 opacity-100': !isScrollingDown,
-        '-translate-y-full opacity-0': isScrollingDown,
-      }"
-    >
+    <div class="sticky top-0 z-20" :class="{ hidden: isScrollingDown }">
       <LayoutsMenu />
     </div>
     <div>
