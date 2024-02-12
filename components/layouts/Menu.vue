@@ -79,7 +79,7 @@ onMounted(async () => {
       @update:open="dialogYoutubeListOpen = !dialogYoutubeListOpen"
     />
     <DialogEmail ref="emailRef" />
-    <Menubar class="lg:border-border border-0">
+    <Menubar class="lg:border-border border-0 bg-white dark:bg-black">
       <div class="flex flex-row justify-between w-full">
         <div class="flex">
           <!-- sm: phone, md: phone, lg: ipad, xl: pc -->
@@ -106,6 +106,9 @@ onMounted(async () => {
               <MenubarItem inset> Edit... </MenubarItem>
               <MenubarSeparator />
               <MenubarItem inset> Add Profile... </MenubarItem>
+              <MenubarItem inset @click="useDarkmode().toggleDarkmode()">
+                dark mode
+              </MenubarItem>
             </MenubarContent>
           </MenubarMenu>
         </div>
@@ -113,7 +116,7 @@ onMounted(async () => {
           <div class="youtube-player">
             <div ref="youtubePlayerRef"></div>
           </div>
-          <div class="flex items-center">
+          <!-- <div class="flex items-center">
             <Badge
               variant="outline"
               class="w-20 marquee cursor-pointer"
@@ -136,7 +139,7 @@ onMounted(async () => {
             <div @click="next" class="cursor-pointer p-2">
               <font-awesome-icon :icon="['fas', 'forward-step']" />
             </div>
-          </div>
+          </div> -->
 
           <Avatar
             v-if="auth"
@@ -149,10 +152,7 @@ onMounted(async () => {
             로그인
           </Button>
           <Button v-else variant="ghost" @click="dialogLoginOpen = true">
-            안녕하세요.
-          </Button>
-          <Button variant="ghost" @click="useDarkmode().toggleDarkmode()">
-            dark
+            login
           </Button>
           <!-- <Button @click="logininfo">로그인 정보</Button> -->
         </div>

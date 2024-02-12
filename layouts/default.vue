@@ -1,35 +1,51 @@
 <script setup lang="ts">
 const scrollContainer = useState("scrollContainer", () => null);
+const isScrollingDown = useState("isScrollingDown", () => false);
 // 스크롤을 위로 하는지 아래로 하는지에 따라서 메뉴를 숨기거나 보이게 하기 위함
 const lastScrollPosition = ref(0);
-const isScrollingDown = ref(false);
 
 onMounted(() => {
-  if (scrollContainer.value) {
-    scrollContainer.value.addEventListener("scroll", handleScroll);
-  }
+  document.addEventListener("scroll", handleScroll);
 });
 
 onUnmounted(() => {
-  if (scrollContainer.value) {
-    scrollContainer.value.removeEventListener("scroll", handleScroll);
-  }
+  document.removeEventListener("scroll", handleScroll);
 });
 
 function handleScroll() {
-  if (scrollContainer.value) {
-    const currentScrollPosition = scrollContainer.value.scrollTop;
-    isScrollingDown.value = currentScrollPosition > lastScrollPosition.value;
-    lastScrollPosition.value = currentScrollPosition;
+  const currentScrollPosition = document.documentElement.scrollTop;
+
+  // currentScrollPosition, lastScrollPosition.value 비교해서 40px 이 차이가 나면 무시하도록
+  if (Math.abs(currentScrollPosition - lastScrollPosition.value) < 40) {
+    return;
   }
+
+  isScrollingDown.value = currentScrollPosition > lastScrollPosition.value;
+  lastScrollPosition.value = currentScrollPosition;
 }
 </script>
 <template>
-  <div class="flex flex-col lg:gap-1 lg:p-1 h-svh overflow-hidden">
+  <div ref="scrollContainer">
+    <div
+      class="sticky top-0 z-20 transition-all duration-500 ease-in-out transform"
+      :class="{
+        hidden: isScrollingDown,
+        'translate-y-0 opacity-100': !isScrollingDown,
+        '-translate-y-full opacity-0': isScrollingDown,
+      }"
+    >
+      <LayoutsMenu />
+    </div>
+    <div>
+      <LayoutsSide class="shrink-0 hidden" />
+      <slot />
+    </div>
+  </div>
+
+  <!-- <div class="flex flex-col lg:gap-1 lg:p-1 h-svh overflow-hidden">
     <div class="shrink-0" :class="{ hidden: isScrollingDown }">
       <LayoutsMenu />
     </div>
-    <!-- sm: phone, md: phone, lg: ipad, xl: pc -->
     <div class="flex xl:flex-row flex-col gap-1 grow-[1] overflow-hidden">
       <LayoutsSide class="shrink-0 hidden" />
       <div
@@ -39,5 +55,5 @@ function handleScroll() {
         <slot />
       </div>
     </div>
-  </div>
+  </div> -->
 </template>

@@ -1,1 +1,0 @@
-import{n as o,o as n,L as r,H as t,x as s,I as l,aw as c}from"./entry.avJwb3UD.js";const _=o({__name:"Separator",props:{orientation:{},decorative:{type:Boolean},asChild:{type:Boolean},as:{},class:{}},setup(e){const a=e;return(p,i)=>(n(),r(s(c),{class:t([s(l)("shrink-0 bg-border",a.class),a.orientation==="vertical"?"w-px h-full":"h-px w-full"])},null,8,["class"]))}});export{_};

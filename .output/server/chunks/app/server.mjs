@@ -723,7 +723,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0 ,
-    component: () => import('./_nuxt/music-3j24e_cd.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/music-4Ir0e3yd.mjs').then((m) => m.default || m)
   },
   {
     name: "book-sale",
@@ -739,7 +739,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0 ,
-    component: () => import('./_nuxt/youtube-MDnvMDhN.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/youtube-5EqxXY_0.mjs').then((m) => m.default || m)
   },
   {
     name: "index",
@@ -1112,7 +1112,7 @@ const plugins = [
 ];
 const layouts = {
   blank: () => import('./_nuxt/blank-dw5w2ZJb.mjs').then((m) => m.default || m),
-  default: () => import('./_nuxt/default-jFks1_sx.mjs').then((m) => m.default || m)
+  default: () => import('./_nuxt/default-ZcGGAO7R.mjs').then((m) => m.default || m)
 };
 const LayoutLoader = defineComponent({
   name: "LayoutLoader",

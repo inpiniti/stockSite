@@ -20,9 +20,6 @@ const _no_ = defineEventHandler(async (event) => {
     return "id or kr is not exist";
   }
   const esno = "3eabc219ebdd65fe3eef84ed";
-  const $ = await fetchData(
-    `https://gall.dcinside.com/mgallery/board/view/?id=${id}&no=${no}`
-  );
   const queryString = `id=${id}&no=${no}&cmt_id=${id}&cmt_no=${no}&e_s_n_o=${esno}`;
   const formData = new FormData();
   queryString.split("&").forEach((pair) => {
@@ -38,7 +35,16 @@ const _no_ = defineEventHandler(async (event) => {
       }
     }
   );
-  const data = parsing($);
+  let $ = await fetchData(
+    `https://gall.dcinside.com/mgallery/board/view/?id=${id}&no=${no}`
+  );
+  let data = parsing($);
+  if (data.content === "") {
+    $ = await fetchData(
+      `https://gall.dcinside.com/board/view/?id=${id}&no=${no}`
+    );
+    data = parsing($);
+  }
   return {
     ...data,
     comment: comment.data
