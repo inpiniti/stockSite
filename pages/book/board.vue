@@ -1,11 +1,14 @@
 <script setup lang="ts">
-import { useToast } from "@/components/ui/toast/use-toast";
 import InfiniteLoading from "v3-infinite-loading";
 import "v3-infinite-loading/lib/style.css"; //required if you're not going to override default slots
 
+import { format } from "date-fns";
+import { Calendar as CalendarIcon } from "lucide-vue-next";
+
+import { cn } from "@/lib/utils";
+
 import imagesLoaded from "imagesloaded";
 // 페이징 처리
-import { collapseTextChangeRangesAcrossMultipleVersions } from "typescript";
 
 const PAGE = 10;
 // 불러온 데이터에서 page 처리
@@ -44,6 +47,7 @@ const boards_subject = ref<any[]>([
 ]);
 const selectedOrderBy = ref("date");
 const selectedSubject = ref();
+const date = ref<Date>();
 
 // 정렬 변경시
 function updateSelectedOrderBy() {
@@ -55,6 +59,18 @@ function updateSelectedOrderBy() {
   pageBoards.value = [];
   searchBooks();
 }
+
+// 날짜 변경시
+watch(date, () => {
+  console.log("date");
+  boardAddState.value = false;
+  server_page.value = 1;
+
+  page.value = 1;
+  document.documentElement.scrollTop = 0;
+  pageBoards.value = [];
+  searchBooks();
+});
 
 let grid: any = null;
 
@@ -86,7 +102,6 @@ onMounted(async () => {
 
 // 책 정보 조회
 async function searchBooks() {
-  console.log("searchBooks");
   let query = useSupabase()
     .value.from("board")
     .select()
@@ -116,6 +131,20 @@ async function searchBooks() {
   if (selectedBook.value && selectedBook.value != "all") {
     query = query.eq("kr", selectedBook.value);
     count_query = count_query.eq("kr", selectedBook.value);
+  }
+
+  console.log(date.value);
+
+  if (date.value) {
+    console.log(date.value);
+    const _date = format(date.value, "yyyy-MM-dd");
+    query = query
+      .gte("date", `${_date}T00:00:00`)
+      .lte("date", `${_date}T23:59:59`);
+
+    count_query = count_query
+      .gte("date", `${_date}T00:00:00`)
+      .lte("date", `${_date}T23:59:59`);
   }
 
   const { data, error } = await query.order(selectedOrderBy.value, {
@@ -351,6 +380,28 @@ async function onClickBoardDetail(board: any) {
           </SelectGroup>
         </SelectContent>
       </Select>
+      <Popover class="hidden">
+        <PopoverContent class="w-auto p-0">
+          <Calendar v-model="date" />
+        </PopoverContent>
+      </Popover>
+      <Popover>
+        <PopoverTrigger>
+          <Button
+            :variant="'ghost'"
+            :class="
+              cn(
+                'justify-start text-left font-normal',
+                !date && 'text-muted-foreground'
+              )
+            "
+          >
+            <CalendarIcon class="mr-2 h-4 w-4" />
+            <span>{{ date ? format(date, "yyyy-MM-dd") : "날짜" }}</span>
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent><Calendar v-model="date" /></PopoverContent>
+      </Popover>
     </Menubar>
   </div>
   <!-- [ ] 모바일인 경우는 일반 -->
