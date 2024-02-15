@@ -8,11 +8,10 @@ import { Calendar as CalendarIcon } from "lucide-vue-next";
 import { cn } from "@/lib/utils";
 
 import imagesLoaded from "imagesloaded";
-
 // 페이징 처리
-const PAGE = ref(1);
 
-// 불러온 데이터에서 다음 이미지 처리
+const PAGE = 10;
+// 불러온 데이터에서 page 처리
 const page = ref(1);
 
 // db에서 가져올때 page 처리
@@ -58,19 +57,18 @@ function updateSelectedOrderBy() {
   page.value = 1;
   document.documentElement.scrollTop = 0;
   pageBoards.value = [];
-  boards.value = [];
   searchBooks();
 }
 
 // 날짜 변경시
 watch(date, () => {
+  console.log("date");
   boardAddState.value = false;
   server_page.value = 1;
 
   page.value = 1;
   document.documentElement.scrollTop = 0;
   pageBoards.value = [];
-  boards.value = [];
   searchBooks();
 });
 
@@ -88,7 +86,6 @@ function changeSelectedBook() {
   page.value = 1;
   document.documentElement.scrollTop = 0;
   pageBoards.value = [];
-  boards.value = [];
   searchBooks();
 }
 
@@ -136,7 +133,10 @@ async function searchBooks() {
     count_query = count_query.eq("kr", selectedBook.value);
   }
 
+  console.log(date.value);
+
   if (date.value) {
+    console.log(date.value);
     const _date = format(date.value, "yyyy-MM-dd");
     query = query
       .gte("date", `${_date}T00:00:00`)
@@ -153,11 +153,11 @@ async function searchBooks() {
   if (error) {
     console.error(error);
   } else {
-    boards.value = [...boards.value, ...(data ?? [])];
-    // pageBoards.value = [
-    //   ...pageBoards.value,
-    //   ...boards.value.slice(0, page.value * PAGE.value),
-    // ];
+    boards.value = data ?? [];
+    pageBoards.value = [
+      ...pageBoards.value,
+      ...boards.value.slice(0, page.value * PAGE),
+    ];
 
     gridReorder();
   }
@@ -170,18 +170,21 @@ async function searchBooks() {
   if (countError) {
     console.error(countError);
   } else {
+    console.log(countData);
+    console.log(status);
+    console.log(count);
     totalPage.value = count || 0;
   }
 }
 
 // 페이지 변경시
 function changePage(newPage: number) {
-  //page.value = 1;
+  page.value = 1;
   server_page.value = newPage;
   boardAddState.value = false;
 
-  //document.documentElement.scrollTop = 0;
-  //pageBoards.value = [];
+  document.documentElement.scrollTop = 0;
+  pageBoards.value = [];
   searchBooks();
 }
 
@@ -189,11 +192,10 @@ const boardAddState = ref(false);
 
 // 무한 스크롤 작동시
 function infiniteHandler($state: any) {
-  return;
   console.log("infiniteHandler");
   if (boardAddState.value) return;
-  console.log(`${boards.value.length} < ${(page.value - 1) * PAGE.value}`);
-  if (boards.value.length == page.value * PAGE.value) {
+  console.log(`${boards.value.length} < ${(page.value - 1) * PAGE}`);
+  if (boards.value.length == page.value * PAGE) {
     page.value = 1;
     server_page.value = server_page.value + 1;
     boardAddState.value = false;
@@ -211,10 +213,7 @@ function infiniteHandler($state: any) {
       // 예: 데이터를 불러오는 코드
       page.value++;
       const nextpage = [
-        ...boards.value.slice(
-          (page.value - 1) * PAGE.value,
-          page.value * PAGE.value
-        ),
+        ...boards.value.slice((page.value - 1) * PAGE, page.value * PAGE),
       ];
       if (nextpage.length == 0) return;
 
@@ -225,7 +224,7 @@ function infiniteHandler($state: any) {
       //gridReorder();
 
       setTimeout(() => {
-        if (boards.value.length < page.value * PAGE.value) {
+        if (boards.value.length < page.value * PAGE) {
           $state.loaded();
         } else {
           $state.complete();
@@ -244,55 +243,34 @@ function infiniteHandler($state: any) {
 
 // grid 재정렬
 function gridReorder() {
+  console.log("gridReorder");
   grid = document.querySelector(".grid");
+  console.log(grid);
 
-  // 1초마다 masory 실행
-  // let timeouts = [];
-  // for (let i = 0; i < 100; i++) {
-  //   let timeoutId = setTimeout(() => {
-  //     new Masonry(grid, {
-  //       itemSelector: ".grid-item",
-  //       percentPosition: true,
-  //     });
-  //   }, 1000 * i);
-  //   timeouts.push(timeoutId);
-  // }
-  new Masonry(grid, {
-    itemSelector: ".grid-item",
-    percentPosition: true,
-  });
-
-  // 이미지 로드시 실행
-  imagesLoaded(grid, function () {
-    // 정렬
-
-    // 정렬 후
-    nextImage();
-  });
-}
-
-// 다음 이미지
-function nextImage() {
-  console.log(`${page.value} == ${boards.value.length}`);
-  if (page.value == boards.value.length) {
-    PAGE.value++;
-    console.log("changePage");
-    changePage(PAGE.value);
-    return;
+  let timeouts = [];
+  for (let i = 0; i < 100; i++) {
+    let timeoutId = setTimeout(() => {
+      new Masonry(grid, {
+        itemSelector: ".grid-item",
+        percentPosition: true,
+      });
+    }, 1000 * i);
+    timeouts.push(timeoutId);
   }
 
-  page.value++;
-  const nextpage = [
-    ...boards.value.slice(
-      page.value - 1, // * PAGE.value,
-      page.value // * PAGE.value
-    ),
-  ];
-  if (nextpage.length == 0) return;
+  // imagesLoaded(grid, function () {
+  //   console.log("imagesLoaded");
 
-  pageBoards.value.push(...nextpage);
+  //   for (let timeoutId of timeouts) {
+  //     clearTimeout(timeoutId);
+  //   }
 
-  gridReorder();
+  //   // init Isotope after all images have loaded
+  //   new Masonry(grid, {
+  //     itemSelector: ".grid-item",
+  //     percentPosition: true,
+  //   });
+  // });
 }
 
 // 이미지가 배열 스트링으로 되어 있을 텐데 처리
@@ -528,13 +506,12 @@ async function onClickBoardDetail(board: any) {
         </div>
       </div>
     </div>
-    <!-- 무한 스크롤 -->
-    <!-- <div class="w-full rounded-md p-2 flex items-center justify-center">
+    <div class="w-full rounded-md p-2 flex items-center justify-center">
       <InfiniteLoading
         v-if="pageBoards.length > 0 && boardAddState == false"
         @infinite="infiniteHandler"
       />
-    </div> -->
+    </div>
   </div>
   <div class="md:p-2 md:py-4 md:pt-14 hidden sm:block">
     <!-- <div
@@ -556,7 +533,7 @@ async function onClickBoardDetail(board: any) {
 
       <div
         class="w-screen mb-4 grid-item md:px-2 md:w-1/2 lg:w-1/3 xl:w-1/4 2xl:w-1/5 3xl:w-1/6 4xl:w-1/7"
-        v-for="board in pageBoards"
+        v-for="board in boards"
       >
         <div class="relative w-full">
           <div
