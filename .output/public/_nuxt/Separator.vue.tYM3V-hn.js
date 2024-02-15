@@ -1,1 +1,0 @@
-import{n as o,o as n,H as r,M as t,x as s,a0 as l,aI as c}from"./entry.x6NjfADN.js";const _=o({__name:"Separator",props:{orientation:{},decorative:{type:Boolean},asChild:{type:Boolean},as:{},class:{}},setup(e){const a=e;return(p,i)=>(n(),r(s(c),{class:t([s(l)("shrink-0 bg-border",a.class),a.orientation==="vertical"?"w-px h-full":"h-px w-full"])},null,8,["class"]))}});export{_};
