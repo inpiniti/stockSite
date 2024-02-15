@@ -649,15 +649,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0 ,
-    component: () => import('./_nuxt/_board-gbU6UnZs.mjs').then((m) => m.default || m)
-  },
-  {
-    name: "book-board_23.02.15",
-    path: "/book/board_23.02.15",
-    meta: {},
-    alias: [],
-    redirect: void 0 ,
-    component: () => import('./_nuxt/board_23.02.15-4E3OsvaJ.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/_board-sQZGNwTy.mjs').then((m) => m.default || m)
   },
   {
     name: void 0,
@@ -665,7 +657,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0 ,
-    component: () => import('./_nuxt/board-L-YwuiIG.mjs').then((m) => m.default || m),
+    component: () => import('./_nuxt/board-mf9urcmR.mjs').then((m) => m.default || m),
     children: [
       {
         name: "book-board-kr",
@@ -673,7 +665,7 @@ const _routes = [
         meta: {},
         alias: [],
         redirect: void 0 ,
-        component: () => import('./_nuxt/_kr_-BWrOPalO.mjs').then((m) => m.default || m)
+        component: () => import('./_nuxt/_kr_-byFQ7Cd8.mjs').then((m) => m.default || m)
       },
       {
         name: "book-board-board.columns",
@@ -689,7 +681,7 @@ const _routes = [
         meta: {},
         alias: [],
         redirect: void 0 ,
-        component: () => import('./_nuxt/index-oDUeNcL_.mjs').then((m) => m.default || m)
+        component: () => import('./_nuxt/index-oM134jz8.mjs').then((m) => m.default || m)
       }
     ]
   },
@@ -707,7 +699,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0 ,
-    component: () => import('./_nuxt/chart-eWSM13dW.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/chart-1NWM4fc7.mjs').then((m) => m.default || m)
   },
   {
     name: "book-columns",
@@ -715,7 +707,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0 ,
-    component: () => import('./_nuxt/columns-DDOe-jwD.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/columns-tRiXC66X.mjs').then((m) => m.default || m)
   },
   {
     name: "book-list",
@@ -723,7 +715,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0 ,
-    component: () => import('./_nuxt/list-a4c2-DEE.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/list-PCXGy-xS.mjs').then((m) => m.default || m)
   },
   {
     name: "book-music",
@@ -731,7 +723,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0 ,
-    component: () => import('./_nuxt/music-yr05kXwS.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/music-Tzh_Btqs.mjs').then((m) => m.default || m)
   },
   {
     name: "book-sale",
@@ -739,7 +731,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0 ,
-    component: () => import('./_nuxt/sale-Jpwy5P7-.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/sale-a3I_041v.mjs').then((m) => m.default || m)
   },
   {
     name: "book-youtube",
@@ -747,7 +739,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0 ,
-    component: () => import('./_nuxt/youtube-mIhzbPvT.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/youtube-KXVJCt95.mjs').then((m) => m.default || m)
   },
   {
     name: "index",
@@ -755,7 +747,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0 ,
-    component: () => import('./_nuxt/index-bMpmOv0F.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/index-FK3IK9hl.mjs').then((m) => m.default || m)
   },
   {
     name: (__nuxt_page_meta$4 == null ? void 0 : __nuxt_page_meta$4.name) ?? "login",
@@ -763,7 +755,7 @@ const _routes = [
     meta: __nuxt_page_meta$4 || {},
     alias: (__nuxt_page_meta$4 == null ? void 0 : __nuxt_page_meta$4.alias) || [],
     redirect: __nuxt_page_meta$4 == null ? void 0 : __nuxt_page_meta$4.redirect,
-    component: () => import('./_nuxt/login-dKDij4nG.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/login-w5Ty-Iap.mjs').then((m) => m.default || m)
   },
   {
     name: "stock-columns",
@@ -771,7 +763,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0 ,
-    component: () => import('./_nuxt/columns-cWWWgaFF.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/columns-Z1WxuL7U.mjs').then((m) => m.default || m)
   },
   {
     name: "stock-learning",
@@ -787,7 +779,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0 ,
-    component: () => import('./_nuxt/list-KzzpRhRO.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/list-tlK10d9L.mjs').then((m) => m.default || m)
   },
   {
     name: "stock-prediction",
@@ -1120,7 +1112,7 @@ const plugins = [
 ];
 const layouts = {
   blank: () => import('./_nuxt/blank-dw5w2ZJb.mjs').then((m) => m.default || m),
-  default: () => import('./_nuxt/default-9XxMMXLa.mjs').then((m) => m.default || m)
+  default: () => import('./_nuxt/default--niW7KkB.mjs').then((m) => m.default || m)
 };
 const LayoutLoader = defineComponent({
   name: "LayoutLoader",
@@ -1965,5 +1957,5 @@ let entry;
 }
 const entry$1 = (ssrContext) => entry(ssrContext);
 
-export { __nuxt_component_0 as _, cn as a, useNuxtApp as b, createError as c, useRoute as d, entry$1 as default, useToast as e, useRouter as f, nuxtLinkDefaults as g, asyncDataDefaults as h, injectHead as i, fetchDefaults as j, navigateTo as n, resolveUnrefHeadInput as r, useRuntimeConfig as u, valueUpdater as v };
+export { __nuxt_component_0 as _, useNuxtApp as a, cn as b, createError as c, useRoute as d, entry$1 as default, useToast as e, useRouter as f, nuxtLinkDefaults as g, asyncDataDefaults as h, injectHead as i, fetchDefaults as j, navigateTo as n, resolveUnrefHeadInput as r, useRuntimeConfig as u, valueUpdater as v };
 //# sourceMappingURL=server.mjs.map
