@@ -18,7 +18,8 @@ const _bookname_ = defineEventHandler(async (event) => {
   const html = iconv.decode(Buffer.from(response.data), "utf-8");
   const $ = cheerio.load(html);
   let data = [];
-  $("h2").each((index, element) => {
+  const headers = Array.from($("h2"));
+  for (const [index, element] of headers.entries()) {
     const aTag = $(element).find("a");
     for (let i = 1; i <= 20; i++) {
       if (aTag.text().includes(i + ".")) {
@@ -33,7 +34,7 @@ const _bookname_ = defineEventHandler(async (event) => {
         }
       }
     }
-  });
+  }
   let genreContents = [];
   $("tbody > tr > td > div > strong > span").each((index, element) => {
     const genre = $(element).text();
