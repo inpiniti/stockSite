@@ -1,6 +1,7 @@
 import axios from "axios";
 import cheerio from "cheerio";
 import iconv from "iconv-lite";
+import { coverSave } from "~/server/utils/cover";
 
 export default defineEventHandler(async (event) => {
   const bookname = getRouterParam(event, "bookname");
@@ -13,7 +14,9 @@ export default defineEventHandler(async (event) => {
   let data: any = [];
 
   // h2를 찾는다.
-  $("h2").each((index, element) => {
+  const headers = Array.from($("h2"));
+
+  for (const [index, element] of headers.entries()) {
     // 그안에 있는 a태그를 찾는다.
     const aTag = $(element).find("a");
 
@@ -46,9 +49,61 @@ export default defineEventHandler(async (event) => {
         ) {
           data.push({ title: cleanedTitle, content: cleanedContent });
         }
+
+        // if (cleanedTitle.includes("발매 현황")) {
+        //   // table 에서 tr을 찾는데,
+        //   // tr의 td의 text 중 01권 02권 이런 식으로 데이어 있는 데이터는 책의 권수를 나타내고,
+        //   // 그 다음 tr의 에는 각 권수에 해당하는 책의 표지가 있다. ㅑㅡㅎ
+        //   // img의 클래스 명이 yoqUDm0-
+        //   // 이미지 파싱
+
+        //   const tables = Array.from($(contentElement).find("table"));
+
+        //   for (const [index, element] of tables.entries()) {
+        //     const rows = $(element).find("tr");
+
+        //     const books_: any = [];
+        //     let volumes: any = [];
+        //     let srcs: any = [];
+
+        //     rows.each((i, row) => {
+        //       // 권수
+        //       const tdText = $(row).find("td").text().trim();
+        //       const volume = tdText.match(/\d+권/g);
+
+        //       // 표지
+        //       $(row)
+        //         .find("img")
+        //         .map((i, el) => {
+        //           const src = $(el).attr("src") || "";
+        //           if (src.includes("webp")) {
+        //             srcs.push(src);
+        //           }
+        //         });
+
+        //       if (volume) {
+        //         volumes = volumes.concat(volume);
+        //       }
+        //     });
+
+        //     volumes.forEach((vol: any, index: number) => {
+        //       if (srcs[index]) {
+        //         books_.push({ booknum: vol, coverImage: srcs[index] });
+        //       }
+        //     });
+
+        //     for (const book of books_) {
+        //       await coverSave(
+        //         bookname || "",
+        //         parseInt(book.booknum.match(/\d+/g)[0]),
+        //         book.coverImage
+        //       );
+        //     }
+        //   }
+        // }
       }
     }
-  });
+  }
 
   // $ 에서  tbody > tr > td > div > strong > sapn 를 찾는다.
   // 그 안의 text 가 장르이면,
