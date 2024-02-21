@@ -649,7 +649,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0 ,
-    component: () => import('./_nuxt/_board-sQZGNwTy.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/_board-4pr4VnsX.mjs').then((m) => m.default || m)
   },
   {
     name: void 0,
@@ -657,7 +657,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0 ,
-    component: () => import('./_nuxt/board-mf9urcmR.mjs').then((m) => m.default || m),
+    component: () => import('./_nuxt/board-Dhep0Piv.mjs').then((m) => m.default || m),
     children: [
       {
         name: "book-board-kr",
@@ -681,7 +681,7 @@ const _routes = [
         meta: {},
         alias: [],
         redirect: void 0 ,
-        component: () => import('./_nuxt/index-oM134jz8.mjs').then((m) => m.default || m)
+        component: () => import('./_nuxt/index-CooZbSZW.mjs').then((m) => m.default || m)
       }
     ]
   },
@@ -715,7 +715,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0 ,
-    component: () => import('./_nuxt/list-PCXGy-xS.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/list-mmxGAwsO.mjs').then((m) => m.default || m)
   },
   {
     name: "book-music",
@@ -731,7 +731,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0 ,
-    component: () => import('./_nuxt/sale-a3I_041v.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/sale-7UXyeGIs.mjs').then((m) => m.default || m)
   },
   {
     name: "book-youtube",
@@ -739,7 +739,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0 ,
-    component: () => import('./_nuxt/youtube-KXVJCt95.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/youtube-oJJSN-bw.mjs').then((m) => m.default || m)
   },
   {
     name: "index",
@@ -1112,7 +1112,7 @@ const plugins = [
 ];
 const layouts = {
   blank: () => import('./_nuxt/blank-dw5w2ZJb.mjs').then((m) => m.default || m),
-  default: () => import('./_nuxt/default--niW7KkB.mjs').then((m) => m.default || m)
+  default: () => import('./_nuxt/default-PRgQ4TdJ.mjs').then((m) => m.default || m)
 };
 const LayoutLoader = defineComponent({
   name: "LayoutLoader",

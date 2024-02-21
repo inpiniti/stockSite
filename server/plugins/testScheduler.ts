@@ -16,7 +16,7 @@ function startScheduler() {
       const books = await uniqueBooks();
 
       for (const book of books) {
-        //await getBoard(book.kr, book.dc);
+        await getBoard(book.kr, book.dc);
       }
     })
     .everyTenMinutes();
