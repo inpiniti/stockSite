@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useToast } from "@/components/ui/toast/use-toast";
+import type { Cover } from "@/types/Cover";
 
 const { toast } = useToast();
 const uniqueGenre = useUniqueGenre().value;
@@ -7,6 +8,7 @@ const uniqueGenre = useUniqueGenre().value;
 // Create a single supabase client for interacting with your database
 
 const books = useBooks();
+const coverList = useCoverList();
 const selectedCombo = ref<string>("");
 
 // 장르가 있는지 없는지 유무 포함
@@ -14,6 +16,17 @@ const computedBooks = computed(() => {
   return books.value.map((book: any) => {
     const isGenre =
       uniqueGenre.filter((genre: any) => genre.kr === book.kr).length > 0;
+
+    // coverList의 kr, book_num 과
+    // books의 kr, booknum 가 일치하면
+    // cover의 img 를 book 의 img 에 추가
+    const matchingCover = coverList.value.find(
+      (cover: Cover) => cover.kr === book.kr && cover.booknum === book.booknum
+    );
+    if (matchingCover) {
+      book.img = matchingCover.cover_image;
+    }
+
     return { ...book, isGenre: isGenre };
   });
 });
