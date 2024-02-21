@@ -3,7 +3,7 @@ import axios from "axios";
 import { max } from "moment";
 
 export default defineNitroPlugin(() => {
-  startScheduler();
+  //startScheduler();
 });
 
 function startScheduler() {

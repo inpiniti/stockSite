@@ -96,9 +96,13 @@ async function thisWeek() {
   }
 
   book.value = await query;
+  book.value.data = await updateCoverImage(book.value.data);
 
   // 누적 데이터
   bestSelling.value.series = restructureData(book.value.data);
+  bestSelling.value.series = await updateCoverImageFirst(
+    bestSelling.value.series
+  );
 }
 
 // 4주간 만화책 차트
@@ -117,9 +121,11 @@ async function fourWeek() {
   weekBook.value = await query;
 
   weekBook.value.data = restructureNumData(weekBook.value.data);
+  weekBook.value.data = await updateCoverImage(weekBook.value.data);
 
   // 누적 데이터
   bestSelling.value.week = restructureData(weekBook.value.data);
+  bestSelling.value.week = await updateCoverImageFirst(bestSelling.value.week);
 }
 
 // 1년간 만화책 차트
@@ -138,9 +144,11 @@ async function oneYear() {
   yearBook.value = await query;
 
   yearBook.value.data = restructureNumData(yearBook.value.data);
+  yearBook.value.data = await updateCoverImage(yearBook.value.data);
 
   // 누적 데이터
   bestSelling.value.year = restructureData(yearBook.value.data);
+  bestSelling.value.year = await updateCoverImageFirst(bestSelling.value.year);
 }
 
 // booklist 에서 jp 와 booknum 두개를 기준으로 데이터를 재구성해줘
