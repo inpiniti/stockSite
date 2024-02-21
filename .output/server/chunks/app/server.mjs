@@ -699,7 +699,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0 ,
-    component: () => import('./_nuxt/chart-1NWM4fc7.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/chart-eQ28IWd0.mjs').then((m) => m.default || m)
   },
   {
     name: "book-columns",
@@ -715,7 +715,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0 ,
-    component: () => import('./_nuxt/list-mmxGAwsO.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/list-yZXw8h1H.mjs').then((m) => m.default || m)
   },
   {
     name: "book-music",
