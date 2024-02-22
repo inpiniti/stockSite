@@ -74,7 +74,7 @@ watch(date, () => {
 
 let grid: any = null;
 
-const KR_IMG_BOOKS = krImgBooks();
+const KR_IMG_BOOKS = createCoverImageObject();
 const books = uniqueBooks();
 const selectedBook = ref();
 
@@ -95,7 +95,7 @@ const pageBoards = ref<any>([]);
 // });
 
 onMounted(async () => {
-  searchBooks();
+  await searchBooks();
   boards_kr.value = await getKr();
   //boards_subject.value = await getSubject();
 });
@@ -333,6 +333,7 @@ async function onClickBoardDetail(board: any) {
             <SelectItem class="pl-0" :value="book.kr" v-for="book in boards_kr">
               <div class="flex items-center gap-2">
                 <NuxtImg
+                  v-if="KR_IMG_BOOKS[book.kr]"
                   loading="lazy"
                   class="h-8 rounded-md object-scale-down"
                   :src="KR_IMG_BOOKS[book.kr]"
@@ -463,6 +464,7 @@ async function onClickBoardDetail(board: any) {
         >
           <div class="flex gap-4 items-end flex-1 overflow-hidden">
             <NuxtImg
+              v-if="KR_IMG_BOOKS[(board as any).kr]"
               loading="lazy"
               class="h-16 rounded-md object-cover shrink-0"
               :src="KR_IMG_BOOKS[(board as any).kr]"
@@ -590,6 +592,7 @@ async function onClickBoardDetail(board: any) {
           >
             <div class="flex gap-4 items-end flex-1 overflow-hidden">
               <NuxtImg
+                v-if="KR_IMG_BOOKS[(board as any).kr]"
                 loading="lazy"
                 class="h-16 rounded-md object-cover shrink-0"
                 :src="KR_IMG_BOOKS[(board as any).kr]"

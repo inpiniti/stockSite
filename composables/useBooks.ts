@@ -64,3 +64,15 @@ export function krImgBooks() {
   }, {});
   return krImg;
 }
+
+// books 에서 namu를 키로 하는 kr을 리턴
+export function namuKrBooks() {
+  const books = useBooks().value;
+  const namuKr = books.reduce((acc: any, book: Book) => {
+    // book.namu 의 값이 【최애의%20아이】 같이 %20 같은게 들어 가 있다. 인코딩을 해제 해야 한다.
+    const decodedValue = decodeURIComponent(book.namu);
+    acc[decodedValue] = book.kr;
+    return acc;
+  }, {});
+  return namuKr;
+}

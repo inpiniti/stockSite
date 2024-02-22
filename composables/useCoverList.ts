@@ -86,3 +86,20 @@ export async function updateCoverImageFirst(books: []) {
     return book;
   });
 }
+
+// books 에서 dc를 키로 하는 kr을 리턴
+
+// kr가 키가 되고 cover_image 값이 되는 객체 생성
+export function createCoverImageObject() {
+  const NAMUKRBOOKS = namuKrBooks();
+
+  const coverList = useCoverListFirst();
+  const coverImageObject: any = {};
+
+  coverList.value.forEach((cover: Cover) => {
+    const kr = NAMUKRBOOKS[cover.kr];
+    coverImageObject[kr ?? cover.kr] = cover.cover_image;
+  });
+
+  return coverImageObject;
+}
