@@ -11,7 +11,6 @@ function startScheduler() {
 
   scheduler
     .run(async () => {
-      console.log("스케줄러 시작");
       // book 에서 kr 과 dc 만 조회해 오는데 중복은 제거 함
       const books = await uniqueBooks();
 
@@ -20,6 +19,14 @@ function startScheduler() {
       }
     })
     .everyTenMinutes();
+
+  scheduler
+    .run(async () => {
+      await axios.get(`http://localhost:3000/api/youtube/dbInsert`);
+    })
+    // 12시 정각에 실행하도록
+    .cron("0 0 * * *");
+
   //.everySeconds(10);
   // 오후 9시 6분에 실행하려면
   //.cron("47 22 * * *");
