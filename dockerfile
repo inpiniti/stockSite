@@ -13,7 +13,7 @@ ENV NUXT_HOST=0.0.0.0
 ENV NUXT_PORT=3000
 
 # 애플리케이션 실행
-CMD ["node", "/webapp/.output/server/index.mjs"]
+CMD ["node", "/webapp/output/server/index.mjs"]
 
 # 도커 빌드
 # docker build -t comis:1.0 .
