@@ -1,10 +1,14 @@
 FROM node:19-alpine
 
-ADD .output /webapp/.output
+WORKDIR /webapp
+
+COPY package.json package-lock.json ./
+
+RUN npm install
+
+COPY .output ./output
 
 EXPOSE 3000
-
-WORKDIR /webapp/.output
 
 ENV NUXT_HOST=0.0.0.0
 ENV NUXT_PORT=3000
