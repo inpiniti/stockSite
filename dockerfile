@@ -2,9 +2,7 @@ FROM node:18.17-alpine
 
 WORKDIR /webapp
 
-COPY package.json package-lock.json ./
-
-RUN npm install
+COPY node_modules ./node_modules
 
 COPY .output ./output
 
