@@ -649,7 +649,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0 ,
-    component: () => import('./_nuxt/_board-4pr4VnsX.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/_board-KiHtgSdw.mjs').then((m) => m.default || m)
   },
   {
     name: void 0,
@@ -657,7 +657,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0 ,
-    component: () => import('./_nuxt/board-Dhep0Piv.mjs').then((m) => m.default || m),
+    component: () => import('./_nuxt/board-ocKqZ0B-.mjs').then((m) => m.default || m),
     children: [
       {
         name: "book-board-kr",
@@ -681,7 +681,7 @@ const _routes = [
         meta: {},
         alias: [],
         redirect: void 0 ,
-        component: () => import('./_nuxt/index-CooZbSZW.mjs').then((m) => m.default || m)
+        component: () => import('./_nuxt/index-1LuIRHi0.mjs').then((m) => m.default || m)
       }
     ]
   },
@@ -699,7 +699,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0 ,
-    component: () => import('./_nuxt/chart-eQ28IWd0.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/chart-Ni7-MQxp.mjs').then((m) => m.default || m)
   },
   {
     name: "book-columns",
@@ -715,7 +715,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0 ,
-    component: () => import('./_nuxt/list-yZXw8h1H.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/list-0NdvMHZx.mjs').then((m) => m.default || m)
   },
   {
     name: "book-music",
@@ -731,7 +731,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0 ,
-    component: () => import('./_nuxt/sale-7UXyeGIs.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/sale-PlnyZ1OM.mjs').then((m) => m.default || m)
   },
   {
     name: "book-youtube",
@@ -739,7 +739,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0 ,
-    component: () => import('./_nuxt/youtube-oJJSN-bw.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/youtube-tfLudr_N.mjs').then((m) => m.default || m)
   },
   {
     name: "index",
