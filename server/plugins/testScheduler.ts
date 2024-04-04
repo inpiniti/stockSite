@@ -3,7 +3,7 @@ import axios from "axios";
 import { max } from "moment";
 
 export default defineNitroPlugin(() => {
-  startScheduler();
+  //startScheduler();
 });
 
 function startScheduler() {
@@ -42,12 +42,7 @@ async function getBoard(kr: string, dc: string) {
     console.log(`${kr} 게시글 조회 완료`);
 
     // 가장 높은 num 조회
-    let { data, error } = await useSupabase()
-      .from("board")
-      .select("num")
-      .eq("kr", kr)
-      .order("num", { ascending: false })
-      .limit(1);
+    let { data, error } = await useSupabase().from("board").select("num").eq("kr", kr).order("num", { ascending: false }).limit(1);
 
     let maxNum;
 
@@ -82,9 +77,7 @@ async function getBoard(kr: string, dc: string) {
 // 덧글 조회
 async function getReply(kr: string, dc: string, board: any, maxNum: number) {
   // 덧글 조회
-  const reply = await axios.get(
-    `http://localhost:3000/api/dcinside/${dc}/${board.num}?kr=${kr}`
-  );
+  const reply = await axios.get(`http://localhost:3000/api/dcinside/${dc}/${board.num}?kr=${kr}`);
 
   if (reply.data.images[0] == null || reply.data.images[0] == undefined) return;
   // 이미지 조회
