@@ -21,6 +21,7 @@ export default defineEventHandler(async (event) => {
 
   // 루프문 돌면서 조회수 업데이트
   for (let i = 0; i < uniqueVideoIds.length; i++) {
+    console.log(`조회수 업데이트 : ${uniqueVideoIds[i].video_id}`);
     const baseURL = "http://localhost:3000";
 
     const res = await axios.get(

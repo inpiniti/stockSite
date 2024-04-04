@@ -1,6 +1,5 @@
 import { useScheduler } from "#scheduler";
 import axios from "axios";
-import { max } from "moment";
 
 export default defineNitroPlugin(() => {
   //startScheduler();
@@ -8,6 +7,14 @@ export default defineNitroPlugin(() => {
 
 function startScheduler() {
   const scheduler = useScheduler();
+
+  scheduler
+    .run(async () => {
+      console.log(`유튜브 조회수 스케쥴러`);
+      await axios.get(`http://localhost:3000/api/youtube/dbInsert`);
+    })
+    // 12시 5분에 실행하도록
+    .cron("5 0 * * *");
 
   scheduler
     .run(async () => {
@@ -19,13 +26,6 @@ function startScheduler() {
       }
     })
     .everyTenMinutes();
-
-  scheduler
-    .run(async () => {
-      await axios.get(`http://localhost:3000/api/youtube/dbInsert`);
-    })
-    // 12시 정각에 실행하도록
-    .cron("0 0 * * *");
 
   //.everySeconds(10);
   // 오후 9시 6분에 실행하려면
