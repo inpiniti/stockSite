@@ -4,25 +4,7 @@ const type = ref("week");
 </script>
 <template>
   <div class="grow-[1]">
-    <div class="flex gap-2 justify-between">
-      <div class="flex gap-2 items-center">
-        <Button variant="outline" size="sm"><</Button>
-        <Button variant="outline" size="sm">></Button>
-        <div class="font-semibold whitespace-nowrap">2024년 4월</div>
-      </div>
-      <Select v-model="type">
-        <SelectTrigger class="w-[100px]">
-          <SelectValue placeholder="Select" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectGroup>
-            <SelectItem value="week">주</SelectItem>
-            <SelectItem value="month"> 월 </SelectItem>
-            <SelectItem value="year"> 년 </SelectItem>
-          </SelectGroup>
-        </SelectContent>
-      </Select>
-    </div>
+    <LayoutsNavBooksCondition v-model="type" />
     <ScrollArea class="flex">
       <div class="flex-1 flex flex-col gap-2 p-2">
         <TransitionGroup name="list" appear>
