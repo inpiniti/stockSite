@@ -7,10 +7,6 @@ const type = ref("week");
 const date = ref(moment());
 
 function onChange() {
-  console.log("onChange", {
-    type: type.value,
-    date: date.value,
-  });
   emit("change", {
     type: type.value,
     date: date.value,
