@@ -1,10 +1,16 @@
 <script setup lang="ts">
+import moment from "moment";
+
 const books = useBooks();
-const type = ref("week");
+
+function onChange(arg: { type: any; date: any }) {
+  console.log(arg.type);
+  console.log(moment(arg.date).format("YYYY.MM.DD"));
+}
 </script>
 <template>
   <div class="grow-[1]">
-    <LayoutsNavBooksCondition v-model="type" />
+    <LayoutsNavBooksCondition @change="onChange" />
     <ScrollArea class="flex">
       <div class="flex-1 flex flex-col gap-2 p-2">
         <TransitionGroup name="list" appear>
