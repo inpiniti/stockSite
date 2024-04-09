@@ -22,6 +22,7 @@ const dbInsert = defineEventHandler(async (event) => {
     (v, i, a) => a.findIndex((t) => t.video_id === v.video_id) === i
   );
   for (let i = 0; i < uniqueVideoIds.length; i++) {
+    console.log(`\uC870\uD68C\uC218 \uC5C5\uB370\uC774\uD2B8 : ${uniqueVideoIds[i].video_id}`);
     const baseURL = "http://localhost:3000";
     const res = await axios.get(
       `${baseURL}/api/youtube/viewCount/${uniqueVideoIds[i].video_id}`
