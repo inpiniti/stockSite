@@ -2,7 +2,7 @@ import { useScheduler } from "#scheduler";
 import axios from "axios";
 
 export default defineNitroPlugin(() => {
-  startScheduler();
+  //startScheduler();
 });
 
 function startScheduler() {

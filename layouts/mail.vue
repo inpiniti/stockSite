@@ -39,15 +39,8 @@ const navCollapsedSize = 4;
             </TabsList>
           </div>
           <Separator />
-          <div class="bg-background/95 p-4 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-            <form>
-              <div class="relative">
-                <Search class="absolute left-2 top-2.5 size-4 text-muted-foreground" />
-              </div>
-            </form>
-          </div>
           <TabsContent value="all" class="m-0">
-            <!-- <MailList v-model:selected-mail="selectedMail" :items="filteredMailList" /> -->
+            <BookList />
           </TabsContent>
           <TabsContent value="unread" class="m-0">
             <!-- <MailList v-model:selected-mail="selectedMail" :items="unreadMailList" /> -->
