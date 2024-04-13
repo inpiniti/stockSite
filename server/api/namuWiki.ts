@@ -9,6 +9,23 @@ export default defineEventHandler(async (event) => {
       headers: {
         "User-Agent":
           "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3",
+        "Accept-Encoding": "gzip, deflate, br, zstd",
+        "Accept-Language": "ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7",
+        Connection: "keep-alive",
+        "Content-Length": "973",
+        "Content-Type": "text/plain",
+        Host: "data.ad-score.com",
+        Origin:
+          "https://d825e587544f28314af540fd827e6fe1.safeframe.googlesyndication.com",
+        Referer:
+          "https://d825e587544f28314af540fd827e6fe1.safeframe.googlesyndication.com/",
+        "Sec-Ch-Ua":
+          '"Google Chrome";v="123", "Not:A-Brand";v="8", "Chromium";v="123"',
+        "Sec-Ch-Ua-Mobile": "?0",
+        "Sec-Ch-Ua-Platform": "macOS",
+        "Sec-Fetch-Dest": "empty",
+        "Sec-Fetch-Mode": "cors",
+        "Sec-Fetch-Site": "cross-site",
       },
     }
   );
