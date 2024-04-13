@@ -1,19 +1,25 @@
-FROM node:18.17-alpine
+# Use the official Node.js 18.17.0 runtime as a parent image
+FROM node:18.17.0
 
-# 작업 디렉토리 설정
-WORKDIR /webapp
+# Set the working directory in the container to /app
+WORKDIR /app
 
-# node_modules 폴더와 빌드된 파일을 Docker 이미지에 복사
-COPY node_modules ./node_modules
-COPY .output ./output
+# Copy package.json and package-lock.json to the working directory
+COPY package*.json ./
 
+# Install the project dependencies
+RUN npm install
+
+# Automatically fix detected vulnerabilities
+# RUN npm audit fix
+
+# Copy the build output to the working directory
+COPY .output ./
+
+# Make port 3000 available to the outside of the docker container
 EXPOSE 3000
 
-ENV NUXT_HOST=0.0.0.0
-ENV NUXT_PORT=3000
+# Run the application
+CMD [ "node", "server/index.mjs" ]
 
-# 애플리케이션 실행
-CMD ["node", "/webapp/output/server/index.mjs"]
-
-# 도커 빌드
-# docker build -t comis:1.0 .
+# sudo docker build -t inpiniti/comics:3.3.0 .
