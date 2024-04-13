@@ -4,7 +4,13 @@ import iconv from "iconv-lite";
 
 export default defineEventHandler(async (event) => {
   const response = await axios.get(
-    "https://namu.wiki/w/%EC%A3%BC%EC%88%A0%ED%9A%8C%EC%A0%84"
+    "https://namu.wiki/w/%EC%A3%BC%EC%88%A0%ED%9A%8C%EC%A0%84",
+    {
+      headers: {
+        "User-Agent":
+          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3",
+      },
+    }
   );
 
   const html = iconv.decode(Buffer.from(response.data), "utf-8");

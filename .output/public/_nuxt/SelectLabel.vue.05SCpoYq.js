@@ -1,0 +1,1 @@
+import{f as t,o as l,J as n,w as r,G as c,P as p,i as s,a4 as f,bX as i}from"./entry.7JGw4dqR.js";const d=t({__name:"SelectLabel",props:{for:{},asChild:{type:Boolean},as:{},class:{}},setup(a){const e=a;return(o,m)=>(l(),n(s(i),{class:p(s(f)("py-1.5 pl-8 pr-2 text-sm font-semibold",e.class))},{default:r(()=>[c(o.$slots,"default")]),_:3},8,["class"]))}});export{d as _};
