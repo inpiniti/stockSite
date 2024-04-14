@@ -25,6 +25,39 @@ async function ok() {
     })
     .eq("jp", useBook().selected.value.jp);
 
+  // kr 로 book_info 를 조회한 후 있으면 update
+  // 없으면 insert
+  const { data, error } = await supabase
+    .from("book_info")
+    .select("*")
+    .eq("kr", useBook().selected.value.kr);
+
+  if (data && data.length > 0) {
+    await supabase
+      .from("book_info")
+      .update({
+        author: useBook().selected.value.author,
+        publisher: useBook().selected.value.publisher,
+        description: useBook().selected.value.description,
+        summary: useBook().selected.value.summary,
+      })
+      .eq("kr", useBook().selected.value.kr);
+  } else {
+    await supabase.from("book_info").insert([
+      {
+        kr: useBook().selected.value.kr,
+        author: useBook().selected.value.author,
+        publisher: useBook().selected.value.publisher,
+        description: useBook().selected.value.description,
+        summary: useBook().selected.value.summary,
+        dc: useBook().selected.value.dc,
+      },
+    ]);
+  }
+
+  await fetchBooks();
+  await fetchBookInfoList();
+
   loading.value = false;
   open.value = false;
 
@@ -80,6 +113,38 @@ async function ok() {
             id="namu"
             class="col-span-3"
             v-model="useBook().selected.value.dc"
+          />
+        </div>
+        <div class="grid grid-cols-4 items-center gap-4">
+          <Label for="namu" class="text-right"> 저자 </Label>
+          <Input
+            id="namu"
+            class="col-span-3"
+            v-model="useBook().selected.value.author"
+          />
+        </div>
+        <div class="grid grid-cols-4 items-center gap-4">
+          <Label for="namu" class="text-right"> 출판사 </Label>
+          <Input
+            id="namu"
+            class="col-span-3"
+            v-model="useBook().selected.value.publisher"
+          />
+        </div>
+        <div class="grid grid-cols-4 items-center gap-4">
+          <Label for="namu" class="text-right"> 요약 </Label>
+          <Input
+            id="namu"
+            class="col-span-3"
+            v-model="useBook().selected.value.description"
+          />
+        </div>
+        <div class="grid grid-cols-4 items-center gap-4">
+          <Label for="namu" class="text-right"> 줄거리 </Label>
+          <Input
+            id="namu"
+            class="col-span-3"
+            v-model="useBook().selected.value.summary"
           />
         </div>
       </div>

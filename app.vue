@@ -5,6 +5,7 @@ if (process.client) {
 onMounted(() => {
   fetchBooks();
   fetchCoverList();
+  fetchBookInfoList();
   getGenre();
   getMusic();
 });

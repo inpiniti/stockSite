@@ -1,6 +1,6 @@
 import { useStorage } from "@vueuse/core";
 
-interface Book {
+export interface Book {
   id: number;
   jp: string;
   kr: string;
@@ -21,9 +21,22 @@ export async function fetchBooks(date?: string) {
   const books = useBooks();
   try {
     if (date) {
-      books.value = (await useSupabase().value.from("book").select().eq("date", date).order("sales", { ascending: false })).data ?? [];
+      books.value =
+        (
+          await useSupabase()
+            .value.from("book")
+            .select()
+            .eq("date", date)
+            .order("sales", { ascending: false })
+        ).data ?? [];
     } else {
-      books.value = (await useSupabase().value.from("book").select().order("sales", { ascending: false })).data ?? [];
+      books.value =
+        (
+          await useSupabase()
+            .value.from("book")
+            .select()
+            .order("sales", { ascending: false })
+        ).data ?? [];
     }
   } catch (error) {
     console.error(error);
@@ -36,7 +49,10 @@ export function findBook(kr: string) {
 
 // books 에서 kr 로 중복 제거
 export function uniqueBooks() {
-  return useBooks().value.filter((book: Book, index: number, self: any) => index === self.findIndex((b: any) => b.kr === book.kr));
+  return useBooks().value.filter(
+    (book: Book, index: number, self: any) =>
+      index === self.findIndex((b: any) => b.kr === book.kr)
+  );
 }
 
 // kr가 키가 되고 img가 값이 되는 객체 생성
