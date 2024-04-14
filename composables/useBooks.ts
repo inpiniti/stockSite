@@ -16,6 +16,7 @@ export interface Book {
 }
 
 export const useBooks = () => useStorage("books", () => [<Book>{}]);
+export const useSelectedBook = () => useStorage("selectedBook", () => <Book>{});
 
 export async function fetchBooks(date?: string) {
   const books = useBooks();

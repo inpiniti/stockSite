@@ -14,7 +14,7 @@ const navCollapsedSize = 4;
         :default-size="defaultLayout[0]"
         :collapsed-size="navCollapsedSize"
         collapsible
-        class="h-screen flex flex-col min-w-[250px] max-w-[300px]"
+        class="h-screen flex flex-col min-w-[250px] max-w-[350px]"
       >
         <div class="pl-4 p-2 shrink-0">
           <div class="flex items-center justify-between">
@@ -39,7 +39,7 @@ const navCollapsedSize = 4;
       <ResizableHandle id="resize-handle-1" with-handle />
       <ResizablePanel
         id="resize-panel-2"
-        class="min-w-[300px] max-w-[300px]"
+        class="min-w-[400px] max-w-[400px]"
         :default-size="defaultLayout[1]"
       >
         <Tabs
@@ -94,7 +94,24 @@ const navCollapsedSize = 4;
       </ResizablePanel>
       <ResizableHandle id="resiz-handle-2" with-handle />
       <ResizablePanel id="resize-panel-3" :default-size="defaultLayout[2]">
-        <!-- <MailDisplay :mail="selectedMailData" /> -->
+        <div class="pl-4 p-2 shrink-0">
+          <div class="flex items-center justify-between">
+            <div class="font-bold text-xl">Inpiniti</div>
+            <Select>
+              <SelectTrigger class="w-fit">
+                <SelectValue placeholder="select" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectLabel>Fruits</SelectLabel>
+                  <SelectItem value="apple"> Apple </SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+        <Separator />
+        <DetailBook />
       </ResizablePanel>
     </ResizablePanelGroup>
   </TooltipProvider>

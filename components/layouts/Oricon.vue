@@ -2,10 +2,19 @@
 const props = defineProps<{
   book: any;
 }>();
+
+const selectedBook = useSelectedBook();
+
+// oricon 선택
+function selectOricon() {
+  selectedBook.value = props.book;
+}
 </script>
 <template>
   <div
-    class="flex w-full flex-col gap-1 border rounded-lg p-2 hover:bg-neutral-50"
+    class="flex w-full flex-col gap-1 border rounded-lg p-2 hover:bg-neutral-50 cursor-pointer"
+    :class="{ 'bg-neutral-100': selectedBook.id == props.book.id }"
+    @click="selectOricon"
   >
     <div class="flex gap-2 justify-between items-center">
       <div class="grow-[0] text-left font-semibold text-sm">
@@ -38,16 +47,16 @@ const props = defineProps<{
     </div>
     <div class="flex justify-between items-end">
       <div class="flex flex-col justify-left text-xs text-left gap-1">
-        <div class="w-fit flex gap-1">
-          <Badge variant="secondary">저자</Badge>
+        <div class="w-fit flex gap-2 items-center">
+          저자
           <Badge variant="outline">{{ book.author }}</Badge>
         </div>
-        <div class="w-fit flex gap-1">
-          <Badge variant="secondary">출판사</Badge>
+        <div class="w-fit flex gap-2">
+          출판사
           <Badge variant="outline">{{ book.publisher }}</Badge>
         </div>
-        <div class="w-fit flex gap-1">
-          <Badge variant="secondary">주간 판매량</Badge>
+        <div class="w-fit flex gap-2">
+          주간 판매량
           <Badge variant="outline">{{ book.sales }}</Badge>
         </div>
       </div>
