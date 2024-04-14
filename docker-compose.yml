@@ -1,8 +1,8 @@
-version: "1.0.4"
+version: "1.0.5"
 services:
   oceanlook:
     container_name: comics
-    image: inpiniti/comics:1.0.4
+    image: inpiniti/comics:1.0.5
     build:
       context: .
       dockerfile: Dockerfile
