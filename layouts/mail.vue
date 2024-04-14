@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const defaultLayout = [200, 240, 655];
+const defaultLayout = [300, 200, 800];
 const navCollapsedSize = 4;
 </script>
 <template>
@@ -14,7 +14,7 @@ const navCollapsedSize = 4;
         :default-size="defaultLayout[0]"
         :collapsed-size="navCollapsedSize"
         collapsible
-        class="h-screen flex flex-col"
+        class="h-screen flex flex-col min-w-[250px] max-w-[300px]"
       >
         <div class="pl-4 p-2 shrink-0">
           <div class="flex items-center justify-between">
@@ -37,7 +37,11 @@ const navCollapsedSize = 4;
         <!-- <Nav :is-collapsed="isCollapsed" :links="links" /> -->
       </ResizablePanel>
       <ResizableHandle id="resize-handle-1" with-handle />
-      <ResizablePanel id="resize-panel-2" :default-size="defaultLayout[1]">
+      <ResizablePanel
+        id="resize-panel-2"
+        class="min-w-[300px] max-w-[300px]"
+        :default-size="defaultLayout[1]"
+      >
         <Tabs
           class="h-screen overflow-hidden flex flex-col"
           default-value="book"

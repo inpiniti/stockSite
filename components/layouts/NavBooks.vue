@@ -83,7 +83,7 @@ function bookUpdated() {}
     <ScrollArea class="flex grow-[0]">
       <div class="flex-1 flex flex-col gap-2 p-2">
         <div v-for="(book, index) in cBooks" :key="index">
-          <LayoutsBook :book="book" />
+          <LayoutsOricon :book="book" />
         </div>
       </div>
     </ScrollArea>
