@@ -647,7 +647,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0 ,
-    component: () => import('./_nuxt/_board-NPO6xLOk.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/_board-3lyGX3Eq.mjs').then((m) => m.default || m)
   },
   {
     name: void 0,
@@ -655,7 +655,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0 ,
-    component: () => import('./_nuxt/board-1FkPRY8g.mjs').then((m) => m.default || m),
+    component: () => import('./_nuxt/board-l47rw3hw.mjs').then((m) => m.default || m),
     children: [
       {
         name: "book-board-kr",
@@ -663,7 +663,7 @@ const _routes = [
         meta: {},
         alias: [],
         redirect: void 0 ,
-        component: () => import('./_nuxt/_kr_-vgDI8fDA.mjs').then((m) => m.default || m)
+        component: () => import('./_nuxt/_kr_-07wN432_.mjs').then((m) => m.default || m)
       },
       {
         name: "book-board-board.columns",
@@ -679,7 +679,7 @@ const _routes = [
         meta: {},
         alias: [],
         redirect: void 0 ,
-        component: () => import('./_nuxt/index-s58gpB1d.mjs').then((m) => m.default || m)
+        component: () => import('./_nuxt/index-HJ-Smvbm.mjs').then((m) => m.default || m)
       }
     ]
   },
@@ -697,7 +697,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0 ,
-    component: () => import('./_nuxt/chart-6QqK4Pmq.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/chart-dGvNyJUt.mjs').then((m) => m.default || m)
   },
   {
     name: "book-columns",
@@ -705,7 +705,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0 ,
-    component: () => import('./_nuxt/columns-GHm6X_23.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/columns--TH0OEQO.mjs').then((m) => m.default || m)
   },
   {
     name: "book-list",
@@ -713,7 +713,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0 ,
-    component: () => import('./_nuxt/list-nQ_Tu1mM.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/list-oa3cFqiU.mjs').then((m) => m.default || m)
   },
   {
     name: "book-music",
@@ -721,7 +721,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0 ,
-    component: () => import('./_nuxt/music-QZIcu9Lj.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/music-VsLWLI7Y.mjs').then((m) => m.default || m)
   },
   {
     name: "book-sale",
@@ -729,7 +729,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0 ,
-    component: () => import('./_nuxt/sale-TEWCm8Oy.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/sale-rdXjMcAI.mjs').then((m) => m.default || m)
   },
   {
     name: "book-youtube",
@@ -737,7 +737,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0 ,
-    component: () => import('./_nuxt/youtube-f-UPNKD1.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/youtube-5LvPTBrO.mjs').then((m) => m.default || m)
   },
   {
     name: (__nuxt_page_meta$5 == null ? void 0 : __nuxt_page_meta$5.name) ?? "index",
@@ -753,7 +753,7 @@ const _routes = [
     meta: __nuxt_page_meta$4 || {},
     alias: (__nuxt_page_meta$4 == null ? void 0 : __nuxt_page_meta$4.alias) || [],
     redirect: __nuxt_page_meta$4 == null ? void 0 : __nuxt_page_meta$4.redirect,
-    component: () => import('./_nuxt/login-w5Ty-Iap.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/login-zX8wQezR.mjs').then((m) => m.default || m)
   },
   {
     name: "stock-columns",
@@ -761,7 +761,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0 ,
-    component: () => import('./_nuxt/columns-G3Uas0la.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/columns-2J8e6b98.mjs').then((m) => m.default || m)
   },
   {
     name: "stock-learning",
@@ -777,7 +777,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0 ,
-    component: () => import('./_nuxt/list-ig5dsG6K.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/list-SB3MCMxa.mjs').then((m) => m.default || m)
   },
   {
     name: "stock-prediction",
@@ -1110,8 +1110,8 @@ const plugins = [
 ];
 const layouts = {
   blank: () => import('./_nuxt/blank-dw5w2ZJb.mjs').then((m) => m.default || m),
-  default: () => import('./_nuxt/default-Ck37S2Ci.mjs').then((m) => m.default || m),
-  mail: () => import('./_nuxt/mail-7bvoRItc.mjs').then((m) => m.default || m)
+  default: () => import('./_nuxt/default-Utg66DUI.mjs').then((m) => m.default || m),
+  mail: () => import('./_nuxt/mail-8d00BaLz.mjs').then((m) => m.default || m)
 };
 const LayoutLoader = defineComponent({
   name: "LayoutLoader",
@@ -1875,7 +1875,7 @@ const _sfc_main$1 = {
     const statusMessage = _error.statusMessage ?? (is404 ? "Page Not Found" : "Internal Server Error");
     const description = _error.message || _error.toString();
     const stack = void 0;
-    const _Error404 = defineAsyncComponent(() => import('./_nuxt/error-404--CwlWuWm.mjs').then((r) => r.default || r));
+    const _Error404 = defineAsyncComponent(() => import('./_nuxt/error-404-1k0G_DFJ.mjs').then((r) => r.default || r));
     const _Error = defineAsyncComponent(() => import('./_nuxt/error-500-qyOGekh_.mjs').then((r) => r.default || r));
     const ErrorTemplate = is404 ? _Error404 : _Error;
     return (_ctx, _push, _parent, _attrs) => {
@@ -1956,5 +1956,5 @@ let entry;
 }
 const entry$1 = (ssrContext) => entry(ssrContext);
 
-export { __nuxt_component_0 as _, useNuxtApp as a, cn as b, createError as c, useRoute as d, entry$1 as default, useToast as e, useRouter as f, nuxtLinkDefaults as g, asyncDataDefaults as h, injectHead as i, fetchDefaults as j, navigateTo as n, resolveUnrefHeadInput as r, useRuntimeConfig as u, valueUpdater as v };
+export { __nuxt_component_0 as _, cn as a, useToast as b, createError as c, useRuntimeConfig as d, entry$1 as default, useRouter as e, nuxtLinkDefaults as f, useNuxtApp as g, asyncDataDefaults as h, injectHead as i, fetchDefaults as j, navigateTo as n, resolveUnrefHeadInput as r, useRoute as u, valueUpdater as v };
 //# sourceMappingURL=server.mjs.map

@@ -1,1 +1,0 @@
-import{aG as n,j as t}from"./entry.nRqkUUGp.js";n();const c=()=>{const e=t("bookOpen",()=>!1),o=t("bookSelected",()=>({}));function s(a){o.value=a,e.value=!0}return{open:e,selected:o,openBook:s}};export{c as u};
