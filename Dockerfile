@@ -8,21 +8,18 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install the project dependencies
-RUN npm install
+# RUN npm install
 
 # Automatically fix detected vulnerabilities
 # RUN npm audit fix
 
 # Copy the build output to the working directory
-COPY . .
-
-# Build the application
-RUN npm run build
+COPY .output ./
 
 # Make port 3000 available to the outside of the docker container
 EXPOSE 3000
 
 # Run the application
-CMD [ "node", "./.output/server/index.mjs" ]
+CMD [ "node", "server/index.mjs" ]
 
 # sudo docker build -t inpiniti/comics:3.3.0 .
