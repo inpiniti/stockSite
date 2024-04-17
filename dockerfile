@@ -14,12 +14,12 @@ RUN npm install
 # RUN npm audit fix
 
 # Copy the build output to the working directory
-COPY .output ./
+COPY . .
 
 # Make port 3000 available to the outside of the docker container
 EXPOSE 3000
 
 # Run the application
-CMD [ "node", "server/index.mjs" ]
+CMD [ "node", "./.output/server/index.mjs" ]
 
 # sudo docker build -t inpiniti/comics:3.3.0 .
