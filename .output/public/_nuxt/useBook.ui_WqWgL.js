@@ -1,1 +1,0 @@
-import{ap as n,j as t}from"./entry.gsRA_R3H.js";n();const c=()=>{const e=t("bookOpen",()=>!1),o=t("bookSelected",()=>({}));function s(a){o.value=a,e.value=!0}return{open:e,selected:o,openBook:s}};export{c as u};
