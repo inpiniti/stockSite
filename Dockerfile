@@ -16,6 +16,9 @@ RUN npm install
 # Copy the build output to the working directory
 COPY . .
 
+# Build the application
+RUN npm run build
+
 # Make port 3000 available to the outside of the docker container
 EXPOSE 3000
 
