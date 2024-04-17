@@ -2,7 +2,7 @@
   "name": "comics",
   "private": true,
   "type": "module",
-  "version": "1.0.6",
+  "version": "1.0.8",
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
