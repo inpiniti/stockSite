@@ -5,7 +5,7 @@ FROM node:18.17.0
 WORKDIR /app
 
 # Set environment variables
-ENV NODE_ENV=production
+#ENV NODE_ENV=production
 
 # Copy package.json and package-lock.json to the working directory
 COPY package*.json ./
