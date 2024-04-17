@@ -1,0 +1,1 @@
+import{f as r,o,c as n,s as t,E as c,i as d,W as l}from"./entry.gsRA_R3H.js";const m=r({__name:"Card",props:{class:{type:String,default:""}},setup(s){const e=s;return(a,p)=>(o(),n("div",{class:c(d(l)("rounded-lg border bg-card text-card-foreground shadow-sm",e.class))},[t(a.$slots,"default")],2))}});export{m as _};
