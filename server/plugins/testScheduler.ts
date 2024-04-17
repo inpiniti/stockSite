@@ -2,6 +2,7 @@ import { useScheduler } from "#scheduler";
 import axios from "axios";
 
 export default defineNitroPlugin(() => {
+  console.log(process.env.NODE_ENV);
   if (process.env.NODE_ENV === "production") {
     startScheduler();
   }
