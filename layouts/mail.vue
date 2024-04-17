@@ -32,10 +32,18 @@ const navCollapsedSize = 4;
           <div class="flex items-center px-4 py-2 shrink-0">
             <h1 class="text-xl font-bold">Inbox</h1>
             <TabsList class="ml-auto">
-              <TabsTrigger value="book" class="text-zinc-600 dark:text-zinc-200"> 도서 </TabsTrigger>
-              <TabsTrigger value="music" class="text-zinc-600 dark:text-zinc-200"> 음악 </TabsTrigger>
-              <TabsTrigger value="board" class="text-zinc-600 dark:text-zinc-200"> 게시판 </TabsTrigger>
-              <TabsTrigger value="figure" class="text-zinc-600 dark:text-zinc-200"> 피규어 </TabsTrigger>
+              <nuxt-link to="/book">
+                <TabsTrigger value="book" class="text-zinc-600 dark:text-zinc-200"> 도서 </TabsTrigger>
+              </nuxt-link>
+              <nuxt-link to="/music">
+                <TabsTrigger value="music" class="text-zinc-600 dark:text-zinc-200"> 음악 </TabsTrigger>
+              </nuxt-link>
+              <nuxt-link to="/board">
+                <TabsTrigger value="board" class="text-zinc-600 dark:text-zinc-200"> 게시판 </TabsTrigger>
+              </nuxt-link>
+              <nuxt-link to="/figure">
+                <TabsTrigger value="figure" class="text-zinc-600 dark:text-zinc-200"> 피규어 </TabsTrigger>
+              </nuxt-link>
             </TabsList>
           </div>
           <Separator />
@@ -74,7 +82,7 @@ const navCollapsedSize = 4;
           </div>
         </div>
         <Separator />
-        <DetailBook />
+        <slot />
       </ResizablePanel>
     </ResizablePanelGroup>
   </TooltipProvider>
