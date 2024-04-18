@@ -8,7 +8,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install the project dependencies
-# RUN npm install
+RUN npm install
 
 # Automatically fix detected vulnerabilities
 # RUN npm audit fix
