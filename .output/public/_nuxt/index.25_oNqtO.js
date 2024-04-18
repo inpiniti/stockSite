@@ -1,0 +1,1 @@
+import{j as e,l as t}from"./entry.oc5bmuJu.js";const c={__name:"index",setup(a){return e(async()=>{await t().value.from("book").select("kr, dc",{distinct:!0}).neq("dc",null)}),(n,s)=>"index"}};export{c as default};
