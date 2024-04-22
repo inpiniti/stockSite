@@ -15,28 +15,48 @@ const onSubmit = (values) => {
   });
 };
 
-const editor = ref(null);
+const editor = ref();
 const editorConfig = ref({
-  toolbar: ["bold", "italic", "link", "bulletedList", "numberedList", "blockQuote"],
+  toolbar: ["bold", "italic", "link", "bulletedList", "numberedList", "blockQuote", "imageUpload"],
+  image: {
+    toolbar: ["imageTextAlternative", "|", "imageStyle:alignLeft", "imageStyle:full", "imageStyle:alignRight"],
+    styles: ["full", "alignLeft", "alignRight"],
+  },
+  simpleUpload: {
+    upload: async (file) => {
+      console.log("file", file);
+      const { data, error } = await useSupabase().value.storage.from("test").upload(file.name, file);
+
+      if (error) {
+        throw error;
+      }
+
+      const publicUrl = useSupabase().value.storage.from("test").getPublicUrl(file.name);
+
+      if (publicUrl.error) {
+        throw publicUrl.error;
+      }
+
+      return { default: publicUrl.publicURL };
+    },
+  },
 });
 
 onMounted(async () => {
   await nextTick();
 
-  editor.value = await ClassicEditor.create(editor.value, {
-    toolbar: ["bold", "italic", "link", "bulletedList", "numberedList", "blockQuote"],
-  });
+  const rawEditor = await ClassicEditor.create(editor.value, editorConfig.value);
+  editor.value = markRaw(toRaw(rawEditor)); // 수정된 부분
 
-  editor.value.ready.then(() => {
-    try {
-      editor.value.model.document.on("change:data", () => {
-        console.log("test");
-        content.value = editor.value.getData();
-      });
-    } catch (error) {
-      console.error(error); // 이벤트 핸들러 등록 중에 발생하는 오류 출력
-    }
-  });
+  // editor.value.ready를 기다릴 필요가 없습니다.
+  try {
+    editor.value.model.document.on("change:data", () => {
+      console.log("test");
+      content.value = editor.value.getData();
+    });
+  } catch (error) {
+    console.error(error); // 이벤트 핸들러 등록 중에 발생하는 오류 출력
+  }
 });
 </script>
 <template>
