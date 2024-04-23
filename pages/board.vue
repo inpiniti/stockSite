@@ -22,36 +22,27 @@ const editorConfig = ref({
     toolbar: ["imageTextAlternative", "|", "imageStyle:alignLeft", "imageStyle:full", "imageStyle:alignRight"],
     styles: ["full", "alignLeft", "alignRight"],
   },
-  simpleUpload: {
-    upload: async (file) => {
-      console.log("file", file);
-      const { data, error } = await useSupabase().value.storage.from("test").upload(file.name, file);
-
-      if (error) {
-        throw error;
-      }
-
-      const publicUrl = useSupabase().value.storage.from("test").getPublicUrl(file.name);
-
-      if (publicUrl.error) {
-        throw publicUrl.error;
-      }
-
-      return { default: publicUrl.publicURL };
-    },
+  ckfinder: {
+    uploadUrl: "/api/image/upload", // 여기에 이미지를 업로드할 서버 측 엔드포인트를 지정하세요.
   },
 });
 
 onMounted(async () => {
   await nextTick();
 
-  const rawEditor = await ClassicEditor.create(editor.value, editorConfig.value);
+  const rawEditor = await ClassicEditor.create(editor.value, editorConfig.value)
+    .then((editor) => {
+      return editor;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+
   editor.value = markRaw(toRaw(rawEditor)); // 수정된 부분
 
   // editor.value.ready를 기다릴 필요가 없습니다.
   try {
     editor.value.model.document.on("change:data", () => {
-      console.log("test");
       content.value = editor.value.getData();
     });
   } catch (error) {

@@ -1,10 +1,6 @@
 import axios from "axios";
 
-export async function coverSave(
-  kr: string,
-  booknum: number,
-  cover_image: string
-) {
+export async function coverSave(kr: string, booknum: number, cover_image: string) {
   let img: any = "";
   try {
     img = await saveImage(cover_image);
@@ -21,9 +17,7 @@ export async function coverSave(
 
     // 저장된 이미지를 supabase book kr이 같은 걸 조건인 row에 img 필드에 저장
     // 이미지 URL을 데이터베이스에 저장
-    const { data: updatedRow, error: updateError } = await useSupabase()
-      .from("cover")
-      .insert({ kr: decoded, booknum: booknum, cover_image: storage_rul });
+    const { data: updatedRow, error: updateError } = await useSupabase().from("cover").insert({ kr: decoded, booknum: booknum, cover_image: storage_rul });
 
     if (updateError) {
       console.error("Error uploading image:", updateError);
@@ -45,9 +39,7 @@ async function saveImage(url: string) {
   const pathParts = urlObject.pathname.split("/");
   const filename = "private/" + pathParts[pathParts.length - 1];
 
-  const { data, error } = await useSupabase()
-    .storage.from("comics")
-    .upload(filename, buffer);
+  const { data, error } = await useSupabase().storage.from("comics").upload(filename, buffer);
 
   if (error) {
     console.error("Error uploading image:", error);
