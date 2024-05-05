@@ -2,7 +2,7 @@
   <ScrollArea class="flex h-full">
     <div class="flex-1 flex flex-col gap-2 p-2">
       <div v-for="(cover, index) in cCoverList" :key="index">
-        <div class="flex border rounded-lg p-2 hover:bg-neutral-100 gap-2">
+        <div class="flex border rounded-lg p-2 bg-neutral-100 gap-2">
           <div class="h-32 w-24 rounded-md overflow-hidden relative">
             <img
               :src="cover.cover_image"

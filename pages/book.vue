@@ -17,7 +17,10 @@ const selectedBook = useSelectedBook();
           </div>
           <Separator class="my-4" />
           <div class="text-sm">
-            <div>택배배송 <span class="text-neutral-200">|</span> 무료배송 우체국택배</div>
+            <div>
+              택배배송 <span class="text-neutral-200">|</span> 무료배송
+              우체국택배
+            </div>
             <div class="text-neutral-400">제주, 도서지역 추가 6,000원</div>
           </div>
           <Separator class="my-4" />
@@ -58,19 +61,47 @@ const selectedBook = useSelectedBook();
           <div class="flex justify-center">
             <div class="p-2 px-5 min-w-[600px] max-w-[600px]">
               <TabsList class="w-full">
-                <TabsTrigger value="book" class="text-zinc-600 dark:text-zinc-200"> 상세정보 </TabsTrigger>
-                <TabsTrigger value="music" class="text-zinc-600 dark:text-zinc-200"> 리뷰 0 </TabsTrigger>
-                <TabsTrigger value="board" class="text-zinc-600 dark:text-zinc-200"> Q&A 0 </TabsTrigger>
-                <TabsTrigger value="figure" class="text-zinc-600 dark:text-zinc-200"> 반품/교환정보 </TabsTrigger>
+                <TabsTrigger
+                  value="book"
+                  class="text-zinc-600 dark:text-zinc-200"
+                >
+                  상세정보
+                </TabsTrigger>
+                <TabsTrigger
+                  value="music"
+                  class="text-zinc-600 dark:text-zinc-200"
+                >
+                  리뷰 0
+                </TabsTrigger>
+                <TabsTrigger
+                  value="board"
+                  class="text-zinc-600 dark:text-zinc-200"
+                >
+                  Q&A 0
+                </TabsTrigger>
+                <TabsTrigger
+                  value="figure"
+                  class="text-zinc-600 dark:text-zinc-200"
+                >
+                  반품/교환정보
+                </TabsTrigger>
               </TabsList>
             </div>
           </div>
           <Separator class="mb-2" />
           <div class="grow-[0] overflow-hidden flex flex-col p-2">
-            <TabsContent value="book" class="m-0 overflow-hidden"> 상세정보 </TabsContent>
-            <TabsContent value="music" class="m-0 overflow-hidden"> 리뷰 0 </TabsContent>
-            <TabsContent value="board" class="m-0 overflow-hidden"> Q&A 0 </TabsContent>
-            <TabsContent value="figure" class="m-0 overflow-hidden"> 반품/교환정보 </TabsContent>
+            <TabsContent value="book" class="m-0 overflow-hidden">
+              상세정보
+            </TabsContent>
+            <TabsContent value="music" class="m-0 overflow-hidden">
+              리뷰 0
+            </TabsContent>
+            <TabsContent value="board" class="m-0 overflow-hidden">
+              Q&A 0
+            </TabsContent>
+            <TabsContent value="figure" class="m-0 overflow-hidden">
+              반품/교환정보
+            </TabsContent>
           </div>
         </Tabs>
       </div>
