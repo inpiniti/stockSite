@@ -48,7 +48,7 @@ const reply = ref(null);
 // vr_player_tag:""
 
 watch(
-  () => board.value.id,
+  () => board.value?.id,
   () => {
     getReply();
   }
@@ -116,7 +116,13 @@ async function getReply() {
       </div>
       <div class="text-3xl font-bold">{{ board.title }}</div>
 
-      <div>{{ board.content }}</div>
+      <div
+        v-html="
+          board.content
+            .replace(/https:\/\/dcimg\d\.dcinside/g, 'https://images.dcinside')
+            .replace(/co\.kr/g, 'com')
+        "
+      ></div>
     </div>
     <Separator />
     <div class="p-4">

@@ -2,11 +2,9 @@ import { useScheduler } from "#scheduler";
 import axios from "axios";
 
 export default defineNitroPlugin(() => {
-  console.log("defineNitroPlugin");
-  console.log(process.env.NODE_ENV);
-  if (process.env.NODE_ENV === "production") {
-    startScheduler();
-  }
+  //if (process.env.NODE_ENV === "production") {
+  startScheduler();
+  //}
 });
 
 function startScheduler() {
@@ -43,10 +41,15 @@ async function getBoard(kr: string, dc: string) {
   // 게시글 조회
   try {
     const boards = await axios.get(`http://localhost:3000/api/dcinside/${dc}`);
-    console.log(`${kr} 게시글 조회 완료`);
+    console.log(`${new Date()} ${kr} 게시글 조회 완료`);
 
     // 가장 높은 num 조회
-    let { data, error } = await useSupabase().from("board").select("num").eq("kr", kr).order("num", { ascending: false }).limit(1);
+    let { data, error } = await useSupabase()
+      .from("board")
+      .select("num")
+      .eq("kr", kr)
+      .order("num", { ascending: false })
+      .limit(1);
 
     let maxNum;
 
@@ -58,10 +61,11 @@ async function getBoard(kr: string, dc: string) {
       maxNum = 0;
     }
 
-    console.log(`${kr} 게시글 조회 ${maxNum} 번  완료`);
-
     //console.log("boards", boards);
 
+    console.log(
+      `${new Date()} ${kr} 인서트 및 업데이트 작업 : ${boards.data.length}`
+    );
     for (const board of boards.data) {
       // 덧글 조회
       if (maxNum < board.num) {
@@ -73,6 +77,7 @@ async function getBoard(kr: string, dc: string) {
         await updateBoard(kr, board);
       }
     }
+    console.log(`${new Date()} ${kr} 작업 완료`);
   } catch (error) {
     console.log(error);
   }
@@ -81,11 +86,12 @@ async function getBoard(kr: string, dc: string) {
 // 덧글 조회
 async function getReply(kr: string, dc: string, board: any, maxNum: number) {
   // 덧글 조회
-  const reply = await axios.get(`http://localhost:3000/api/dcinside/${dc}/${board.num}?kr=${kr}`);
+  const reply = await axios.get(
+    `http://localhost:3000/api/dcinside/${dc}/${board.num}?kr=${kr}`
+  );
 
-  if (reply.data.images[0] == null || reply.data.images[0] == undefined) return;
-  // 이미지 조회
-  console.log(`${kr} 게시글의 ${board.num} 덧글 조회 완료`);
+  // 이미지가 없어도 등록하는게 좋을 것 같음
+  //if (reply.data.images[0] == null || reply.data.images[0] == undefined) return;
 
   if (maxNum < board.num) {
     // maxNum < board.num 이면 insert
@@ -117,7 +123,6 @@ async function insertBoard(kr: string, board: any, reply: any) {
         kr: kr,
       },
     ]);
-  console.log(`${kr} 게시글의 ${board.num} 덧글 insert 완료`);
 }
 
 // board update
@@ -141,5 +146,4 @@ async function updateBoard(kr: string, board: any) {
     })
     .eq("kr", kr)
     .eq("num", board.num);
-  console.log(`${kr} 게시글의 ${board.num} 덧글 update 완료`);
 }
