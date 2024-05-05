@@ -1,8 +1,8 @@
-version: "1.0.8"
+version: "1.0.9"
 services:
   comics:
     container_name: comics
-    image: inpiniti/comics:1.0.8
+    image: inpiniti/comics:1.0.9
     build:
       context: .
       dockerfile: Dockerfile
