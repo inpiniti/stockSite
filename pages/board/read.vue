@@ -47,10 +47,15 @@ const reply = ref(null);
 // vr_player:false
 // vr_player_tag:""
 
+const scrollContainer = ref(null);
+
 watch(
   () => board.value?.id,
   () => {
     getReply();
+    if (scrollContainer.value) {
+      scrollContainer.value.scrollTop = 0;
+    }
   }
 );
 
@@ -79,12 +84,10 @@ async function getReply() {
 }
 </script>
 <template>
-  <div class="flex flex-col">
-    <div class="flex flex-col p-4 gap-8" v-if="board">
+  <div class="h-full overflow-hidden flex flex-col" v-if="board">
+    <div class="shrink-0 flex flex-col p-4 gap-4">
       <div class="flex justify-between text-xs">
         <div class="flex gap-1">
-          도서명
-          <div class="text-neutral-300">/</div>
           <h3 class="text-blue-500">
             {{ board.kr }}
           </h3>
@@ -115,39 +118,46 @@ async function getReply() {
         </div>
       </div>
       <div class="text-3xl font-bold">{{ board.title }}</div>
-
-      <div
-        v-html="
-          board.content
-            .replace(/https:\/\/dcimg\d\.dcinside/g, 'https://images.dcinside')
-            .replace(/co\.kr/g, 'com')
-        "
-      ></div>
     </div>
     <Separator />
-    <div class="p-4">
-      <div class="flex gap-4">
-        <div class="shrink-0 w-10 h-10 bg-neutral-100 rounded-full"></div>
-        <div class="grow-[0] w-full">
-          <Textarea placeholder="Type your message here." />
-        </div>
+    <div class="grow-[0] overflow-y-scroll" ref="scrollContainer">
+      <div class="p-4 flex flex-col gap-4">
+        <div
+          v-html="
+            board.content
+              ?.replace(
+                /https:\/\/dcimg\d\.dcinside/g,
+                'https://images.dcinside'
+              )
+              .replace(/co\.kr/g, 'com')
+          "
+        ></div>
       </div>
-      <Button class="w-full mt-4">작성</Button>
-    </div>
-    <Separator />
-    <div>
-      <div
-        class="p-4 flex flex-col gap-2"
-        v-for="comment in reply?.comment?.comments"
-      >
-        <p class="text-xs">{{ comment.user_id }}({{ comment.name }})</p>
-        <div class="flex items-end gap-1">
-          <div class="bg-neutral-100 rounded-md px-2 py-1 text-sm w-fit">
-            <div
-              v-html="replaceDomain(comment.memo).replace(/co\.kr/g, 'com')"
-            ></div>
+      <Separator />
+      <div class="p-4">
+        <div class="flex gap-4">
+          <div class="shrink-0 w-10 h-10 bg-neutral-100 rounded-full"></div>
+          <div class="grow-[0] w-full">
+            <Textarea placeholder="Type your message here." />
           </div>
-          <p class="text-xs">{{ comment.reg_date }}</p>
+        </div>
+        <Button class="w-full mt-4">작성</Button>
+      </div>
+      <Separator />
+      <div>
+        <div
+          class="p-4 flex flex-col gap-2"
+          v-for="comment in reply?.comment?.comments"
+        >
+          <p class="text-xs">{{ comment.user_id }}({{ comment.name }})</p>
+          <div class="flex items-end gap-1">
+            <div class="bg-neutral-100 rounded-md px-2 py-1 text-sm w-fit">
+              <div
+                v-html="replaceDomain(comment.memo).replace(/co\.kr/g, 'com')"
+              ></div>
+            </div>
+            <p class="text-xs">{{ comment.reg_date }}</p>
+          </div>
         </div>
       </div>
     </div>

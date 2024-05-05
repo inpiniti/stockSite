@@ -120,7 +120,7 @@ const navCollapsedSize = 4;
             </div>
           </div>
           <Separator />
-          <div class="grow-[0] overflow-y-scroll">
+          <div class="grow-[0] overflow-hidden">
             <slot />
           </div>
         </div>

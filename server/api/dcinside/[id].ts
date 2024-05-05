@@ -75,21 +75,22 @@ function parsing($: CheerioAPI) {
       const replyMatchResult = reply_num_text.match(/\d+/);
       const reply_num = replyMatchResult ? Number(replyMatchResult[0]) : 0;
 
-      if (is_icon_pic) {
-        data.push({
-          type: "dcinside",
-          num, // no 임
-          subject,
-          title,
-          number,
-          link,
-          writer,
-          date,
-          count,
-          recommend,
-          reply_num,
-        });
-      }
+      // 이미지가 없어도 등록한다.
+      //if (is_icon_pic) {
+      data.push({
+        type: "dcinside",
+        num, // no 임
+        subject,
+        title,
+        number,
+        link,
+        writer,
+        date,
+        count,
+        recommend,
+        reply_num,
+      });
+      //}
     }
   });
 
