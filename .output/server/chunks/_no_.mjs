@@ -57,7 +57,7 @@ function parsing($, kr) {
   const filteredImages = images.filter((image) => {
     return image.includes("http");
   });
-  const content = $(".write_div").text().trim();
+  const content = $(".write_div").html();
   return {
     content,
     images: filteredImages

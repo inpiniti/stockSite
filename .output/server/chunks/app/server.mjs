@@ -1,4 +1,4 @@
-import { hasInjectionContext, inject, version, unref, defineComponent, h, computed, ref, provide, useSSRContext, shallowReactive, watch, Suspense, nextTick, Transition, mergeProps, withCtx, createTextVNode, toDisplayString, isVNode, createVNode, resolveDynamicComponent, openBlock, createBlock, createCommentVNode, Fragment, renderList, renderSlot, createApp, effectScope, reactive, getCurrentInstance, defineAsyncComponent, onErrorCaptured, onServerPrefetch, toRef, shallowRef, isReadonly, isRef, isShallow, isReactive, toRaw } from 'vue';
+import { hasInjectionContext, inject, version, unref, defineComponent, ref, provide, createElementBlock, h, computed, useSSRContext, shallowReactive, watch, Suspense, nextTick, Transition, mergeProps, withCtx, createTextVNode, toDisplayString, isVNode, createVNode, resolveDynamicComponent, openBlock, createBlock, createCommentVNode, Fragment, renderList, renderSlot, createApp, effectScope, reactive, getCurrentInstance, defineAsyncComponent, onErrorCaptured, onServerPrefetch, toRef, shallowRef, isReadonly, isRef, isShallow, isReactive, toRaw } from 'vue';
 import { m as useRuntimeConfig$1, $ as $fetch, n as withQuery, h as hasProtocol, p as parseURL, o as isScriptProtocol, j as joinURL, q as createError$1, b as defu, s as sanitizeStatusCode, r as createHooks } from '../user.mjs';
 import { getActiveHead } from 'unhead';
 import { defineHeadPlugin } from '@unhead/shared';
@@ -639,172 +639,181 @@ const wrapInKeepAlive = (props, children) => {
 function toArray(value) {
   return Array.isArray(value) ? value : [value];
 }
+const __nuxt_page_meta$m = {
+  layout: "mail"
+};
 const __nuxt_page_meta$l = {
   layout: "mail"
 };
-const __nuxt_page_meta$8 = {
+const __nuxt_page_meta$k = {
   layout: "mail"
 };
-const __nuxt_page_meta$7 = {
+const __nuxt_page_meta$j = {
   layout: "mail"
 };
-const __nuxt_page_meta$6 = {
+const __nuxt_page_meta$i = {
   layout: "mail"
 };
-const __nuxt_page_meta$5 = {
+const __nuxt_page_meta$h = {
   layout: "blank"
 };
-const __nuxt_page_meta$4 = {
+const __nuxt_page_meta$g = {
   layout: "mail"
 };
 const _routes = [
   {
-    name: (__nuxt_page_meta$l == null ? void 0 : __nuxt_page_meta$l.name) ?? "board",
-    path: (__nuxt_page_meta$l == null ? void 0 : __nuxt_page_meta$l.path) ?? "/board",
+    name: (__nuxt_page_meta$m == null ? void 0 : __nuxt_page_meta$m.name) ?? "board-read",
+    path: (__nuxt_page_meta$m == null ? void 0 : __nuxt_page_meta$m.path) ?? "/board/read",
+    meta: __nuxt_page_meta$m || {},
+    alias: (__nuxt_page_meta$m == null ? void 0 : __nuxt_page_meta$m.alias) || [],
+    redirect: __nuxt_page_meta$m == null ? void 0 : __nuxt_page_meta$m.redirect,
+    component: () => import('./_nuxt/read-7pbScM2p.mjs').then((m) => m.default || m)
+  },
+  {
+    name: (__nuxt_page_meta$l == null ? void 0 : __nuxt_page_meta$l.name) ?? "board-write",
+    path: (__nuxt_page_meta$l == null ? void 0 : __nuxt_page_meta$l.path) ?? "/board/write",
     meta: __nuxt_page_meta$l || {},
     alias: (__nuxt_page_meta$l == null ? void 0 : __nuxt_page_meta$l.alias) || [],
     redirect: __nuxt_page_meta$l == null ? void 0 : __nuxt_page_meta$l.redirect,
-    component: () => import('./_nuxt/board-Eoj-ggmX.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/write-CkKdiRln.mjs').then((m) => m.default || m)
   },
   {
-    name: (__nuxt_page_meta$8 == null ? void 0 : __nuxt_page_meta$8.name) ?? "book",
-    path: (__nuxt_page_meta$8 == null ? void 0 : __nuxt_page_meta$8.path) ?? "/book",
-    meta: __nuxt_page_meta$8 || {},
-    alias: (__nuxt_page_meta$8 == null ? void 0 : __nuxt_page_meta$8.alias) || [],
-    redirect: __nuxt_page_meta$8 == null ? void 0 : __nuxt_page_meta$8.redirect,
-    component: () => import('./_nuxt/book-heJGCx_-.mjs').then((m) => m.default || m),
+    name: (__nuxt_page_meta$k == null ? void 0 : __nuxt_page_meta$k.name) ?? "book",
+    path: (__nuxt_page_meta$k == null ? void 0 : __nuxt_page_meta$k.path) ?? "/book",
+    meta: __nuxt_page_meta$k || {},
+    alias: (__nuxt_page_meta$k == null ? void 0 : __nuxt_page_meta$k.alias) || [],
+    redirect: __nuxt_page_meta$k == null ? void 0 : __nuxt_page_meta$k.redirect,
+    component: () => import('./_nuxt/book-5OsgoRo_.mjs').then((m) => m.default || m)
+  },
+  {
+    name: (__nuxt_page_meta$j == null ? void 0 : __nuxt_page_meta$j.name) ?? "figure",
+    path: (__nuxt_page_meta$j == null ? void 0 : __nuxt_page_meta$j.path) ?? "/figure",
+    meta: __nuxt_page_meta$j || {},
+    alias: (__nuxt_page_meta$j == null ? void 0 : __nuxt_page_meta$j.alias) || [],
+    redirect: __nuxt_page_meta$j == null ? void 0 : __nuxt_page_meta$j.redirect,
+    component: () => import('./_nuxt/figure-2cW8jb5a.mjs').then((m) => m.default || m)
+  },
+  {
+    name: (__nuxt_page_meta$i == null ? void 0 : __nuxt_page_meta$i.name) ?? "index",
+    path: (__nuxt_page_meta$i == null ? void 0 : __nuxt_page_meta$i.path) ?? "/",
+    meta: __nuxt_page_meta$i || {},
+    alias: (__nuxt_page_meta$i == null ? void 0 : __nuxt_page_meta$i.alias) || [],
+    redirect: __nuxt_page_meta$i == null ? void 0 : __nuxt_page_meta$i.redirect,
+    component: () => import('./_nuxt/index-NMIiNM8w.mjs').then((m) => m.default || m)
+  },
+  {
+    name: (__nuxt_page_meta$h == null ? void 0 : __nuxt_page_meta$h.name) ?? "login",
+    path: (__nuxt_page_meta$h == null ? void 0 : __nuxt_page_meta$h.path) ?? "/login",
+    meta: __nuxt_page_meta$h || {},
+    alias: (__nuxt_page_meta$h == null ? void 0 : __nuxt_page_meta$h.alias) || [],
+    redirect: __nuxt_page_meta$h == null ? void 0 : __nuxt_page_meta$h.redirect,
+    component: () => import('./_nuxt/login-8g8uaCdf.mjs').then((m) => m.default || m)
+  },
+  {
+    name: (__nuxt_page_meta$g == null ? void 0 : __nuxt_page_meta$g.name) ?? "music",
+    path: (__nuxt_page_meta$g == null ? void 0 : __nuxt_page_meta$g.path) ?? "/music",
+    meta: __nuxt_page_meta$g || {},
+    alias: (__nuxt_page_meta$g == null ? void 0 : __nuxt_page_meta$g.alias) || [],
+    redirect: __nuxt_page_meta$g == null ? void 0 : __nuxt_page_meta$g.redirect,
+    component: () => import('./_nuxt/music-zm5rqlvo.mjs').then((m) => m.default || m)
+  },
+  {
+    name: "old-_board",
+    path: "/old/_board",
+    meta: {},
+    alias: [],
+    redirect: void 0 ,
+    component: () => import('./_nuxt/_board-pe2lOfIU.mjs').then((m) => m.default || m)
+  },
+  {
+    name: void 0,
+    path: "/old/board",
+    meta: {},
+    alias: [],
+    redirect: void 0 ,
+    component: () => import('./_nuxt/board-XLv4tTuE.mjs').then((m) => m.default || m),
     children: [
       {
-        name: "book-_board",
-        path: "_board",
+        name: "old-board-kr",
+        path: ":kr()",
         meta: {},
         alias: [],
         redirect: void 0 ,
-        component: () => import('./_nuxt/_board-yp_BhFwi.mjs').then((m) => m.default || m)
+        component: () => import('./_nuxt/_kr_-6EPAzW3k.mjs').then((m) => m.default || m)
       },
       {
-        name: void 0,
-        path: "board",
+        name: "old-board-board.columns",
+        path: "board.columns",
         meta: {},
         alias: [],
         redirect: void 0 ,
-        component: () => import('./_nuxt/board-qk13bqT9.mjs').then((m) => m.default || m),
-        children: [
-          {
-            name: "book-board-kr",
-            path: ":kr()",
-            meta: {},
-            alias: [],
-            redirect: void 0 ,
-            component: () => import('./_nuxt/_kr_-07wN432_.mjs').then((m) => m.default || m)
-          },
-          {
-            name: "book-board-board.columns",
-            path: "board.columns",
-            meta: {},
-            alias: [],
-            redirect: void 0 ,
-            component: () => import('./_nuxt/board.columns-rzK5GhPN.mjs').then((m) => m.default || m)
-          },
-          {
-            name: "book-board",
-            path: "",
-            meta: {},
-            alias: [],
-            redirect: void 0 ,
-            component: () => import('./_nuxt/index-NJ3OSmaD.mjs').then((m) => m.default || m)
-          }
-        ]
+        component: () => import('./_nuxt/board.columns-rzK5GhPN.mjs').then((m) => m.default || m)
       },
       {
-        name: "book-board3",
-        path: "board3",
+        name: "old-board",
+        path: "",
         meta: {},
         alias: [],
         redirect: void 0 ,
-        component: () => import('./_nuxt/board3-b_0fzlAS.mjs').then((m) => m.default || m)
-      },
-      {
-        name: "book-chart",
-        path: "chart",
-        meta: {},
-        alias: [],
-        redirect: void 0 ,
-        component: () => import('./_nuxt/chart-V9VVlADs.mjs').then((m) => m.default || m)
-      },
-      {
-        name: "book-columns",
-        path: "columns",
-        meta: {},
-        alias: [],
-        redirect: void 0 ,
-        component: () => import('./_nuxt/columns--TH0OEQO.mjs').then((m) => m.default || m)
-      },
-      {
-        name: "book-list",
-        path: "list",
-        meta: {},
-        alias: [],
-        redirect: void 0 ,
-        component: () => import('./_nuxt/list-5szAnRii.mjs').then((m) => m.default || m)
-      },
-      {
-        name: "book-music",
-        path: "music",
-        meta: {},
-        alias: [],
-        redirect: void 0 ,
-        component: () => import('./_nuxt/music-VsLWLI7Y.mjs').then((m) => m.default || m)
-      },
-      {
-        name: "book-sale",
-        path: "sale",
-        meta: {},
-        alias: [],
-        redirect: void 0 ,
-        component: () => import('./_nuxt/sale-NryfJKHI.mjs').then((m) => m.default || m)
-      },
-      {
-        name: "book-youtube",
-        path: "youtube",
-        meta: {},
-        alias: [],
-        redirect: void 0 ,
-        component: () => import('./_nuxt/youtube-OwxSf2ZT.mjs').then((m) => m.default || m)
+        component: () => import('./_nuxt/index-mFdYzgzQ.mjs').then((m) => m.default || m)
       }
     ]
   },
   {
-    name: (__nuxt_page_meta$7 == null ? void 0 : __nuxt_page_meta$7.name) ?? "figure",
-    path: (__nuxt_page_meta$7 == null ? void 0 : __nuxt_page_meta$7.path) ?? "/figure",
-    meta: __nuxt_page_meta$7 || {},
-    alias: (__nuxt_page_meta$7 == null ? void 0 : __nuxt_page_meta$7.alias) || [],
-    redirect: __nuxt_page_meta$7 == null ? void 0 : __nuxt_page_meta$7.redirect,
-    component: () => import('./_nuxt/figure-2cW8jb5a.mjs').then((m) => m.default || m)
+    name: "old-board3",
+    path: "/old/board3",
+    meta: {},
+    alias: [],
+    redirect: void 0 ,
+    component: () => import('./_nuxt/board3-HbV2c7-B.mjs').then((m) => m.default || m)
   },
   {
-    name: (__nuxt_page_meta$6 == null ? void 0 : __nuxt_page_meta$6.name) ?? "index",
-    path: (__nuxt_page_meta$6 == null ? void 0 : __nuxt_page_meta$6.path) ?? "/",
-    meta: __nuxt_page_meta$6 || {},
-    alias: (__nuxt_page_meta$6 == null ? void 0 : __nuxt_page_meta$6.alias) || [],
-    redirect: __nuxt_page_meta$6 == null ? void 0 : __nuxt_page_meta$6.redirect,
-    component: () => import('./_nuxt/index-NMIiNM8w.mjs').then((m) => m.default || m)
+    name: "old-chart",
+    path: "/old/chart",
+    meta: {},
+    alias: [],
+    redirect: void 0 ,
+    component: () => import('./_nuxt/chart-Xavpu2Sx.mjs').then((m) => m.default || m)
   },
   {
-    name: (__nuxt_page_meta$5 == null ? void 0 : __nuxt_page_meta$5.name) ?? "login",
-    path: (__nuxt_page_meta$5 == null ? void 0 : __nuxt_page_meta$5.path) ?? "/login",
-    meta: __nuxt_page_meta$5 || {},
-    alias: (__nuxt_page_meta$5 == null ? void 0 : __nuxt_page_meta$5.alias) || [],
-    redirect: __nuxt_page_meta$5 == null ? void 0 : __nuxt_page_meta$5.redirect,
-    component: () => import('./_nuxt/login-zX8wQezR.mjs').then((m) => m.default || m)
+    name: "old-columns",
+    path: "/old/columns",
+    meta: {},
+    alias: [],
+    redirect: void 0 ,
+    component: () => import('./_nuxt/columns-kJ57A9mW.mjs').then((m) => m.default || m)
   },
   {
-    name: (__nuxt_page_meta$4 == null ? void 0 : __nuxt_page_meta$4.name) ?? "music",
-    path: (__nuxt_page_meta$4 == null ? void 0 : __nuxt_page_meta$4.path) ?? "/music",
-    meta: __nuxt_page_meta$4 || {},
-    alias: (__nuxt_page_meta$4 == null ? void 0 : __nuxt_page_meta$4.alias) || [],
-    redirect: __nuxt_page_meta$4 == null ? void 0 : __nuxt_page_meta$4.redirect,
-    component: () => import('./_nuxt/music-zm5rqlvo.mjs').then((m) => m.default || m)
+    name: "old-list",
+    path: "/old/list",
+    meta: {},
+    alias: [],
+    redirect: void 0 ,
+    component: () => import('./_nuxt/list-fvFo6fAu.mjs').then((m) => m.default || m)
+  },
+  {
+    name: "old-music",
+    path: "/old/music",
+    meta: {},
+    alias: [],
+    redirect: void 0 ,
+    component: () => import('./_nuxt/music-Sra2o6gf.mjs').then((m) => m.default || m)
+  },
+  {
+    name: "old-sale",
+    path: "/old/sale",
+    meta: {},
+    alias: [],
+    redirect: void 0 ,
+    component: () => import('./_nuxt/sale-mO0b197g.mjs').then((m) => m.default || m)
+  },
+  {
+    name: "old-youtube",
+    path: "/old/youtube",
+    meta: {},
+    alias: [],
+    redirect: void 0 ,
+    component: () => import('./_nuxt/youtube-G4JmYh5b.mjs').then((m) => m.default || m)
   },
   {
     name: "stock-columns",
@@ -812,7 +821,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0 ,
-    component: () => import('./_nuxt/columns-2J8e6b98.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/columns-DXA7PleA.mjs').then((m) => m.default || m)
   },
   {
     name: "stock-learning",
@@ -828,7 +837,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0 ,
-    component: () => import('./_nuxt/list-a4tlVa7K.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/list-3Ev2yxYN.mjs').then((m) => m.default || m)
   },
   {
     name: "stock-prediction",
@@ -1149,6 +1158,32 @@ const revive_payload_server_eJ33V7gbc6 = /* @__PURE__ */ defineNuxtPlugin({
 const components_plugin_KR1HBZs4kY = /* @__PURE__ */ defineNuxtPlugin({
   name: "nuxt:global-components"
 });
+const clientOnlySymbol = Symbol.for("nuxt:client-only");
+defineComponent({
+  name: "ClientOnly",
+  inheritAttrs: false,
+  // eslint-disable-next-line vue/require-prop-types
+  props: ["fallback", "placeholder", "placeholderTag", "fallbackTag"],
+  setup(_, { slots, attrs }) {
+    const mounted = ref(false);
+    provide(clientOnlySymbol, true);
+    return (props) => {
+      var _a;
+      if (mounted.value) {
+        return (_a = slots.default) == null ? void 0 : _a.call(slots);
+      }
+      const slot = slots.fallback || slots.placeholder;
+      if (slot) {
+        return slot();
+      }
+      const fallbackStr = props.fallback || props.placeholder || "";
+      const fallbackTag = props.fallbackTag || props.placeholderTag || "span";
+      return createElementBlock(fallbackTag, attrs, fallbackStr);
+    };
+  }
+});
+const ckeditor_xw6yZxUxkA = /* @__PURE__ */ defineNuxtPlugin((nuxtApp) => {
+});
 config.autoAddCss = false;
 library.add(fas, far, fab);
 const fontawesome_klhsrycjcK = /* @__PURE__ */ defineNuxtPlugin((nuxtApp) => {
@@ -1162,13 +1197,14 @@ const plugins = [
   plugin,
   revive_payload_server_eJ33V7gbc6,
   components_plugin_KR1HBZs4kY,
+  ckeditor_xw6yZxUxkA,
   fontawesome_klhsrycjcK,
   vue_masonry_wall_13R6vu58Yn
 ];
 const layouts = {
   blank: () => import('./_nuxt/blank-dw5w2ZJb.mjs').then((m) => m.default || m),
-  default: () => import('./_nuxt/default-ywYkVK3H.mjs').then((m) => m.default || m),
-  mail: () => import('./_nuxt/mail-sj3d3N_H.mjs').then((m) => m.default || m)
+  default: () => import('./_nuxt/default-IpphAvx6.mjs').then((m) => m.default || m),
+  mail: () => import('./_nuxt/mail-nP2mM-A8.mjs').then((m) => m.default || m)
 };
 const LayoutLoader = defineComponent({
   name: "LayoutLoader",
@@ -1932,8 +1968,8 @@ const _sfc_main$1 = {
     const statusMessage = _error.statusMessage ?? (is404 ? "Page Not Found" : "Internal Server Error");
     const description = _error.message || _error.toString();
     const stack = void 0;
-    const _Error404 = defineAsyncComponent(() => import('./_nuxt/error-404-FGb8my8v.mjs').then((r) => r.default || r));
-    const _Error = defineAsyncComponent(() => import('./_nuxt/error-500-qyOGekh_.mjs').then((r) => r.default || r));
+    const _Error404 = defineAsyncComponent(() => import('./_nuxt/error-404-504B_6g7.mjs').then((r) => r.default || r));
+    const _Error = defineAsyncComponent(() => import('./_nuxt/error-500-BBoM7QUu.mjs').then((r) => r.default || r));
     const ErrorTemplate = is404 ? _Error404 : _Error;
     return (_ctx, _push, _parent, _attrs) => {
       _push(ssrRenderComponent(unref(ErrorTemplate), mergeProps({ statusCode: unref(statusCode), statusMessage: unref(statusMessage), description: unref(description), stack: unref(stack) }, _attrs), null, _parent));
@@ -1951,7 +1987,7 @@ const _sfc_main = {
   __name: "nuxt-root",
   __ssrInlineRender: true,
   setup(__props) {
-    const IslandRenderer = defineAsyncComponent(() => import('./_nuxt/island-renderer-LpMZPPsS.mjs').then((r) => r.default || r));
+    const IslandRenderer = defineAsyncComponent(() => import('./_nuxt/island-renderer-7NzpPZE3.mjs').then((r) => r.default || r));
     const nuxtApp = /* @__PURE__ */ useNuxtApp();
     nuxtApp.deferHydration();
     nuxtApp.ssrContext.url;
@@ -2013,5 +2049,5 @@ let entry;
 }
 const entry$1 = (ssrContext) => entry(ssrContext);
 
-export { __nuxt_component_0 as _, cn as a, useToast as b, createError as c, useRouter as d, entry$1 as default, nuxtLinkDefaults as e, useRuntimeConfig as f, useNuxtApp as g, asyncDataDefaults as h, injectHead as i, fetchDefaults as j, navigateTo as n, resolveUnrefHeadInput as r, useRoute as u, valueUpdater as v };
+export { __nuxt_component_0 as _, cn as a, useNuxtApp as b, createError as c, useRoute as d, entry$1 as default, useToast as e, useRouter as f, nuxtLinkDefaults as g, asyncDataDefaults as h, injectHead as i, fetchDefaults as j, navigateTo as n, resolveUnrefHeadInput as r, useRuntimeConfig as u, valueUpdater as v };
 //# sourceMappingURL=server.mjs.map
