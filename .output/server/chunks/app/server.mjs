@@ -1204,7 +1204,7 @@ const plugins = [
 const layouts = {
   blank: () => import('./_nuxt/blank-dw5w2ZJb.mjs').then((m) => m.default || m),
   default: () => import('./_nuxt/default-IpphAvx6.mjs').then((m) => m.default || m),
-  mail: () => import('./_nuxt/mail-nP2mM-A8.mjs').then((m) => m.default || m)
+  mail: () => import('./_nuxt/mail-axh0aOJH.mjs').then((m) => m.default || m)
 };
 const LayoutLoader = defineComponent({
   name: "LayoutLoader",

@@ -1,6 +1,6 @@
 const interopDefault = r => r.default || r || [];
 const styles = {
-  "node_modules/nuxt/dist/app/entry.js": () => import('./_nuxt/entry-styles.jOGWxfxw.mjs').then(interopDefault),
+  "node_modules/nuxt/dist/app/entry.js": () => import('./_nuxt/entry-styles.amtdgG5p.mjs').then(interopDefault),
   "pages/old/youtube.vue": () => import('./_nuxt/youtube-styles.FzTH33Wc.mjs').then(interopDefault),
   "node_modules/@nuxt/ui-templates/dist/templates/error-404.vue": () => import('./_nuxt/error-404-styles.xUuhIj_V.mjs').then(interopDefault),
   "node_modules/@nuxt/ui-templates/dist/templates/error-500.vue": () => import('./_nuxt/error-500-styles.X_jRfwVa.mjs').then(interopDefault),

@@ -1,0 +1,1 @@
+import{_ as o}from"./Header.vue.NpxkmH1z.js";import{_ as t}from"./_plugin-vue_export-helper.x3n3nnut.js";import{u as c,I as r,aE as n}from"./entry.AJd86BeI.js";const s={},_={class:"p-4"};function a(i,m){const e=o;return n(),c("div",_,[r(e,{title:"주식 예측",description:"모델로 부터 주식 예측을 합니다."})])}const l=t(s,[["render",a]]);export{l as default};

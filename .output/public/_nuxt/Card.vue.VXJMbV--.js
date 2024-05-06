@@ -1,1 +1,0 @@
-import{M as r,aE as o,u as n,aQ as t,ao as c,bc as d,bH as l}from"./entry.MytKFVjI.js";const m=r({__name:"Card",props:{class:{type:String,default:""}},setup(a){const s=a;return(e,p)=>(o(),n("div",{class:c(d(l)("rounded-lg border bg-card text-card-foreground shadow-sm",s.class))},[t(e.$slots,"default")],2))}});export{m as _};
