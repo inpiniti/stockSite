@@ -1,1 +1,0 @@
-import{ax as e,bG as a}from"./entry.AJd86BeI.js";const c={__name:"index",setup(t){return e(async()=>{await a().value.from("book").select("kr, dc",{distinct:!0}).neq("dc",null)}),(n,s)=>"index"}};export{c as default};
