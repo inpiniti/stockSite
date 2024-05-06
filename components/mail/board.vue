@@ -2,6 +2,8 @@
 const props = defineProps<{
   board: any;
 }>();
+
+const selectBoard: any = useBoardDetail();
 const emit = defineEmits(["click"]);
 
 const onClickBoardDetail = (board: any) => {
@@ -10,7 +12,8 @@ const onClickBoardDetail = (board: any) => {
 </script>
 <template>
   <div
-    class="flex rounded-lg overflow-hidden hover:bg-neutral-100 gap-2 cursor-pointer border"
+    class="flex rounded-lg overflow-hidden hover:bg-neutral-100 hover:text-black gap-2 cursor-pointer border"
+    :class="{ 'bg-neutral-100': selectBoard?.id == board?.id }"
     @click="onClickBoardDetail(board)"
   >
     <div class="w-full p-4">

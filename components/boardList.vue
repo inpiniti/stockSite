@@ -25,7 +25,9 @@ const totalPage = ref(0);
 
 const selectedSubject = ref();
 const date = ref<Date>();
-const selectedBook = ref();
+
+const selectedBook = useSelectedBook();
+
 const selectedOrderBy = ref("date");
 const pageBoards = ref<any>([]);
 
@@ -35,6 +37,16 @@ const board = useBoardDetail();
 onMounted(() => {
   searchBooks();
 });
+
+watch(
+  () => selectedBook.value,
+  () => {
+    pageBoards.value = [];
+    server_page.value = 1;
+    searchBooks();
+  },
+  { deep: true }
+);
 
 async function searchBooks() {
   let query = useSupabase()
@@ -56,9 +68,9 @@ async function searchBooks() {
     count_query = count_query.ilike("subject", `%${selectedSubject.value}%`);
   }
 
-  if (selectedBook.value && selectedBook.value != "all") {
-    query = query.eq("kr", selectedBook.value);
-    count_query = count_query.eq("kr", selectedBook.value);
+  if (selectedBook.value?.kr) {
+    query = query.eq("kr", selectedBook.value.kr);
+    count_query = count_query.eq("kr", selectedBook.value.kr);
   }
 
   if (date.value) {

@@ -2,9 +2,9 @@ import { useScheduler } from "#scheduler";
 import axios from "axios";
 
 export default defineNitroPlugin(() => {
-  //if (process.env.NODE_ENV === "production") {
-  startScheduler();
-  //}
+  if (process.env.NODE_ENV === "production") {
+    startScheduler();
+  }
 });
 
 function startScheduler() {
@@ -21,7 +21,10 @@ function startScheduler() {
   scheduler
     .run(async () => {
       // book 에서 kr 과 dc 만 조회해 오는데 중복은 제거 함
-      const books = await uniqueBooks();
+      const books = await useSupabase()
+        .from("book_info")
+        .select("kr, dc")
+        .neq("dc", null);
 
       for (const book of books) {
         await getBoard(book.kr, book.dc);
