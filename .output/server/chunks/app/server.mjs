@@ -789,7 +789,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0 ,
-    component: () => import('./_nuxt/list-5pcZApSW.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/list-ZaVxb6Cc.mjs').then((m) => m.default || m)
   },
   {
     name: "old-music",
@@ -1204,7 +1204,7 @@ const plugins = [
 const layouts = {
   blank: () => import('./_nuxt/blank-dw5w2ZJb.mjs').then((m) => m.default || m),
   default: () => import('./_nuxt/default-IpphAvx6.mjs').then((m) => m.default || m),
-  mail: () => import('./_nuxt/mail-0r88WFbe.mjs').then((m) => m.default || m)
+  mail: () => import('./_nuxt/mail-419VxvKI.mjs').then((m) => m.default || m)
 };
 const LayoutLoader = defineComponent({
   name: "LayoutLoader",

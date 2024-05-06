@@ -1,1 +1,0 @@
-import{bG as o}from"./entry.6kBHm-kI.js";async function n(){const{data:r,error:e}=await o().value.from("board_kr").select().order("kr");return e?(console.error(e),[]):r??[]}async function s(r){const{data:e,error:a}=await o().value.from("board").insert([r]);return a?(console.error(a),!1):!0}export{n as g,s as w};

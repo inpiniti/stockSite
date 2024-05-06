@@ -1,1 +1,0 @@
-import{M as o,aE as c,u as l,aQ as n,ao as r,bc as t,bH as m}from"./entry.6kBHm-kI.js";const i=o({__name:"DialogFooter",props:{class:{}},setup(s){const e=s;return(a,p)=>(c(),l("div",{class:r(t(m)("flex flex-col space-y-2 sm:space-y-0 mt-1.5 sm:flex-row sm:justify-end sm:space-x-2",e.class))},[n(a.$slots,"default")],2))}});export{i as _};

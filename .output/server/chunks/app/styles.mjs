@@ -14,8 +14,8 @@ const styles = {
   "pages/old/_board.vue?vue&type=script&setup=true&lang.ts": () => import('./_nuxt/_board.vue.063KGFuz.mjs').then(interopDefault),
   "pages/old/board.vue?vue&type=script&setup=true&lang.ts": () => import('./_nuxt/_board.vue.063KGFuz.mjs').then(interopDefault),
   "components/layouts/Menu.vue": () => import('./_nuxt/Menu-styles.r6OiLbn-.mjs').then(interopDefault),
-  "components/layouts/Menu.vue?vue&type=style&index=0&scoped=62f249ec&lang.css": () => import('./_nuxt/Menu-styles.r6OiLbn-.mjs').then(interopDefault),
-  "components/ui/calendar/Calendar.vue?vue&type=style&index=0&lang.css": () => import('./_nuxt/Calendar.vue.-VXRDKxv.mjs').then(interopDefault)
+  "components/ui/calendar/Calendar.vue?vue&type=style&index=0&lang.css": () => import('./_nuxt/Calendar.vue.-VXRDKxv.mjs').then(interopDefault),
+  "components/layouts/Menu.vue?vue&type=style&index=0&scoped=62f249ec&lang.css": () => import('./_nuxt/Menu-styles.r6OiLbn-.mjs').then(interopDefault)
 };
 
 export { styles as default };
