@@ -12,8 +12,9 @@ function selectOricon() {
 </script>
 <template>
   <div
+    v-if="!!book"
     class="flex w-full flex-col gap-1 border rounded-lg p-2 hover:bg-neutral-50 cursor-pointer"
-    :class="{ 'bg-neutral-100': selectedBook.id == props.book.id }"
+    :class="{ 'bg-neutral-100': selectedBook.id == book.id }"
     @click="selectOricon"
   >
     <div class="flex gap-2 justify-between items-center">
@@ -48,8 +49,20 @@ function selectOricon() {
     <div class="flex justify-between items-end">
       <div class="flex flex-col justify-left text-xs text-left gap-1">
         <div class="flex gap-1">
-          <Badge v-if="book.dc">dc</Badge>
-          <Badge v-if="book.namu">namu</Badge>
+          <a
+            :href="`https://gall.dcinside.com/mgallery/board/lists/?id=${book.dc}`"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Badge v-if="book.dc">dc</Badge>
+          </a>
+          <a
+            :href="`https://namu.wiki/w/${book.namu}`"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Badge v-if="book.namu">namu</Badge>
+          </a>
         </div>
         <div class="w-fit flex gap-2 items-center">
           저자

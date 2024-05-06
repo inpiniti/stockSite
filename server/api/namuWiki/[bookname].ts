@@ -14,7 +14,7 @@ export default defineEventHandler(async (event) => {
   let data: any = [];
 
   // h2를 찾는다.
-  const headers = Array.from($("h2"));
+  const headers = Array.from($("h2, h3, h4"));
 
   for (const [index, element] of headers.entries()) {
     // 그안에 있는 a태그를 찾는다.
@@ -45,12 +45,27 @@ export default defineEventHandler(async (event) => {
           !cleanedContent.includes("부분을 참고하십시오") &&
           cleanedContent !== "" &&
           !cleanedTitle.includes("발매 현황") &&
-          !cleanedTitle.includes("인기")
+          !cleanedTitle.includes("단행본") &&
+          !cleanedTitle.includes("1부") &&
+          !cleanedTitle.includes("2부") &&
+          !cleanedTitle.includes("본편") &&
+          !cleanedTitle.includes("인기") &&
+          !cleanedTitle.includes("코믹스")
         ) {
           data.push({ title: cleanedTitle, content: cleanedContent });
         }
 
-        if (cleanedTitle.includes("발매 현황")) {
+        if (
+          cleanedTitle.includes("발매 현황") ||
+          cleanedTitle.includes("단행본") ||
+          cleanedTitle.includes("본편") ||
+          cleanedTitle.includes("1부") ||
+          cleanedTitle.includes("2부") ||
+          cleanedTitle.includes("코믹스")
+        ) {
+          console.log("cleanedTitle", cleanedTitle);
+          console.log("cleanedContent", cleanedContent);
+
           // table 에서 tr을 찾는데,
           // tr의 td의 text 중 01권 02권 이런 식으로 데이어 있는 데이터는 책의 권수를 나타내고,
           // 그 다음 tr의 에는 각 권수에 해당하는 책의 표지가 있다. ㅑㅡㅎ
@@ -58,6 +73,8 @@ export default defineEventHandler(async (event) => {
           // 이미지 파싱
 
           const tables = Array.from($(contentElement).find("table"));
+
+          console.log("tables", tables);
 
           for (const [index, element] of tables.entries()) {
             const rows = $(element).find("tr");

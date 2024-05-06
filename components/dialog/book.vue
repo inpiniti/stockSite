@@ -70,6 +70,7 @@ async function coverImageUpload() {
   coverImageUploadLoading.value = true;
   try {
     await fetch(`/api/namuWiki/${useBook().selected.value.namu}`);
+    await fetchCoverList();
   } catch (error) {
     console.error(error);
   } finally {

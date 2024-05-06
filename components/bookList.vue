@@ -1,8 +1,15 @@
 <template>
   <ScrollArea class="flex h-full">
     <div class="flex-1 flex flex-col gap-2 p-2">
-      <div v-for="(cover, index) in cCoverList" :key="index">
-        <div class="flex border rounded-lg p-2 bg-neutral-100 gap-2">
+      <div
+        v-for="(cover, index) in cCoverList"
+        :key="index"
+        @click="handlePaperback(cover)"
+      >
+        <div
+          class="flex border rounded-lg p-2 gap-2 cursor-pointer hover:bg-neutral-50"
+          :class="{ 'bg-neutral-100': selectedPaperback == cover }"
+        >
           <div class="h-32 w-24 rounded-md overflow-hidden relative">
             <img
               :src="cover.cover_image"
@@ -40,8 +47,11 @@
   </ScrollArea>
 </template>
 <script setup lang="ts">
+import type { Paperback } from "@/composables/usePaperback";
+
 const coverList = useCoverList();
 const selectedBook = useSelectedBook();
+const selectedPaperback = usePaperback();
 
 const cCoverList = computed(() => {
   return coverList.value.filter((cover: any) => {
@@ -49,4 +59,8 @@ const cCoverList = computed(() => {
     return cover.kr?.includes(selectedBook.value.kr);
   });
 });
+
+function handlePaperback(cover: any) {
+  selectedPaperback.value = cover;
+}
 </script>
