@@ -18,19 +18,24 @@ function startScheduler() {
     // 12시 5분에 실행하도록
     .cron("5 0 * * *");
 
-  scheduler
-    .run(async () => {
-      // book 에서 kr 과 dc 만 조회해 오는데 중복은 제거 함
-      const books = await useSupabase()
-        .from("book_info")
-        .select("kr, dc")
-        .neq("dc", null);
+  console.log(`스케쥴러 run`);
 
-      for (const book of books) {
-        await getBoard(book.kr, book.dc);
-      }
-    })
-    .everyTenMinutes();
+  try {
+    scheduler
+      .run(async () => {
+        // book 에서 kr 과 dc 만 조회해 오는데 중복은 제거 함
+        const books = (
+          await useSupabase().from("book_info").select("kr, dc").neq("dc", null)
+        ).data;
+
+        for (const book of books) {
+          await getBoard(book.kr, book.dc);
+        }
+      })
+      .everyTenMinutes();
+  } catch (error) {
+    console.error(error);
+  }
 
   //.everySeconds(10);
   // 오후 9시 6분에 실행하려면
@@ -82,7 +87,7 @@ async function getBoard(kr: string, dc: string) {
     }
     console.log(`${new Date()} ${kr} 작업 완료`);
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
 

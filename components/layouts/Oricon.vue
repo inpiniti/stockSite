@@ -47,6 +47,10 @@ function selectOricon() {
     </div>
     <div class="flex justify-between items-end">
       <div class="flex flex-col justify-left text-xs text-left gap-1">
+        <div class="flex gap-1">
+          <Badge v-if="book.dc">dc</Badge>
+          <Badge v-if="book.namu">namu</Badge>
+        </div>
         <div class="w-fit flex gap-2 items-center">
           저자
           <Badge variant="outline">{{ book.author }}</Badge>

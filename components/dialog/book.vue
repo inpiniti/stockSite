@@ -9,6 +9,7 @@ const supabase = createClient(
 
 const open = useState<boolean>("bookOpen");
 const loading = ref(false);
+const coverImageUploadLoading = ref(false);
 
 const emit = defineEmits(["update:open"]);
 
@@ -20,8 +21,6 @@ async function ok() {
     .update({
       kr: useBook().selected.value.kr,
       img: useBook().selected.value.img,
-      namu: useBook().selected.value.namu,
-      dc: useBook().selected.value.dc,
     })
     .eq("jp", useBook().selected.value.jp);
 
@@ -40,6 +39,8 @@ async function ok() {
         publisher: useBook().selected.value.publisher,
         description: useBook().selected.value.description,
         summary: useBook().selected.value.summary,
+        dc: useBook().selected.value.dc,
+        namu: useBook().selected.value.namu,
       })
       .eq("kr", useBook().selected.value.kr);
   } else {
@@ -51,6 +52,7 @@ async function ok() {
         description: useBook().selected.value.description,
         summary: useBook().selected.value.summary,
         dc: useBook().selected.value.dc,
+        namu: useBook().selected.value.namu,
       },
     ]);
   }
@@ -62,6 +64,17 @@ async function ok() {
   open.value = false;
 
   emit("update:open");
+}
+
+async function coverImageUpload() {
+  coverImageUploadLoading.value = true;
+  try {
+    await fetch(`/api/namuWiki/${useBook().selected.value.namu}`);
+  } catch (error) {
+    console.error(error);
+  } finally {
+    coverImageUploadLoading.value = false;
+  }
 }
 </script>
 
@@ -149,7 +162,14 @@ async function ok() {
         </div>
       </div>
       <DialogFooter>
-        <Button @click="ok"> Save changes </Button>
+        <Button
+          variant="secondary"
+          @click="coverImageUpload"
+          :disabled="!useBook().selected.value.namu"
+        >
+          {{ coverImageUploadLoading ? "Uploading..." : "Cover Image Upload" }}
+        </Button>
+        <Button @click="ok">Save changes</Button>
       </DialogFooter>
     </DialogContent>
   </Dialog>

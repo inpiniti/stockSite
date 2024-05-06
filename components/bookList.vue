@@ -46,7 +46,7 @@ const selectedBook = useSelectedBook();
 const cCoverList = computed(() => {
   return coverList.value.filter((cover: any) => {
     console.log(cover.kr);
-    return cover.kr == selectedBook.value.kr;
+    return cover.kr?.includes(selectedBook.value.kr);
   });
 });
 </script>
