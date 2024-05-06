@@ -1,6 +1,6 @@
 import { useStorage } from "@vueuse/core";
 
-interface BookInfo {
+export interface BookInfo {
   id: number;
   created_at: string;
   kr: string;
@@ -8,6 +8,7 @@ interface BookInfo {
   publisher: string;
   description: string;
   summary: string;
+  dc: string;
 }
 
 export const useBookInfoList = () =>

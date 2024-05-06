@@ -90,7 +90,9 @@ const boardDetail = ref(false);
 const reply = ref();
 
 async function onClickBoardDetail(board: any) {
-  const { dc } = findBook(board.kr);
+  const { dc } = useBookInfoList().value.find(
+    (book) => book.kr === board.value.kr
+  );
 
   // 덧글 조회
   const { data: newData } = await useFetch(

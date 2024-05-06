@@ -66,7 +66,9 @@ async function getReply() {
     return;
   }
 
-  const { dc } = findBook(board.value.kr);
+  const { dc } = useBookInfoList().value.find(
+    (book) => book.kr === board.value.kr
+  );
 
   // 덧글 조회
   const { data: newData } = await useFetch(
