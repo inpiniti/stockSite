@@ -1,1 +1,0 @@
-import{co as u,bJ as t}from"./entry.773nEwdk.js";u();const c=()=>{const e=t("bookOpen",()=>!1),o=t("bookSelected",()=>({}));function s(n){o.value=n,e.value=!0}return{open:e,selected:o,openBook:s}};export{c as u};

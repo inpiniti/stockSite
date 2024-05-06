@@ -64,7 +64,7 @@ const _bookname_ = defineEventHandler(async (event) => {
   const html = iconv.decode(Buffer.from(response.data), "utf-8");
   const $ = cheerio.load(html);
   let data = [];
-  const headers = Array.from($("h2"));
+  const headers = Array.from($("h2, h3, h4"));
   for (const [index, element] of headers.entries()) {
     const aTag = $(element).find("a");
     for (let i = 1; i <= 20; i++) {
@@ -75,11 +75,14 @@ const _bookname_ = defineEventHandler(async (event) => {
         const content = contentElement.find("div").text();
         const cleanedTitle = title.replace(/\[.*?\]/g, "");
         const cleanedContent = content.replace(/\[.*?\]/g, "");
-        if (!cleanedContent.includes("\uC790\uC138\uD55C \uB0B4\uC6A9\uC740") && !cleanedContent.includes("\uBD80\uBD84\uC744 \uCC38\uACE0\uD558\uC2ED\uC2DC\uC624") && cleanedContent !== "" && !cleanedTitle.includes("\uBC1C\uB9E4 \uD604\uD669") && !cleanedTitle.includes("\uC778\uAE30")) {
+        if (!cleanedContent.includes("\uC790\uC138\uD55C \uB0B4\uC6A9\uC740") && !cleanedContent.includes("\uBD80\uBD84\uC744 \uCC38\uACE0\uD558\uC2ED\uC2DC\uC624") && cleanedContent !== "" && !cleanedTitle.includes("\uBC1C\uB9E4 \uD604\uD669") && !cleanedTitle.includes("\uB2E8\uD589\uBCF8") && !cleanedTitle.includes("1\uBD80") && !cleanedTitle.includes("2\uBD80") && !cleanedTitle.includes("\uBCF8\uD3B8") && !cleanedTitle.includes("\uC778\uAE30") && !cleanedTitle.includes("\uCF54\uBBF9\uC2A4")) {
           data.push({ title: cleanedTitle, content: cleanedContent });
         }
-        if (cleanedTitle.includes("\uBC1C\uB9E4 \uD604\uD669")) {
+        if (cleanedTitle.includes("\uBC1C\uB9E4 \uD604\uD669") || cleanedTitle.includes("\uB2E8\uD589\uBCF8") || cleanedTitle.includes("\uBCF8\uD3B8") || cleanedTitle.includes("1\uBD80") || cleanedTitle.includes("2\uBD80") || cleanedTitle.includes("\uCF54\uBBF9\uC2A4")) {
+          console.log("cleanedTitle", cleanedTitle);
+          console.log("cleanedContent", cleanedContent);
           const tables = Array.from($(contentElement).find("table"));
+          console.log("tables", tables);
           for (const [index2, element2] of tables.entries()) {
             const rows = $(element2).find("tr");
             const books_ = [];

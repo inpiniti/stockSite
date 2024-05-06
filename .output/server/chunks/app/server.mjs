@@ -731,7 +731,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0 ,
-    component: () => import('./_nuxt/board-unmKt-bW.mjs').then((m) => m.default || m),
+    component: () => import('./_nuxt/board-zNKDt75x.mjs').then((m) => m.default || m),
     children: [
       {
         name: "old-board-kr",
@@ -773,7 +773,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0 ,
-    component: () => import('./_nuxt/chart-JnMcZcov.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/chart-x9GWFTJn.mjs').then((m) => m.default || m)
   },
   {
     name: "old-columns",
@@ -789,7 +789,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0 ,
-    component: () => import('./_nuxt/list-ZaVxb6Cc.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/list-UMN2Rvks.mjs').then((m) => m.default || m)
   },
   {
     name: "old-music",
@@ -1204,7 +1204,7 @@ const plugins = [
 const layouts = {
   blank: () => import('./_nuxt/blank-dw5w2ZJb.mjs').then((m) => m.default || m),
   default: () => import('./_nuxt/default-IpphAvx6.mjs').then((m) => m.default || m),
-  mail: () => import('./_nuxt/mail-419VxvKI.mjs').then((m) => m.default || m)
+  mail: () => import('./_nuxt/mail-tZXM-TaY.mjs').then((m) => m.default || m)
 };
 const LayoutLoader = defineComponent({
   name: "LayoutLoader",
