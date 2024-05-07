@@ -4,7 +4,10 @@
       <div class="flex border rounded-lg px-4 py-1.5 pt-2 hover:bg-neutral-100 cursor-pointer items-center gap-2"><font-awesome-icon :icon="['fas', 'pen']" /> 글 쓰기</div>
     </div>
     <Separator />
-    <ScrollArea class="">
+    <div v-if="loading" class="bg-neutral-100 h-full w-full flex items-center justify-center">
+      <font-awesome-icon :icon="['fas', 'circle-notch']" spin />
+    </div>
+    <div class="overflow-y-scroll scrollbar-hide" ref="scrollContainer" v-else>
       <div class="flex-1 flex flex-col gap-2 p-2">
         <TransitionGroup name="list" appear>
           <div v-for="(board, index) in boards" :key="index">
@@ -12,7 +15,7 @@
           </div>
         </TransitionGroup>
       </div>
-    </ScrollArea>
+    </div>
   </div>
 </template>
 <script setup lang="ts">
@@ -35,6 +38,10 @@ const pageBoards = ref<any>([]);
 const boards = ref<any[]>([]);
 const board = useBoardDetail();
 
+const scrollContainer = ref(null);
+
+const loading = ref(false);
+
 onMounted(() => {
   searchBooks();
 });
@@ -45,11 +52,15 @@ watch(
     pageBoards.value = [];
     server_page.value = 1;
     searchBooks();
+    if (scrollContainer.value) {
+      (scrollContainer.value as HTMLElement).scrollTop = 0;
+    }
   },
   { deep: true }
 );
 
 async function searchBooks() {
+  loading.value = true;
   let query = useSupabase()
     .value.from("board")
     .select()
@@ -93,9 +104,16 @@ async function searchBooks() {
   } else {
     totalPage.value = count || 0;
   }
+
+  loading.value = false;
 }
 
 async function onClickBoardDetail(newBoard: any) {
   board.value = newBoard;
 }
 </script>
+<style scoped>
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+</style>

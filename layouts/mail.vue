@@ -46,13 +46,13 @@ const navCollapsedSize = 4;
           </div>
           <Separator />
           <div class="grow-[0] h-full overflow-hidden flex flex-col">
-            <TabsContent value="book" class="m-0 overflow-hidden">
+            <TabsContent value="book" class="m-0 overflow-hidden h-full">
               <BookList />
             </TabsContent>
-            <TabsContent value="music" class="m-0 overflow-hidden">
+            <TabsContent value="music" class="m-0 overflow-hidden h-full">
               <MusicList />
             </TabsContent>
-            <TabsContent value="board" class="m-0 overflow-hidden">
+            <TabsContent value="board" class="m-0 overflow-hidden h-full">
               <BoardList />
             </TabsContent>
             <TabsContent value="figure" class="m-0 overflow-hidden h-full">
@@ -61,7 +61,7 @@ const navCollapsedSize = 4;
           </div>
         </Tabs>
       </div>
-      <div id="resize-panel-3 " class="grow-[0] w-full">
+      <div id="resize-panel-3 " class="grow-[0] w-full overflow-hidden">
         <div class="h-screen overflow-hidden flex flex-col">
           <div class="pl-4 p-2 shrink-0">
             <div class="flex items-center justify-between">
