@@ -1,21 +1,11 @@
 <script setup lang="ts">
-const defaultLayout = [300, 200, 800];
+const defaultLayout = [200, 200, 800];
 const navCollapsedSize = 4;
 </script>
 <template>
   <TooltipProvider :delay-duration="0">
-    <ResizablePanelGroup
-      id="resize-panel-group-1"
-      direction="horizontal"
-      class="h-full items-stretch"
-    >
-      <ResizablePanel
-        id="resize-panel-1"
-        :default-size="defaultLayout[0]"
-        :collapsed-size="navCollapsedSize"
-        collapsible
-        class="h-screen flex flex-col min-w-[250px] max-w-[350px]"
-      >
+    <div id="resize-panel-group-1" direction="horizontal" class="h-full items-stretch flex">
+      <div id="resize-panel-1" :collapsed-size="navCollapsedSize" collapsible class="h-screen flex flex-col w-[300px] border-r shrink-0">
         <div class="pl-4 p-2 shrink-0">
           <div class="flex items-center justify-between">
             <div class="font-bold text-xl">Inpiniti</div>
@@ -35,51 +25,22 @@ const navCollapsedSize = 4;
         <Separator />
         <LayoutsNavBooks />
         <!-- <Nav :is-collapsed="isCollapsed" :links="links" /> -->
-      </ResizablePanel>
-      <ResizableHandle id="resize-handle-1" with-handle />
-      <ResizablePanel
-        id="resize-panel-2"
-        class="min-w-[400px] max-w-[400px]"
-        :default-size="defaultLayout[1]"
-      >
-        <Tabs
-          class="h-screen overflow-hidden flex flex-col"
-          default-value="book"
-        >
+      </div>
+      <div id="resize-panel-2" class="w-[300px] border-r shrink-0">
+        <Tabs class="h-screen overflow-hidden flex flex-col" default-value="book">
           <div class="flex items-center px-4 py-2 shrink-0">
-            <h1 class="text-xl font-bold">Inbox</h1>
             <TabsList class="ml-auto">
               <nuxt-link to="/book">
-                <TabsTrigger
-                  value="book"
-                  class="text-zinc-600 dark:text-zinc-200"
-                >
-                  도서
-                </TabsTrigger>
+                <TabsTrigger value="book" class="text-zinc-600 dark:text-zinc-200"> 도서 </TabsTrigger>
               </nuxt-link>
               <nuxt-link to="/music">
-                <TabsTrigger
-                  value="music"
-                  class="text-zinc-600 dark:text-zinc-200"
-                >
-                  음악
-                </TabsTrigger>
+                <TabsTrigger value="music" class="text-zinc-600 dark:text-zinc-200"> 음악 </TabsTrigger>
               </nuxt-link>
               <nuxt-link to="/board/read">
-                <TabsTrigger
-                  value="board"
-                  class="text-zinc-600 dark:text-zinc-200"
-                >
-                  게시판
-                </TabsTrigger>
+                <TabsTrigger value="board" class="text-zinc-600 dark:text-zinc-200"> 게시판 </TabsTrigger>
               </nuxt-link>
               <nuxt-link to="/figure">
-                <TabsTrigger
-                  value="figure"
-                  class="text-zinc-600 dark:text-zinc-200"
-                >
-                  피규어
-                </TabsTrigger>
+                <TabsTrigger value="figure" class="text-zinc-600 dark:text-zinc-200"> 피규어 </TabsTrigger>
               </nuxt-link>
             </TabsList>
           </div>
@@ -99,9 +60,8 @@ const navCollapsedSize = 4;
             </TabsContent>
           </div>
         </Tabs>
-      </ResizablePanel>
-      <ResizableHandle id="resiz-handle-2" with-handle />
-      <ResizablePanel id="resize-panel-3" :default-size="defaultLayout[2]">
+      </div>
+      <div id="resize-panel-3 " class="grow-[0] w-full">
         <div class="h-screen overflow-hidden flex flex-col">
           <div class="pl-4 p-2 shrink-0">
             <div class="flex items-center justify-between">
@@ -120,11 +80,11 @@ const navCollapsedSize = 4;
             </div>
           </div>
           <Separator />
-          <div class="grow-[0] overflow-hidden">
+          <div class="grow-[0] overflow-hidden h-full">
             <slot />
           </div>
         </div>
-      </ResizablePanel>
-    </ResizablePanelGroup>
+      </div>
+    </div>
   </TooltipProvider>
 </template>

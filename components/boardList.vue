@@ -1,18 +1,19 @@
 <template>
-  <ScrollArea class="flex h-full">
-    <div class="flex-1 flex flex-col gap-2 p-2">
-      <TransitionGroup name="list" appear>
-        <div
-          class="flex border rounded-lg px-4 py-2 hover:bg-neutral-100 cursor-pointer items-center gap-2"
-        >
-          <font-awesome-icon :icon="['fas', 'pen']" /> 글 쓰기
-        </div>
-        <div v-for="(board, index) in boards" :key="index">
-          <MailBoard :board="board" @click="onClickBoardDetail" />
-        </div>
-      </TransitionGroup>
+  <div class="flex flex-col h-full">
+    <div class="p-2">
+      <div class="flex border rounded-lg px-4 py-1.5 pt-2 hover:bg-neutral-100 cursor-pointer items-center gap-2"><font-awesome-icon :icon="['fas', 'pen']" /> 글 쓰기</div>
     </div>
-  </ScrollArea>
+    <Separator />
+    <ScrollArea class="">
+      <div class="flex-1 flex flex-col gap-2 p-2">
+        <TransitionGroup name="list" appear>
+          <div v-for="(board, index) in boards" :key="index">
+            <MailBoard :board="board" @click="onClickBoardDetail" />
+          </div>
+        </TransitionGroup>
+      </div>
+    </ScrollArea>
+  </div>
 </template>
 <script setup lang="ts">
 import { format } from "date-fns";
@@ -53,15 +54,9 @@ async function searchBooks() {
     .value.from("board")
     .select()
     .neq("link", null)
-    .range(
-      (server_page.value - 1) * server_limit.value,
-      server_page.value * server_limit.value - 1
-    );
+    .range((server_page.value - 1) * server_limit.value, server_page.value * server_limit.value - 1);
 
-  let count_query = useSupabase()
-    .value.from("board")
-    .select("*", { count: "exact", head: true })
-    .neq("link", null);
+  let count_query = useSupabase().value.from("board").select("*", { count: "exact", head: true }).neq("link", null);
 
   if (selectedSubject.value && selectedSubject.value != "all") {
     query = query.ilike("subject", `%${selectedSubject.value}%`);
@@ -76,13 +71,9 @@ async function searchBooks() {
   if (date.value) {
     console.log(date.value);
     const _date = format(date.value, "yyyy-MM-dd");
-    query = query
-      .gte("date", `${_date}T00:00:00`)
-      .lte("date", `${_date}T23:59:59`);
+    query = query.gte("date", `${_date}T00:00:00`).lte("date", `${_date}T23:59:59`);
 
-    count_query = count_query
-      .gte("date", `${_date}T00:00:00`)
-      .lte("date", `${_date}T23:59:59`);
+    count_query = count_query.gte("date", `${_date}T00:00:00`).lte("date", `${_date}T23:59:59`);
   }
 
   const { data, error } = await query.order(selectedOrderBy.value, {
@@ -92,19 +83,11 @@ async function searchBooks() {
     console.error(error);
   } else {
     boards.value = data ?? [];
-    pageBoards.value = [
-      ...pageBoards.value,
-      ...boards.value.slice(0, page.value * PAGE),
-    ];
+    pageBoards.value = [...pageBoards.value, ...boards.value.slice(0, page.value * PAGE)];
 
     //gridReorder();
   }
-  const {
-    data: countData,
-    error: countError,
-    status,
-    count,
-  } = await count_query;
+  const { data: countData, error: countError, status, count } = await count_query;
   if (countError) {
     console.error(countError);
   } else {

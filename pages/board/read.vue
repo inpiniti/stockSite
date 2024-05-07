@@ -66,22 +66,16 @@ async function getReply() {
     return;
   }
 
-  const { dc } = useBookInfoList().value.find(
-    (book) => book.kr === board.value.kr
-  );
+  const { dc } = useBookInfoList().value.find((book) => book.kr === board.value.kr);
 
   // 덧글 조회
-  const { data: newData } = await useFetch(
-    `/api/dcinside/${dc}/${board.value.num}?kr=${board.value.kr}`
-  );
+  const { data: newData } = await useFetch(`/api/dcinside/${dc}/${board.value.num}?kr=${board.value.kr}`);
 
   reply.value = newData.value;
   if (reply.value?.comment?.comments) {
-    reply.value.comment.comments = reply.value?.comment?.comments.filter(
-      (comment) => {
-        return comment.no != 0;
-      }
-    );
+    reply.value.comment.comments = reply.value?.comment?.comments.filter((comment) => {
+      return comment.no != 0;
+    });
   }
 }
 </script>
@@ -124,16 +118,7 @@ async function getReply() {
     <Separator />
     <div class="grow-[0] overflow-y-scroll" ref="scrollContainer">
       <div class="p-4 flex flex-col gap-4">
-        <div
-          v-html="
-            board.content
-              ?.replace(
-                /https:\/\/dcimg\d\.dcinside/g,
-                'https://images.dcinside'
-              )
-              .replace(/co\.kr/g, 'com')
-          "
-        ></div>
+        <div v-html="board.content?.replace(/https:\/\/dcimg\d\.dcinside/g, 'https://images.dcinside').replace(/co\.kr/g, 'com')"></div>
       </div>
       <Separator />
       <div class="p-4">
@@ -147,16 +132,11 @@ async function getReply() {
       </div>
       <Separator />
       <div>
-        <div
-          class="p-4 flex flex-col gap-2"
-          v-for="comment in reply?.comment?.comments"
-        >
+        <div class="p-4 flex flex-col gap-2" v-for="comment in reply?.comment?.comments">
           <p class="text-xs">{{ comment.user_id }}({{ comment.name }})</p>
           <div class="flex items-end gap-1">
             <div class="bg-neutral-100 rounded-md px-2 py-1 text-sm w-fit">
-              <div
-                v-html="replaceDomain(comment.memo).replace(/co\.kr/g, 'com')"
-              ></div>
+              <div v-html="replaceDomain(comment.memo).replace(/co\.kr/g, 'com')"></div>
             </div>
             <p class="text-xs">{{ comment.reg_date }}</p>
           </div>
