@@ -105,7 +105,6 @@ async function searchBooks() {
   let query = useSupabase()
     .value.from("board")
     .select()
-    .neq("link", null)
     .range(
       (server_page.value - 1) * server_limit.value,
       server_page.value * server_limit.value - 1
@@ -113,8 +112,7 @@ async function searchBooks() {
 
   let count_query = useSupabase()
     .value.from("board")
-    .select("*", { count: "exact", head: true })
-    .neq("link", null);
+    .select("*", { count: "exact", head: true });
 
   // .eq("kr", kr)
   // if (kr) {

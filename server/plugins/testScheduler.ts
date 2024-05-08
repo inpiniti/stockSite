@@ -120,12 +120,12 @@ async function insertBoard(kr: string, board: any, reply: any) {
         writer: board.writer,
         date: board.date,
         content: reply.data.content,
-        book: "",
+        //book: "",
         subject: board.subject,
         type: board.type,
         num: board.num,
         number: board.reply_num, // 덧글 수
-        link: JSON.stringify(reply.data.images),
+        //link: JSON.stringify(reply.data.images),
         count: board.count, // 조회수
         recommend: board.recommend, // 덧글
         kr: kr,
@@ -143,7 +143,7 @@ async function updateBoard(kr: string, board: any) {
       writer: board.writer,
       date: board.date,
       //content: reply.data.content,
-      book: "",
+      //book: "",
       subject: board.subject,
       type: board.type,
       num: board.num,

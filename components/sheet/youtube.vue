@@ -53,11 +53,7 @@ onUpdated(async () => {
 
 // 유튜브 리스트 새로 고침
 async function refresh() {
-  const { data } = await useSupabase()
-    .value.from("youtube")
-    .select("*")
-    .eq("kr", props.kr);
-
+  const data = await getMusicByKr(props.kr);
   youtubeList.value = data;
 }
 </script>

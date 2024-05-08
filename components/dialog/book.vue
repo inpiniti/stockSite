@@ -20,7 +20,6 @@ async function ok() {
     .from("book")
     .update({
       kr: useBook().selected.value.kr,
-      img: useBook().selected.value.img,
     })
     .eq("jp", useBook().selected.value.jp);
 

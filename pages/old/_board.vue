@@ -16,7 +16,6 @@ onMounted(async () => {
   const { data, error } = await useSupabase()
     .value.from("board")
     .select()
-    .neq("link", null)
     .order("date", { ascending: false });
   if (error) {
     console.error(error);

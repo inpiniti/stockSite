@@ -9,10 +9,7 @@ export interface Book {
   booknum: number;
   date: string;
   name: string;
-  img: string;
   namu: string;
-  genre: string;
-  dc: string;
 }
 
 export const useBooks = () => useStorage("books", () => [<Book>{}]);

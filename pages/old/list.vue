@@ -12,12 +12,15 @@ const selectedCombo = ref<string>("");
 // 장르가 있는지 없는지 유무 포함
 const computedBooks = computed(() => {
   return books.value.map((book: any) => {
-    const isGenre = uniqueGenre.filter((genre: any) => genre.kr === book.kr).length > 0;
+    const isGenre =
+      uniqueGenre.filter((genre: any) => genre.kr === book.kr).length > 0;
 
     // coverList의 kr, book_num 과
     // books의 kr, booknum 가 일치하면
     // cover의 img 를 book 의 img 에 추가
-    const matchingCover = coverList.value.find((cover: Cover) => cover.kr === book.kr && cover.booknum === book.booknum);
+    const matchingCover = coverList.value.find(
+      (cover: Cover) => cover.kr === book.kr && cover.booknum === book.booknum
+    );
     if (matchingCover) {
       book.img = matchingCover.cover_image;
     }
@@ -63,7 +66,9 @@ async function collect() {
 function getBookList() {
   const bookList = books.value;
   const bookListWithKr = bookList.filter((book: any) => book.kr && book.img);
-  const bookListWithoutKr = bookList.filter((book: any) => !book.kr || !book.img);
+  const bookListWithoutKr = bookList.filter(
+    (book: any) => !book.kr || !book.img
+  );
   return { bookListWithKr, bookListWithoutKr };
 }
 
@@ -72,7 +77,9 @@ function getBookListWithKr() {
   const { bookListWithKr, bookListWithoutKr } = getBookList();
 
   const bookListWithKrAndImg = bookListWithoutKr.map((book: any) => {
-    const foundBook = bookListWithKr.find((bookWithKr: any) => bookWithKr.jp === book.jp);
+    const foundBook = bookListWithKr.find(
+      (bookWithKr: any) => bookWithKr.jp === book.jp
+    );
     const { kr, img } = foundBook || { kr: undefined, img: undefined };
     return { ...book, kr, img };
   });
@@ -82,14 +89,19 @@ function getBookListWithKr() {
 // bookListWithKrAndImg 의 결과에서 kr 이 undefined 인건 제거
 function getBookListWithKrAndImgWithoutUndefined() {
   const bookListWithKrAndImg = getBookListWithKr();
-  const bookListWithKrAndImgWithoutUndefined = bookListWithKrAndImg.filter((book: any) => book.kr);
+  const bookListWithKrAndImgWithoutUndefined = bookListWithKrAndImg.filter(
+    (book: any) => book.kr
+  );
   return bookListWithKrAndImgWithoutUndefined;
 }
 
 // getBookListWithKr() 의 결과에서 jp 가 중복인건 제거
 function getBookListWithKrAndImg() {
   const bookListWithKrAndImg = getBookListWithKrAndImgWithoutUndefined();
-  const bookListWithKrAndImgWithoutDuplication = bookListWithKrAndImg.filter((book: any, index: number, self: any) => index === self.findIndex((t: any) => t.jp === book.jp));
+  const bookListWithKrAndImgWithoutDuplication = bookListWithKrAndImg.filter(
+    (book: any, index: number, self: any) =>
+      index === self.findIndex((t: any) => t.jp === book.jp)
+  );
   return bookListWithKrAndImgWithoutDuplication;
 }
 
@@ -102,7 +114,6 @@ async function saveBookList() {
       .value.from("book")
       .update({
         kr: book.kr,
-        img: book.img,
       })
       .eq("jp", book.jp);
   });
@@ -121,7 +132,9 @@ function bookUpdated() {
 async function genreUpdate() {
   const _uniqueBooks = uniqueBooks();
 
-  const result = _uniqueBooks.filter((book: any) => !uniqueGenre.some((genre: any) => genre.kr === book.kr));
+  const result = _uniqueBooks.filter(
+    (book: any) => !uniqueGenre.some((genre: any) => genre.kr === book.kr)
+  );
 
   for (const book of result) {
     const book_name = book.namu ? book.namu : book.kr;
@@ -157,7 +170,10 @@ import { columns } from "./columns";
 <template>
   <div class="p-4 flex flex-col gap-4">
     <DialogBook @update:open="bookUpdated" />
-    <CommonHeader title="List" description="책 리스트를 볼 수 있으며, 책 편집을 하는 화면 입니다." />
+    <CommonHeader
+      title="List"
+      description="책 리스트를 볼 수 있으며, 책 편집을 하는 화면 입니다."
+    />
     <div class="flex gap-2">
       <Button @click="collect" :disabled="books.length != 0">수집하기</Button>
       <Button @click="genreUpdate">장르 업데이트</Button>
